@@ -106,7 +106,7 @@ Los arboles genealógicos son una herramienta de la genealogía, que se encarga 
 \subsection{Perspectiva general del software actual.}
 Todo software genealógico, como mínimo permite almacenar la siguiente información de un individuo: fecha y lugar de nacimiento, fecha de casamiento, muerte y relaciones familiares, contra más flexible es el programa más información te permite introducir acerca de un individuo. También proporcionan diferentes maneras de representar la información y permiten exportar a GEDCOM la información representada.
 
-\noindent\fbox{\parbox{\textwidth}{\begin{flushleft} GEDCOM (\textbf{G}enealogical \textbf{D}ata \textbf{COM}munication):\end{flushleft} Es un formato de archivo de datos, proporciona un formato flexible y uniforme para el intercambio de datos genealógicos computarizados.}}
+\noindent\fbox{\parbox{\textwidth}{\begin{flushleft} GEDCOM \cite{aboutGEDCOM} (\textbf{G}enealogical \textbf{D}ata \textbf{COM}munication):\end{flushleft} Es un formato de archivo de datos, proporciona un formato flexible y uniforme para el intercambio de datos genealógicos computarizados.}}
 
 La mayor parte del software genealógico actual esta basado en soluciones de escritorio, pero en los últimos años han aparecido diferentes soluciones web como myheritage o familysearch, que no solo sirven como plataforma de edición sino que también son grandes bases de datos.
 
@@ -125,9 +125,9 @@ La gran cantidad de proyectos que han nacido en los últimos años hace práctic
 
 \noindent\fbox{\parbox{\textwidth}{\begin{flushleft} OLTP (\textbf{O}n\textbf{L}ine \textbf{T}ransaction \textbf{P}rocessing):\end{flushleft} Es un tipo de procesamiento que facilita y administra aplicaciones transaccionales, usualmente para entrada de datos y recuperación y procesamiento de transacciones (gestor transaccional). Los paquetes de software para OLTP se basan en la arquitectura cliente-servidor ya que suelen ser utilizados por empresas con una red informática distribuida..}}
 
-Las bases de datos basadas en grafos son sistemas de bases de datos que permiten operaciones CRUD (Create, Read, Update y Delete) sobre los objetos representados en ellas. Suelen estar orientadas a funcionar con sistemas transaccionales (OLTP), como aviamos mencionado anteriormente. Sus principales propiedades son, las relaciones son \textit{ciudadanos de primer orden}, a diferencia de otros modelos, como el relacional que tienen que usar claves foráneas. En este tipo de base de datos para representar el dominio de nuestro problema simplemente nos basta con definir los nodos y las relaciones que lo componen.
+Las bases de datos basadas en grafos son sistemas de bases de datos que permiten operaciones CRUD (\textit{Create, Read, Update y Delete}) sobre los objetos representados en ellas. Suelen estar orientadas a funcionar con sistemas transaccionales (OLTP), como aviamos mencionado anteriormente. Sus principales propiedades son, las relaciones son \textit{ciudadanos de primer orden}, a diferencia de otros modelos, como el relacional que tienen que usar claves foráneas. En este tipo de base de datos para representar el dominio de nuestro problema simplemente nos basta con definir los nodos y las relaciones que lo componen.
 
-En el libro Graph Databases \cite{graphdbbook}, encontramos el siguiente gráfico, que nos da una idea de las principales tecnologías basadas en grafos y a que están más orientadas.
+En el libro Graph Databases \cite{graphdbbook}, encontramos el siguiente gráfico (Figure \ref{fig:grdb}), que nos da una idea de las principales tecnologías basadas en grafos y a que están más orientadas.
 
 \begin{figure}[ht!]
 \center
@@ -136,15 +136,14 @@ En el libro Graph Databases \cite{graphdbbook}, encontramos el siguiente gráfic
 \label{fig:grdb}
 \end{figure}
 
-\newpage
 \section{Alcance} 
-En este proyecto se desarrolla un software para la gestión y extracción de información de arboles genealógicos. El desarrollo de este software constara de dos fases principales que podemos asilar casi en su totalidad, el desarrollo de una plataforma web para la gestión de los arboles y opcionalmente un sistema que trabaje sobre los datos del sistema, con el objetivo de inferir información relevante del sistema de gestión. 
+En este proyecto se desarrolla un software para la gestión y extracción de información de arboles genealógicos. El desarrollo de este software constara de dos fases principales que podemos asilar casi en su totalidad, el desarrollo de una plataforma web para la gestión de los arboles y un sistema que trabaje sobre los datos del sistema, con el objetivo de inferir información relevante del sistema de gestión. 
 
-En lo referente a la plataforma web de gestión de arboles genealógicos, constara de un sistema de usuarios que permitirá que estos se conecten a la plataforma para gestionar y almacenar sus propios arboles genealógicos. Los usuarios podrán añadir otros usuarios a sus arboles genealógicos dándoles permiso de edición sobre estos y dando la opción de hacer los arboles públicos, entre otras opciones que se concretaran en los casos de uso.
+En lo referente a la plataforma web de gestión de arboles genealógicos, constara de un sistema de usuarios que permitirá que estos se conecten a la plataforma para gestionar y almacenar sus propios arboles genealógicos. Los usuarios podrán añadir otros usuarios a sus arboles genealógicos dándoles permiso de edición sobre estos y dando la opción de hacer los arboles públicos, las funcionales concretas se especificaran en las historias de usuario.
 Este sistema se desarrollara maximizando el aislamiento ente sus componentes para favorecer su mantenibilidad y escalabilidad, con el objetivo de dejar un sistema abierto al desarrollo continuado. Para conseguir este objetivo se trabajara con metodologías ágiles y se dividirá el desarrollo en:
 Especificación de un modelo conceptual y implantación en una base de datos basada en grafos (NoSQL) orientada a la optimización de consultas con un alto nivel de interdependencia entre objetos.
-Una API que ofrezca las operaciones CRUD sobre la BD y gestione el sistema de usuarios y sus relaciones.
-Un frontend basado en tecnología web para que los usuarios hagan uso del sistema.
+Una API que ofrezca las operaciones CRUD sobre la BD y gestione el sistema de usuarios y sus \textit{tokens} de acceso.
+Un \textit{frontend} basado en tecnología web para que los usuarios hagan uso del sistema.
 
 Por otro lado, el sistema encargado de inferir información estará compuesto por demonios que trabajaran usando la API del sistema de gestión. Dado que los objetos que componen la información  del sistema de gestión tiene una alta dependencia entre ellos, como ya se ha comentado anteriormente, los demonios tendrán que aprovechar al máximo las herramientas que proporciona la base de datos basada en grafos. La principal función de estos demonios sera encontrar coincidencias entre arboles genealógicos de diferentes usuarios.
 
@@ -153,20 +152,21 @@ Por otro lado, el sistema encargado de inferir información estará compuesto po
 \paragraph{Tiempo:}
 La gestión del tiempo sera uno de los obstáculos más notables a la hora de desarrollar el proyecto, dado que se pretende plantear un proyecto que no necesariamente ha de concluir su desarrollo con la entrega final, para ello se tendrán que plantear claramente las iteraciones necesarias para tener una versión funcional del software y el tiempo de desarrollo que requerirán.
 \paragraph{Integración de tecnologías y desarrollo:}
-Uno de los objetivos de este proyecto es combinar ciertas tecnologías con las que no se ha trabajado anteriormente como bases de datos basadas en grafos y frameworks JavaScrip para la implementación del frontend. Por ello este hecho se tendrá que tener en cuenta en la planificación temporal.
+Uno de los objetivos de este proyecto es combinar ciertas tecnologías con las que no se ha trabajado anteriormente como bases de datos basadas en grafos y \textit{frameworks} JavaScrip para la implementación del \textit{frontend}. Por ello este hecho se tendrá que tener en cuenta en la planificación temporal.
 
+\newpage
 \subsubsection{Metodología}
 El proyecto se desarrollara mediante una adaptación de Scrum que se adecue a las necesidades del proyecto.
 Los roles se definirán de la siguiente forma:
 \begin{description}
-\item[Product owner:] El tutor de proyecto asumirá el rol de product owner ya que sera el que definirá las historias de usuario y las priorizara.
-\item[Equipo de desarrollo y Facilitador:] Dada la naturaleza del proyecto el equipo de desarrollo solo sera el alumno que a la vez ha de actuar como facilitador procurando que se cumplan los objetivos de los sprints.
-Por otro lado el product backlog se definiría durante la asignatura de GEP.
+\item[\textit{product owner:}] El tutor de proyecto asumirá el rol de \textit{product owner} ya que sera el que definirá las historias de usuario y las priorizara.
+\item[Equipo de desarrollo y Facilitador:] Dada la naturaleza del proyecto el equipo de desarrollo solo sera el alumno que a la vez ha de actuar como facilitador procurando que se cumplan los objetivos de los \textit{sprints}.
+Por otro lado el \textit{product backlog} se definiría durante la asignatura de GEP.
 \end{description}
 
 \subsubsection{Herramientas de seguimiento}
 Dado que el método de trabajo esta basado en Scrum, se usaran las estrategias de seguimiento establecidas por esta metodologías  de trabajo ágil.
-En la fase de desarrollo se harán sprins de dos semanas, al principio de cada sprin se hará el “Sprint planning” donde se escogerán que historias de usuarios serán desarrolladas. Al final del sprin se hará el spring backlog donde se revisara el trabajo realizado.
+En la fase de desarrollo se harán \textit{sprints} de dos semanas, al principio de cada \textit{sprint} se hará el \textit{Sprint planning} donde se escogerán que historias de usuarios serán desarrolladas. Al final del \textit{Sprint} se hará el \textit{sprint backlog} donde se revisara el trabajo realizado.
 
 \newpage
 
