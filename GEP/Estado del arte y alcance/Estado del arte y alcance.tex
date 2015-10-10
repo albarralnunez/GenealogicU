@@ -10,6 +10,8 @@
 \usepackage{hyperref}
 \usepackage{float} % Allows putting an [H] in \begin{figure} to specify the exact location of the figure
 \usepackage{cite}
+\usepackage{fancyhdr}
+
 \linespread{1.2} % Line spacing
 
 %\setlength{\parindent}{15pt}
@@ -17,7 +19,12 @@
 
 \graphicspath{{../add/}} % Specifies the directory where pictures are stored
 
-
+\pagestyle{fancy}
+\lhead{Repositorio de árboles genealógicos en BD NoSQL}
+\rhead{Daniel Albarral Nuñez}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
 \begin{document}
 
 \begin{titlepage}
