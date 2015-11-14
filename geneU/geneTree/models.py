@@ -4,22 +4,19 @@ from neomodel import (StructuredNode, StringProperty, IntegerProperty,
 from datetime import date
 from uuid import uuid4
 
-
 class Country(StructuredNode):
     code = StringProperty(unique_index=True, required=True)
     # traverse incoming IS_FROM relation, inflate to Person objects
     inhabitant = RelationshipFrom('Person', 'IS_FROM')
 
-
 class Person(StructuredNode):
-
     id = StringProperty(unique_index=True, default=uuid4)
-    name = StringProperty(index=True)
+    name = StringProperty()
     first_name = StringProperty(index=True)
     second_name = StringProperty(index=True)
     birth = DateProperty(index=True)
-    genere = StringProperty()
     death = DateProperty(index=True)
+    genere = StringProperty(choices=(('M',1),('W',2)))
 
     # traverse outgoing IS_FROM relations, inflate to Country objects
     country = RelationshipTo(Country, 'IS_FROM')
@@ -29,6 +26,7 @@ class Person(StructuredNode):
     son = RelationshipTo('Person', 'SON')
     son_of = RelationshipFrom('Person', 'SON')
 
+    
     #@db.transaction
     def divorce(self, per):
         if (self.married.is_connected(per)):

@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     #3rd party apps
     'neomodel',
+    'rest_framework',
     #project apps
     'geneTree',
     'core'

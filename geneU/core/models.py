@@ -7,4 +7,4 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    node_id = models.CharField()
+    #node_id = models.CharField()
