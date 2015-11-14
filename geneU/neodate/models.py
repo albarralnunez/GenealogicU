@@ -6,7 +6,7 @@ from datetime import date
 
 class Month(StructuredNode):
     value = IntegerProperty(unique_index=True, required=True)
-    day = RelationshipTo(Day, 'DAY')
+    #day = RelationshipTo(Day, 'DAY')
 
 class Year(StructuredNode):
     value = IntegerProperty(unique_index=True, required=True)
@@ -14,7 +14,7 @@ class Year(StructuredNode):
 
 class NeoDate():
     day = IntegerProperty(index=True, required=True)
-
+    '''
     def __init__(self, **args):
 
             year = args['year']
@@ -43,5 +43,4 @@ class NeoDate():
             else:
                 self.day = Day(value=date.day).save()
                 month.day.connect(self.day)
-
-
+    '''

@@ -11,13 +11,13 @@ class PersonViewSet(viewsets.ViewSet):
     """
     def list(self, request):
         queryset = Person.nodes
-        serializer = UserSerializer(queryset, many=True)
+        serializer = PersonSerializer(queryset, many=True)
         return Response(serializer.data)
 
     def retrieve(self, request, id=None):
         queryset = Person.nodes.filter(id=id)
         if queryset:
-        	serializer = UserSerializer(user)
+        	serializer = PersonSerializer(queryset[0])
         else:
 			raise Http404("No Person matches the given query.")
        	return Response(serializer.data)

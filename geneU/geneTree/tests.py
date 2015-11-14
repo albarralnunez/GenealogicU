@@ -1,6 +1,5 @@
 from django.test import TestCase
 from .models import Person, Country
-from .views.PersonViewSet import listt, retrieve
 from neomodel import db
 from datetime import date
 import sys
@@ -16,12 +15,12 @@ class geneTestCase(TestCase):
             '''
         )
         
-        
         dani = Person(
             name='Daniel',
             surname='Albarral',
             second_surname='Nunez',
-            genere='M'
+            genere='M',
+            birth=date(1991,8,6)
             ).save()  
 
         ## dani_d = NeoDate(date(1991,8,6))

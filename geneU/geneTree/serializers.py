@@ -52,8 +52,8 @@ class PersonSerializer(serializers.BaseSerializer):
             'surname': node.surname,
             'second_surname': node.second_surname,
             'genere': node.genere,
-            'birth': datenode.birth.isoformat(),
-            'death': node.death.isoformat()
+            'birth': node.birth,
+            'death': node.death
         }
 
     def create(self, validated_data):

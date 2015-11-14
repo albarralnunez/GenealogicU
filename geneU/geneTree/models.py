@@ -12,8 +12,8 @@ class Country(StructuredNode):
 class Person(StructuredNode):
     id = StringProperty(unique_index=True, default=uuid4)
     name = StringProperty()
-    first_name = StringProperty(index=True)
-    second_name = StringProperty(index=True)
+    surname = StringProperty(index=True)
+    second_surname = StringProperty(index=True)
     birth = DateProperty(index=True)
     death = DateProperty(index=True)
     genere = StringProperty(choices=(('M',1),('W',2)))
