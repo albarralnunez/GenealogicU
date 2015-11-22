@@ -1,7 +1,7 @@
 # Create your tests here.
 from django.test import TestCase
 from .core import Location
-import service
+from geocode_service import *
 from neomodel import db
 import sys
 import os
@@ -11,10 +11,46 @@ class geoencodingTestCase(TestCase):
     GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
 
     def setUp(self):
-        example.configure(
-            'https://maps.googleapis.com/maps/api/geocode',
-            key=(GOOGLE_API_KEY)
-        )
+        
+        client = Client()
+
+        address_components = [
+            {
+               "long_name" : "Jonan Ward",
+               "short_name" : "Jonan Ward",
+               "types" : [ "ward", "locality", "political" ]
+            },
+            {
+               "long_name" : "Fukuoka",
+               "short_name" : "Fukuoka",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Fukuoka Prefecture",
+               "short_name" : "Fukuoka Prefecture",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+        ]
+        component = [{
+               "long_name" : "Santa Cruz de Tenerife",
+               "short_name" : "Santa Cruz de Tenerife",
+               "types" : [ "locality", "political" ]
+            }]
+
+        component = [{
+               "long_name" : "Fukuoka",
+               "short_name" : "Fukuoka",
+               "types" : [ "locality", "political" ]
+            }]
+
+
+        print client.request_component(address_components)
+
 
 #        db.cypher_query(
 #            '''
