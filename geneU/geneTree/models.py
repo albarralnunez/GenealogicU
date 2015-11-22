@@ -23,9 +23,8 @@ class Person(StructuredNode):
 
     married = Relationship('Person', 'MARRIED')
     divorced = Relationship('Person', 'DIVORCED')
-    son = RelationshipTo('Person', 'SON')
+    sons = RelationshipTo('Person', 'SON')
     son_of = RelationshipFrom('Person', 'SON')
-
     
     #@db.transaction
     def divorce(self, per):

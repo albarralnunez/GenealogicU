@@ -1,9 +1,17 @@
-from rest_framework import serializers
+from rest_framework import serializers, reverse
 from datetime import datetime
-from .models import Person
+from .models import Person, Country
+from core.url_builder import UrlBuilder
+from geneU.settings import HOSTNAME
+#from django.core.urlresolvers import reverse
+
 
 class PersonSerializer(serializers.BaseSerializer):
     
+    def __init__(self, *args, **kwargs):
+        self.simple = kwargs.pop('simple', False)
+        super(PersonSerializer, self).__init__(*args, **kwargs)
+        
     def to_internal_value(self, data):
         name = data.get('name')
         surname = data.get('surname')
@@ -46,6 +54,27 @@ class PersonSerializer(serializers.BaseSerializer):
         }
 
     def to_representation(self, node):
+        country = list(node.country.all())
+        country_serialized = None
+        if country:
+            country_serialized = CountrySerializer(country[0]).data
+
+        sons = list(node.sons.all())
+        sons_serialized = None
+        if sons:
+            sons_serialized = PersonSerializer(sons, many=True, simple=True).data
+        
+        son_of = list(node.son_of.all())
+        son_of_serialized = None
+        if son_of:
+            son_of_serialized = PersonSerializer(sons, many=True, simple=True).data
+
+
+        if self.simple:
+            return {
+                'id': node.id
+            }
+
         return {
             'id': node.id,
             'name': node.name,
@@ -53,7 +82,10 @@ class PersonSerializer(serializers.BaseSerializer):
             'second_surname': node.second_surname,
             'genere': node.genere,
             'birth': node.birth,
-            'death': node.death
+            'death': node.death,
+            'country': country_serialized,
+            'sons': sons_serialized,
+            'son_of': son_of_serialized
         }
 
     def create(self, validated_data):
@@ -68,3 +100,29 @@ class PersonSerializer(serializers.BaseSerializer):
         instance.birth = validated_data.get('birth', instance.birth)
         instance.death = validated_data.get('death', instance.death)
         return instance
+
+
+class CountrySerializer(serializers.BaseSerializer):
+    
+    def to_internal_value(self, data):
+        code = data.get('code')
+
+        # Perform the data validation.
+        if not code:
+            raise ValidationError({
+                'code': 'This field is required.'
+            })
+       
+        # Return the validated values. This will be available as
+        # the `.validated_data` property.
+        return {
+            'code': code,
+            }
+
+    def to_representation(self, node):
+        return {
+            'code': node.code,
+        }
+
+    def create(self, validated_data):
+        return Contry(**validated_data).save()

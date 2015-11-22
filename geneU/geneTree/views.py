@@ -1,9 +1,9 @@
 from .models import Person, Country
 from .serializers import PersonSerializer
 from neomodel import db
-from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.response import Response
+from django.http import Http404
 
 class PersonViewSet(viewsets.ViewSet):
     """
@@ -14,8 +14,8 @@ class PersonViewSet(viewsets.ViewSet):
         serializer = PersonSerializer(queryset, many=True)
         return Response(serializer.data)
 
-    def retrieve(self, request, id=None):
-        queryset = Person.nodes.filter(id=id)
+    def retrieve(self, request, pk=None):
+        queryset = Person.nodes.filter(id=pk)[0]
         if queryset:
         	serializer = PersonSerializer(queryset[0])
         else:

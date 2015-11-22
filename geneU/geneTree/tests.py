@@ -1,5 +1,6 @@
 from django.test import TestCase
 from .models import Person, Country
+from .serializers import PersonSerializer
 from neomodel import db
 from datetime import date
 import sys
@@ -14,7 +15,9 @@ class geneTestCase(TestCase):
             WITH n,r LIMIT 100000 DELETE n,r;\
             '''
         )
-        
+
+        spain = Country(code='SP').save()
+
         dani = Person(
             name='Daniel',
             surname='Albarral',
@@ -23,6 +26,7 @@ class geneTestCase(TestCase):
             birth=date(1991,8,6)
             ).save()  
 
+        dani.country.connect(spain)
         ## dani_d = NeoDate(date(1991,8,6))
         ## dani.death_on.connect(dani_d.day)
 
@@ -33,19 +37,19 @@ class geneTestCase(TestCase):
         #pepi.birth_on.connect(pepi_birth.day)
 
         antonio = Person(name='Antonio', surname='Albarral', genere='M').save()
-        antonio.son.connect(dani)
+        antonio.sons.connect(dani)
         
         pepi.marry(antonio)
         
         dani2 = Person(name='Daniela', surname='Albarral', genere='W').save()
         dani2.son_of.connect(pepi)
-        antonio.son.connect(dani2)
+        antonio.sons.connect(dani2)
 
         dani_junior = Person(name='Pepi', surname='Albarral', genere='W').save()
-        dani.son.connect(dani_junior)
+        dani.sons.connect(dani_junior)
 
         sra_maria = Person(name='Maria', surname='Izquierdo', genere='W').save()
-        sra_maria.son.connect(antonio)
+        sra_maria.sons.connect(antonio)
 
         antonio.divorce(pepi)
         pepi.marry(antonio)
@@ -54,7 +58,14 @@ class geneTestCase(TestCase):
     def test(self):
         try:
             p = list(Person.nodes.filter(name='Daniel'))[0]
+            country = list(node.country.all())[0]
+            self.assertEquals(country.code, 'SP')
             self.assertEquals('Daniel', p.name)
             self.assertEquals(date(1991,8,6), p.birth)
         except:
             self.assertEquals(True, True)
+
+    def test_serializers(self):
+        p = list(Person.nodes.filter(name='Daniel'))[0]
+        serialized = PersonSerializer(p, simple=True).data
+        self.assertEquals(serialized['id'], p.id)
