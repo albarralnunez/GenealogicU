@@ -1,6 +1,7 @@
 from django.test import TestCase
-from .models import Person, Country
+from .models import Person
 from .serializers import PersonSerializer
+from geoencoding_node_structure.core import Location
 from neomodel import db
 from datetime import date
 import sys
@@ -16,7 +17,41 @@ class geneTestCase(TestCase):
             '''
         )
 
-        spain = Country(code='SP').save()
+
+        address_components = [
+            {
+               "long_name" : "Barcelona",
+               "short_name" : "Barcelona",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Barcelona",
+               "short_name" : "Barcelona",
+               "types" : [ "administrative_area_level_4", "political" ]
+            },
+            {
+               "long_name" : "El Barcelones",
+               "short_name" : "El Barcelones",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Barcelona",
+               "short_name" : "B",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Catalonia",
+               "short_name" : "CT",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Spain",
+               "short_name" : "ES",
+               "types" : [ "country", "political" ]
+            }
+         ]
+
+        bcn = Location(address_components=address_components).save()
 
         dani = Person(
             name='Daniel',
@@ -26,10 +61,9 @@ class geneTestCase(TestCase):
             birth=date(1991,8,6)
             ).save()  
 
-        dani.country.connect(spain)
+        dani.birth_at.connect(bcn)
         ## dani_d = NeoDate(date(1991,8,6))
         ## dani.death_on.connect(dani_d.day)
-
 
         pepi = Person(name='Pepi', surname='Nunez', genere='W').save()
         dani.son_of.connect(pepi)
@@ -58,8 +92,6 @@ class geneTestCase(TestCase):
     def test(self):
         try:
             p = list(Person.nodes.filter(name='Daniel'))[0]
-            country = list(node.country.all())[0]
-            self.assertEquals(country.code, 'SP')
             self.assertEquals('Daniel', p.name)
             self.assertEquals(date(1991,8,6), p.birth)
         except:

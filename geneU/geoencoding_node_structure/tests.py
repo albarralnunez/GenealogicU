@@ -11,54 +11,16 @@ class geoencodingTestCase(TestCase):
     GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
 
     def setUp(self):
-        
-        client = Client()
 
-        address_components = [
-            {
-               "long_name" : "Jonan Ward",
-               "short_name" : "Jonan Ward",
-               "types" : [ "ward", "locality", "political" ]
-            },
-            {
-               "long_name" : "Fukuoka",
-               "short_name" : "Fukuoka",
-               "types" : [ "locality", "political" ]
-            },
-            {
-               "long_name" : "Fukuoka Prefecture",
-               "short_name" : "Fukuoka Prefecture",
-               "types" : [ "administrative_area_level_1", "political" ]
-            },
-            {
-               "long_name" : "Japan",
-               "short_name" : "JP",
-               "types" : [ "country", "political" ]
-            }
-        ]
-        component = [{
-               "long_name" : "Santa Cruz de Tenerife",
-               "short_name" : "Santa Cruz de Tenerife",
-               "types" : [ "locality", "political" ]
-            }]
-
-        component = [{
-               "long_name" : "Fukuoka",
-               "short_name" : "Fukuoka",
-               "types" : [ "locality", "political" ]
-            }]
-
-
-        print client.request_component(address_components)
-
-
-#        db.cypher_query(
-#            '''
-#            MATCH (n)\
-#            OPTIONAL MATCH (n)-[r]-()\
-#            WITH n,r LIMIT 100000 DELETE n,r;\
-#            '''
-#        )
+        """
+        db.cypher_query(
+            '''
+            MATCH (n)\
+            OPTIONAL MATCH (n)-[r]-()\
+            WITH n,r LIMIT 100000 DELETE n,r;\
+            '''
+        )
+        """
         '''
         address_components = [
             {
@@ -85,15 +47,43 @@ class geoencodingTestCase(TestCase):
                "long_name" : "Japan",
                "short_name" : "JP",
                "types" : [ "country", "political" ]
-            },
-            {
-               "long_name" : "814-0121",
-               "short_name" : "814-0121",
-               "types" : [ "postal_code" ]
             }
         ]
 
-        location = Location(address_components)
+        address_components = [
+            {
+               "long_name" : "Carrer de la Torre Dulac",
+               "short_name" : "Carrer de la Torre Dulac",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Barcelona",
+               "short_name" : "Barcelona",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Barcelona",
+               "short_name" : "B",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Catalunya",
+               "short_name" : "CT",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Spain",
+               "short_name" : "ES",
+               "types" : [ "country", "political" ]
+            }
+         ]        
+            
+        loc = Location(address_components=address_components).save()
+
+        loc = list(Location().get(address_components))
+
+        print loc[0].components if loc else 'not found the location'
         '''
+
     def test(self):
         self.assertEquals(True, True)

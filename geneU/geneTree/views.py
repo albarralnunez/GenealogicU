@@ -1,4 +1,4 @@
-from .models import Person, Country
+from .models import Person
 from .serializers import PersonSerializer
 from neomodel import db
 from rest_framework import viewsets

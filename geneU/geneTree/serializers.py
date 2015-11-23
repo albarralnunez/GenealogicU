@@ -1,6 +1,6 @@
 from rest_framework import serializers, reverse
 from datetime import datetime
-from .models import Person, Country
+from .models import Person
 from core.url_builder import UrlBuilder
 from geneU.settings import HOSTNAME
 #from django.core.urlresolvers import reverse
@@ -54,10 +54,10 @@ class PersonSerializer(serializers.BaseSerializer):
         }
 
     def to_representation(self, node):
-        country = list(node.country.all())
-        country_serialized = None
-        if country:
-            country_serialized = CountrySerializer(country[0]).data
+        #country = list(node.country.all())
+        #country_serialized = None
+        #if country:
+        #    country_serialized = CountrySerializer(country[0]).data
 
         sons = list(node.sons.all())
         sons_serialized = None
@@ -101,7 +101,7 @@ class PersonSerializer(serializers.BaseSerializer):
         instance.death = validated_data.get('death', instance.death)
         return instance
 
-
+"""
 class CountrySerializer(serializers.BaseSerializer):
     
     def to_internal_value(self, data):
@@ -126,3 +126,4 @@ class CountrySerializer(serializers.BaseSerializer):
 
     def create(self, validated_data):
         return Contry(**validated_data).save()
+"""
