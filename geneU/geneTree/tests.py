@@ -52,7 +52,42 @@ class geneTestCase(TestCase):
          ]
 
         bcn = Location(address_components=address_components).save()
+        
+        address_components = [
+            {
+               "long_name" : "Girona",
+               "short_name" : "Girona",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Girona",
+               "short_name" : "Girona",
+               "types" : [ "administrative_area_level_4", "political" ]
+            },
+            {
+               "long_name" : "El Girones",
+               "short_name" : "El Girones",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Province of Girona",
+               "short_name" : "Province of Girona",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Catalonia",
+               "short_name" : "CT",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Spain",
+               "short_name" : "ES",
+               "types" : [ "country", "political" ]
+            }
+         ]
 
+        gir = Location(address_components=address_components).save() 
+        
         dani = Person(
             name='Daniel',
             surname='Albarral',
@@ -61,7 +96,7 @@ class geneTestCase(TestCase):
             birth=date(1991,8,6)
             ).save()  
 
-        dani.birth_at.connect(bcn)
+        dani.birth_in.connect(bcn)
         ## dani_d = NeoDate(date(1991,8,6))
         ## dani.death_on.connect(dani_d.day)
 
@@ -72,6 +107,7 @@ class geneTestCase(TestCase):
 
         antonio = Person(name='Antonio', surname='Albarral', genere='M').save()
         antonio.sons.connect(dani)
+        antonio.birth_in.connect(gir)
         
         pepi.marry(antonio)
         

@@ -1,8 +1,7 @@
 from rest_framework import serializers, reverse
 from datetime import datetime
 from .models import Person
-from core.url_builder import UrlBuilder
-from geneU.settings import HOSTNAME
+from django.core.exceptions import ValidationError 
 #from django.core.urlresolvers import reverse
 
 
@@ -19,28 +18,33 @@ class PersonSerializer(serializers.BaseSerializer):
         genere = data.get('genere')
         birth = data.get('birth')
         death = data.get('death')
+        birth_in = data.get('birth_in') 
+        death_in = data.get('death_in')
+        lived_in = data.get('lived_in')
 
         # Perform the data validation.
         if not name:
             raise ValidationError({
                 'name': 'This field is required.'
             })
-        if not surname:
+        if not genere:
             raise ValidationError({
-                'surname': 'This field is required.'
+                'genere': 'This field is required.'
             })
-        if genere != 'M' or genere != 'W':
+        if genere != 'M' and genere != 'W':
             raise ValidationError({
                 'genere': "Incorrect data format, should be 'M' or 'W'"
             })
-        try:
-            birth_date = datetime.strptime(birth, '%Y-%m-%d')
-        except ValidationError:
-            raise ValidationError("Incorrect data format, should be YYYY-MM-DD")
-        try:
-            death_date = datetime.strptime(death, '%Y-%m-%d')
-        except ValidationError:
-            raise ValidationError("Incorrect data format, should be YYYY-MM-DD")
+        if birth:
+            try:
+                birth = datetime.strptime(birth, '%Y-%m-%d')
+            except ValidationError:
+                raise ValidationError("Incorrect data format, should be YYYY-MM-DD")
+        if death:
+            try:
+                death = datetime.strptime(death, '%Y-%m-%d')
+            except ValidationError:
+                raise ValidationError("Incorrect data format, should be YYYY-MM-DD")
 
         # Return the validated values. This will be available as
         # the `.validated_data` property.
@@ -49,8 +53,11 @@ class PersonSerializer(serializers.BaseSerializer):
             'surname': surname,
             'second_surname': second_surname,
             'genere': genere,
-            'birth': birth_date,
-            'death': death_date,
+            'birth': birth,
+            'death': death,
+            'birth_in' : birth_in,
+            'death_in' : death_in,
+            'lived_in' : lived_in
         }
 
     def to_representation(self, node):
@@ -83,7 +90,7 @@ class PersonSerializer(serializers.BaseSerializer):
             'genere': node.genere,
             'birth': node.birth,
             'death': node.death,
-            'country': country_serialized,
+            #'country': country_serialized,
             'sons': sons_serialized,
             'son_of': son_of_serialized
         }

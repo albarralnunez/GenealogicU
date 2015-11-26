@@ -12,7 +12,7 @@ from uuid import uuid4
 
 class Person(StructuredNode):
     id = StringProperty(unique_index=True, default=uuid4)
-    name = StringProperty()
+    name = StringProperty(required=True)
     surname = StringProperty(index=True)
     second_surname = StringProperty(index=True)
     birth = DateProperty(index=True)
@@ -27,7 +27,9 @@ class Person(StructuredNode):
     sons = RelationshipTo('Person', 'SON')
     son_of = RelationshipFrom('Person', 'SON')
 
-    birth_at = RelationshipTo(AddressComponent, 'BIRTH_AT')
+    birth_in = RelationshipTo(AddressComponent, 'BIRTH_IN', cardinality=One)
+    death_in = RelationshipTo(AddressComponent, 'DEATH_IN', cardinality=One)
+    lived_in = RelationshipTo(AddressComponent, 'LIFE_IN')
     
     #@db.transaction
     def divorce(self, per):

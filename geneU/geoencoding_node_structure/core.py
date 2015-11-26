@@ -4,61 +4,64 @@ from neomodel import (StructuredNode, StringProperty, IntegerProperty,
 from geocode_service import Client
 import os
 
-try:
-	GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
-except:
-	raise EnvironmentError('GOOGLE_API_KEY envrioment variable not found')
-
-
 class ComponentType(StructuredNode):
 	name = StringProperty(unique_index=True)
 
 
 class AddressComponent(StructuredNode):
-	id = StringProperty(unique_index=True, required=True)
-	components = JSONProperty()
-	long_name = StringProperty(index=True, required=True)
-	short_name = StringProperty(index=True)
+
+	id = StringProperty(unique_index=True)
+	address = JSONProperty()
+	formatted_address = StringProperty(index=True)
 	belongs = RelationshipFrom('AddressComponent', 'SUBSECTION')
 	subsection = RelationshipTo('AddressComponent', 'SUBSECTION')
 	types = RelationshipTo(ComponentType, 'TYPE')
 
+	def __init__(self, address, **args):
+		
+		def __make_id(components):
+			return '/'.join([component['long_name']
+	            for component in components]).replace(" ", "")
+
+		super(AddressComponent, self).__init__( **args)		
+		self.__make_id = __make_id
+		self.address = address
+		self.id = __make_id(address)
+		self.formatted_address = address[0].get('formatted_address')
+
+	@classmethod
+	def get(self, components):
+		id = '/'.join([component['long_name']
+	            for component in components]).replace(" ", "")
+		return self.nodes.filter(id=id)
+
 class Location:
 	
 	def __init__(self, *args, **kwargs):
+		self.client = Client.Instance()
 		if 'address_components' in kwargs:
 			self.address_components = kwargs['address_components']
 	
-	@staticmethod
-	def __make_id(components):
-		return '|'.join([component['types'][0] + ':' + component['short_name']
-            for component in components]).replace(" ", "")
-	
 	def save(self):
 
-		address_components = self.address_components
+		response = self.client.request_component(
+			self.address_components)
 
-		#Ensure valid location
-		client_geocode = Client.Instance()
-		response = client_geocode.request_component(self.address_components)
-		#If not valid throw exception
 		if response['status'] == 'ZERO_RESULTS':
-			raise ValueError('Invalid component')
+			raise ValueError('Invalid address')
+
+		address_components = response['results'][0]['address_components']
 
 		last_component = None
-		act_component = None
-		#Start creating nodes for each component
-		for _ in self.address_components:
-			id = self.__make_id(address_components)
+		fst_node = None
 
-			act_component = list(AddressComponent.nodes.filter(id=id))
+		while address_components:
+
+			act_component = list(AddressComponent.get(address_components))
 
 			if not act_component:
 				act_component = AddressComponent(
-					id=self.__make_id(address_components),
-					components=address_components,
-					long_name=address_components[0]['long_name'],
-					short_name=address_components[0]['short_name']
+					address=address_components,
 				).save()
 
 				for component_type in address_components[0]['types']:
@@ -75,9 +78,10 @@ class Location:
 				act_component.subsection.connect(last_component)
 			
 			last_component = act_component
+			if not fst_node:
+				fst_node = act_component
 			address_components = address_components[1:]
-		return act_component
+		return fst_node
 
 	def get(self, address_components):
-		id = self.__make_id(address_components)
-		return AddressComponent.nodes.filter(id=id)
+		return AddressComponent.get(address_components)

@@ -2,9 +2,10 @@ import urllib
 import os
 import json
 
-
-GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
-
+try:
+    GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
+except:
+    raise EnvironmentError('GOOGLE_API_KEY envrioment variable not found')
 
 class Singleton:
     """
