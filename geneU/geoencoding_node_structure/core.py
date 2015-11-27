@@ -21,13 +21,18 @@ class AddressComponent(StructuredNode):
 		
 		def __make_id(components):
 			return '/'.join([component['long_name']
-	            for component in components]).replace(" ", "")
+			for component in components]).replace(" ", "")
+
+		def __format_address(components):
+			return ', '.join([component['long_name']
+			for component in components])
 
 		super(AddressComponent, self).__init__( **args)		
+
 		self.__make_id = __make_id
 		self.address = address
 		self.id = __make_id(address)
-		self.formatted_address = address[0].get('formatted_address')
+		self.formatted_address = __format_address(address)
 
 	@classmethod
 	def get(self, components):

@@ -1,24 +1,26 @@
-from rest_framework import serializers, reverse
+from rest_framework import serializers
 from datetime import datetime
 from .models import Person
+from geoencoding_node_structure.serializers import LocationSerializer
 from django.core.exceptions import ValidationError 
-#from django.core.urlresolvers import reverse
 
 
 class PersonSerializer(serializers.BaseSerializer):
     
     def __init__(self, *args, **kwargs):
+
         self.simple = kwargs.pop('simple', False)
         super(PersonSerializer, self).__init__(*args, **kwargs)
         
     def to_internal_value(self, data):
+
         name = data.get('name')
         surname = data.get('surname')
         second_surname = data.get('second_surname')
         genere = data.get('genere')
         birth = data.get('birth')
         death = data.get('death')
-        birth_in = data.get('birth_in') 
+        birth_in = data.get('birth_in')
         death_in = data.get('death_in')
         lived_in = data.get('lived_in')
 
@@ -61,26 +63,36 @@ class PersonSerializer(serializers.BaseSerializer):
         }
 
     def to_representation(self, node):
-        #country = list(node.country.all())
-        #country_serialized = None
-        #if country:
-        #    country_serialized = CountrySerializer(country[0]).data
 
         sons = list(node.sons.all())
         sons_serialized = None
         if sons:
             sons_serialized = PersonSerializer(sons, many=True, simple=True).data
-        
+
         son_of = list(node.son_of.all())
         son_of_serialized = None
         if son_of:
             son_of_serialized = PersonSerializer(sons, many=True, simple=True).data
 
-
         if self.simple:
             return {
                 'id': node.id
             }
+
+        birth_in = list(node.birth_in.all())
+        birth_in_serialized = None
+        if birth_in:
+            birth_in_serialized = LocationSerializer(birth_in[0]).data
+
+        death_in = list(node.death_in.all())
+        death_in_serialized = None
+        if death_in:
+            death_in_serialized = LocationSerializer(death_in[0]).data
+
+        lived_in = list(node.lived_in.all())
+        lived_in_serialized = None
+        if lived_in:
+            lived_in_serialized = LocationSerializer(lived_in, many=True).data                
 
         return {
             'id': node.id,
@@ -90,9 +102,11 @@ class PersonSerializer(serializers.BaseSerializer):
             'genere': node.genere,
             'birth': node.birth,
             'death': node.death,
-            #'country': country_serialized,
             'sons': sons_serialized,
-            'son_of': son_of_serialized
+            'son_of': son_of_serialized,
+            'birth_in' : birth_in_serialized,
+            'death_in' : death_in_serialized,
+            'lived_in' : lived_in_serialized
         }
 
     def create(self, validated_data):

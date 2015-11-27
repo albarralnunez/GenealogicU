@@ -1,6 +1,6 @@
 from neomodel import (StructuredNode, StringProperty, IntegerProperty,
     RelationshipTo, RelationshipFrom, Relationship, One, DateProperty,
-    db)
+    ZeroOrOne, db)
 from geoencoding_node_structure.core import AddressComponent
 from datetime import date
 from uuid import uuid4
@@ -27,8 +27,8 @@ class Person(StructuredNode):
     sons = RelationshipTo('Person', 'SON')
     son_of = RelationshipFrom('Person', 'SON')
 
-    birth_in = RelationshipTo(AddressComponent, 'BIRTH_IN', cardinality=One)
-    death_in = RelationshipTo(AddressComponent, 'DEATH_IN', cardinality=One)
+    birth_in = RelationshipTo(AddressComponent, 'BIRTH_IN', cardinality=ZeroOrOne)
+    death_in = RelationshipTo(AddressComponent, 'DEATH_IN', cardinality=ZeroOrOne)
     lived_in = RelationshipTo(AddressComponent, 'LIFE_IN')
     
     #@db.transaction
