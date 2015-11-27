@@ -12,7 +12,6 @@ class LocationSerializer(serializers.BaseSerializer):
         }
 
     def to_representation(self, node):
-        print node
         return {
             'formatted_address' : node.formatted_address,
             'address' : node.address
