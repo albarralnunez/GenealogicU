@@ -44,7 +44,8 @@ INSTALLED_APPS = (
     #project apps
     'geneTree',
     'core',
-    'geoencoding_node_structure'
+    'geoencoding_node_structure',
+    'date_node_structure',
 )
 
 MIDDLEWARE_CLASSES = (

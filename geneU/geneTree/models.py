@@ -29,7 +29,7 @@ class Person(StructuredNode):
 
     birth_in = RelationshipTo(AddressComponent, 'BIRTH_IN', cardinality=ZeroOrOne)
     death_in = RelationshipTo(AddressComponent, 'DEATH_IN', cardinality=ZeroOrOne)
-    lived_in = RelationshipTo(AddressComponent, 'LIFE_IN')
+    lived_in = RelationshipTo(AddressComponent, 'LIVED_IN')
     
     #@db.transaction
     def divorce(self, per):

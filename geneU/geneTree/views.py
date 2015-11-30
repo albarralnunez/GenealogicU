@@ -4,6 +4,7 @@ from neomodel import db
 from rest_framework import viewsets
 from rest_framework.response import Response
 from django.http import Http404
+import copy
 
 class PersonViewSet(viewsets.ModelViewSet):
 
@@ -13,8 +14,10 @@ class PersonViewSet(viewsets.ModelViewSet):
     permission_classes = []
 
     def get_object(self):
-        queryset = self.get_queryset()
-        person = list(queryset.filter(id=self.kwargs[self.lookup_field]))
+        qset = copy.deepcopy(self.queryset)
+        person = list(qset.filter(
+            id=self.kwargs[self.lookup_field]
+            ))
         if not person:
             raise Http404("No Person matches the given query.")
         return person[0]

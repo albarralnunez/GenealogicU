@@ -4,9 +4,11 @@ from neomodel import (StructuredNode, StringProperty, IntegerProperty,
 from geocode_service import Client
 import os
 
+class RootLocation(StructuredNode):
+	location = RelationshipTo('AddressComponent', 'LOCATION')
+
 class ComponentType(StructuredNode):
 	name = StringProperty(unique_index=True)
-
 
 class AddressComponent(StructuredNode):
 
@@ -86,7 +88,14 @@ class Location:
 			if not fst_node:
 				fst_node = act_component
 			address_components = address_components[1:]
+
+		root = list(RootLocation.nodes.all())
+		if not root:
+			raise EnvironmentError('Execute ./manage.py setup_loc_environ')
+		root[0].location.connect(last_component)
+
 		return fst_node
 
+	@classmethod
 	def get(self, address_components):
 		return AddressComponent.get(address_components)

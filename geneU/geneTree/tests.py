@@ -9,6 +9,7 @@ import sys
 class geneTestCase(TestCase):
 
     def setUp(self):
+        """
         db.cypher_query(
             '''
             MATCH (n)\
@@ -16,6 +17,7 @@ class geneTestCase(TestCase):
             WITH n,r LIMIT 100000 DELETE n,r;\
             '''
         )
+        """
 
 
         address_components = [
@@ -88,6 +90,25 @@ class geneTestCase(TestCase):
 
         gir = Location(address_components=address_components).save() 
         
+
+        address_components = [
+            {
+               "long_name" : "Fukuoka",
+               "short_name" : "Fukuoka",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Fukuoka Prefecture",
+               "short_name" : "Fukuoka Prefecture",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+        ]
+
         dani = Person(
             name='Daniel',
             surname='Albarral',
