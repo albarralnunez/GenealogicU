@@ -2,6 +2,8 @@ from rest_framework import serializers
 from datetime import datetime
 from .models import Person
 from geoencoding_node_structure.serializers import LocationSerializer
+from date_node_structure.serializers import DateSerializer
+
 from django.core.exceptions import ValidationError 
 
 
@@ -18,9 +20,9 @@ class PersonSerializer(serializers.BaseSerializer):
         surname = data.get('surname')
         second_surname = data.get('second_surname')
         genere = data.get('genere')
-        birth = data.get('birth')
-        death = data.get('death')
-        birth_in = data.get('birth_in')
+        birth_date = data.get('birth_date')
+        death_date = data.get('death_date')
+        born_in = data.get('born_in')
         death_in = data.get('death_in')
         lived_in = data.get('lived_in')
 
@@ -37,16 +39,6 @@ class PersonSerializer(serializers.BaseSerializer):
             raise ValidationError({
                 'genere': "Incorrect data format, should be 'M' or 'W'"
             })
-        if birth:
-            try:
-                birth = datetime.strptime(birth, '%Y-%m-%d')
-            except ValidationError:
-                raise ValidationError("Incorrect data format, should be YYYY-MM-DD")
-        if death:
-            try:
-                death = datetime.strptime(death, '%Y-%m-%d')
-            except ValidationError:
-                raise ValidationError("Incorrect data format, should be YYYY-MM-DD")
 
         # Return the validated values. This will be available as
         # the `.validated_data` property.
@@ -55,14 +47,19 @@ class PersonSerializer(serializers.BaseSerializer):
             'surname': surname,
             'second_surname': second_surname,
             'genere': genere,
-            'birth': birth,
-            'death': death,
-            'birth_in' : birth_in,
+            'birth_date': birth_date,
+            'death_date': death_date,
+            'born_in' : born_in,
             'death_in' : death_in,
             'lived_in' : lived_in
         }
 
     def to_representation(self, node):
+
+        if self.simple:
+            return {
+                'id': node.id
+            }
 
         sons = list(node.sons.all())
         sons_serialized = None
@@ -74,15 +71,10 @@ class PersonSerializer(serializers.BaseSerializer):
         if son_of:
             son_of_serialized = PersonSerializer(sons, many=True, simple=True).data
 
-        if self.simple:
-            return {
-                'id': node.id
-            }
-
-        birth_in = list(node.birth_in.all())
-        birth_in_serialized = None
-        if birth_in:
-            birth_in_serialized = LocationSerializer(birth_in[0]).data
+        born_in = list(node.born_in.all())
+        born_in_serialized = None
+        if born_in:
+            born_in_serialized = LocationSerializer(born_in[0]).data
 
         death_in = list(node.death_in.all())
         death_in_serialized = None
@@ -94,17 +86,27 @@ class PersonSerializer(serializers.BaseSerializer):
         if lived_in:
             lived_in_serialized = LocationSerializer(lived_in, many=True).data                
 
+        death_date = list(node.death_date.all())
+        death_date_serialized = None
+        if death_date:
+            death_date_serialized = DateSerializer(death_date[0]).data
+
+        birth_date = list(node.birth_date.all())
+        birth_date_serialized = None
+        if birth_date:
+            birth_date_serialized = DateSerializer(birth_date[0]).data
+
         return {
             'id': node.id,
             'name': node.name,
             'surname': node.surname,
             'second_surname': node.second_surname,
             'genere': node.genere,
-            'birth': node.birth,
-            'death': node.death,
+            'birth_date': birth_date_serialized,
+            'death_date': death_date_serialized,
             'sons': sons_serialized,
             'son_of': son_of_serialized,
-            'birth_in' : birth_in_serialized,
+            'born_in' : born_in_serialized,
             'death_in' : death_in_serialized,
             'lived_in' : lived_in_serialized
         }

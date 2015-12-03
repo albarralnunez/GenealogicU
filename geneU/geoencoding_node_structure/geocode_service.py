@@ -7,6 +7,7 @@ try:
 except:
     raise EnvironmentError('GOOGLE_API_KEY envrioment variable not found')
 
+
 class Singleton:
     """
     A non-thread-safe helper class to ease implementing singletons.
@@ -46,8 +47,9 @@ class Singleton:
     def __instancecheck__(self, inst):
         return isinstance(inst, self._decorated)
 
+
 @Singleton
-class Client:  
+class Client:
 
     def __init__(self, format='json'):
 
@@ -55,10 +57,14 @@ class Client:
         self.baseURL += format
 
     def request(request_given):
-        
+
         def new(*args):
 
-            request = args[0].baseURL + request_given(*args) + '&key=' + GOOGLE_API_KEY
+            request = '{baseURL}{request}&key={key}'.format(
+                baseURL=args[0].baseURL,
+                request=request_given(*args),
+                key=GOOGLE_API_KEY
+                )
             sock = urllib.urlopen(request)
             response = sock.read()
             sock.close()
@@ -70,6 +76,10 @@ class Client:
     @request
     def request_component(self, query):
         request = '?components='
-        request += '|'.join([component['types'][0] + ':' + component['short_name'] 
-                for component in query])
+        request += '|'.join(
+            ['{typee}:{short_name}'.format(
+                typee=component['types'][0],
+                short_name=component['short_name']
+                ) for component in query]
+            )
         return request

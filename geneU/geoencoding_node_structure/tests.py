@@ -2,25 +2,11 @@
 from django.test import TestCase
 from .core import Location
 from geocode_service import *
-from neomodel import db
-import sys
-import os
+
 
 class geoencodingTestCase(TestCase):
 
-    GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
-
     def setUp(self):
-
-        """
-        db.cypher_query(
-            '''
-            MATCH (n)\
-            OPTIONAL MATCH (n)-[r]-()\
-            WITH n,r LIMIT 100000 DELETE n,r;\
-            '''
-        )
-        """
         '''
         address_components = [
             {
@@ -76,8 +62,8 @@ class geoencodingTestCase(TestCase):
                "short_name" : "ES",
                "types" : [ "country", "political" ]
             }
-         ]        
-            
+         ]
+
         loc = Location(address_components=address_components).save()
 
         loc = list(Location().get(address_components))

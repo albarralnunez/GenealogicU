@@ -1,21 +1,20 @@
-from .core import Location
+from .core import NodeDate
 from rest_framework import serializers
 
 
-class LocationSerializer(serializers.BaseSerializer):
+class DateSerializer(serializers.BaseSerializer):
 
     def to_internal_value(self, data):
 
-        address_components = data.get('address_components')
+        date = data.get('date').split('-')
         return {
-            'address' : response.results[0]
+            'year': date[0],
+            'month': data[1],
+            'day': data[2]
         }
 
     def to_representation(self, node):
-        return {
-            'formatted_address' : node.formatted_address,
-            'address' : node.address
-        }
+        return node.id
 
     def create(self, validated_data):
-        return Location(**validated_data).save()
+        return NodeDate(**validated_data).save()
