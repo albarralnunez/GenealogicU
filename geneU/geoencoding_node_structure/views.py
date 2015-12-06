@@ -1,14 +1,14 @@
-from .models import Person
-from .serializers import PersonSerializer
+from .models import Location
+from .serializers import LocationSerializer
 from rest_framework import viewsets
 from django.http import Http404
 import copy
 
 
-class PersonViewSet(viewsets.ModelViewSet):
+class LocationViewSet(viewsets.ModelViewSet):
 
-    queryset = Person.nodes
-    serializer_class = PersonSerializer
+    queryset = Location.nodes
+    serializer_class = LocationSerializer
     lookup_field = 'id'
     permission_classes = []
 

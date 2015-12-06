@@ -2,6 +2,7 @@ from neomodel import (
     StructuredNode, StringProperty, JSONProperty,
     RelationshipTo, RelationshipFrom)
 from geocode_service import Client
+import json
 
 
 class RootLocation(StructuredNode):
@@ -52,7 +53,7 @@ class Location:
     def __init__(self, *args, **kwargs):
         self.client = Client.Instance()
         if 'address_components' in kwargs:
-            self.address_components = kwargs['address_components']
+            self.address_components = json.loads(kwargs['address_components'])
 
     def save(self):
         response = self.client.request_component(self.address_components)

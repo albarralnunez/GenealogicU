@@ -29,18 +29,31 @@ class RootDate(StructuredNode):
 
 class NodeDate:
 
-    def __init__(self, year, month=0, day=0):
-        a_moth = 1 if not month else month
-        a_day = 1 if not day else day
-        validator = '{0}-{1}-{2}'.format(year, a_moth, a_day)
+    def __init__(self, date):
+
+        date = date.split('-')
+        if len(date[2]) < 2:
+            raise ValidationError(
+                "Incorrect data format, should be YYYY-MM-DD")
+        elif len(date[1]) < 2:
+            raise ValidationError(
+                "Incorrect data format, should be YYYY-MM-DD")
+        elif len(date[0]) < 4:
+            raise ValidationError(
+                "Incorrect data format, should be YYYY-MM-DD")
+
+        a_month = 1 if date[1] == '00' else int(date[1])
+        a_day = 1 if not date[2] == '00' else int(date[2])
+        a_year = int(date[0])
+        validator = '{y}-{m}-{d}'.format(y=a_year, m=a_month, d=a_day)
         try:
             datetime.strptime(validator, '%Y-%m-%d')
         except ValidationError:
             raise ValidationError(
                 "Incorrect data format, should be YYYY-MM-DD")
-        self.year = year
-        self.month = month
-        self.day = day
+        self.year = a_year
+        self.month = a_month
+        self.day = a_day
 
     def save(self):
 

@@ -21,6 +21,8 @@ class Person(StructuredNode):
     divorced = Relationship('Person', 'DIVORCED')
     sons = RelationshipTo('Person', 'SON')
     son_of = RelationshipFrom('Person', 'SON')
+    adopted = RelationshipTo('Person', 'ADOPTED')
+    adopted_by = RelationshipFrom('Person', 'ADOPTED')
 
     born_in = RelationshipTo(
         AddressComponent, 'BORN_IN', cardinality=ZeroOrOne)
