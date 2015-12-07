@@ -247,14 +247,43 @@ class PersonSerializer(serializers.BaseSerializer):
             'second_surname', instance.second_surname)
         instance.genere = validated_data.get('genere', instance.genere)
 
+        birth_date = validated_data.get('birth_date')
+        death_date = validated_data.get('death_date')
+        sons = validated_data.get('sons', [])
+        son_of = validated_data.get('son_of', [])
+        born_in = validated_data.get('born_in')
+        death_in = validated_data.get('death_in')
+        lived_in = validated_data.get('lived_in', [])
+        divorced = validated_data.get('divorced', [])
+        married = validated_data.get('married', [])
+        adopted = validated_data.get('adopted', [])
+        adopted_by = validated_data.get('adopted_by', [])
 
-        'birth_date': birth_date_serialized,
-        'death_date': death_date_serialized,
-        'sons': sons_serialized,
-        'son_of': son_of_serialized,
-        'born_in': born_in_serialized,
-        'death_in': death_in_serialized,
-        'lived_in': lived_in_serialized,
-        'married': married_serialized,
-        'divorced': divorced_serialized
-        return instance
+        if birth_date:
+            instance.set_birth_date(birth_date)
+
+        if death_date:
+            instance.set_death_date(death_date)
+
+        instance.add_sons(sons)
+
+        instance.add_sons_of(son_of)
+
+        if born_in:
+            instance.set_born_in(born_in)
+
+        if death_in:
+            instance.set_death_in(death_in)
+
+        instance.add_lived_in(lived_in)
+
+        instance.add_divorced(divorced)
+
+        instance.add_married(married)
+
+        instance.add_married(adopted)
+
+        instance.add_adopted_by(adopted_by)
+
+        res = instance.refresh()
+        return res
