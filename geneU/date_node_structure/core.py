@@ -1,8 +1,6 @@
 from neomodel import (
     StructuredNode, StringProperty,
     RelationshipTo, RelationshipFrom)
-from datetime import datetime
-from django.core.exceptions import ValidationError
 
 
 class Day(StructuredNode):
@@ -30,56 +28,32 @@ class RootDate(StructuredNode):
 class NodeDate:
 
     def __init__(self, date):
-
-        date = date.split('-')
-        if len(date[2]) < 2:
-            raise ValidationError(
-                "Incorrect data format, should be YYYY-MM-DD")
-        elif len(date[1]) < 2:
-            raise ValidationError(
-                "Incorrect data format, should be YYYY-MM-DD")
-        elif len(date[0]) < 4:
-            raise ValidationError(
-                "Incorrect data format, should be YYYY-MM-DD")
-
-        a_month = 1 if date[1] == '00' else int(date[1])
-        a_day = 1 if not date[2] == '00' else int(date[2])
-        a_year = int(date[0])
-        validator = '{y}-{m}-{d}'.format(y=a_year, m=a_month, d=a_day)
-        try:
-            datetime.strptime(validator, '%Y-%m-%d')
-        except ValidationError:
-            raise ValidationError(
-                "Incorrect data format, should be YYYY-MM-DD")
-        self.year = a_year
-        self.month = a_month
-        self.day = a_day
+        self.date = date
 
     def save(self):
-
-        year = list(Year.nodes.filter(id=str(self.year)))
+        year = list(Year.nodes.filter(id=str(self.date.year)))
         if not year:
-            year = Year(id=str(self.year)).save()
+            year = Year(id=str(self.date.year)).save()
         else:
             year = year[0]
 
         month = list(
             Month.nodes.filter(
-                id=str(self.year) + '-' + str(self.month)
+                id=str(self.date.year) + '-' + str(self.date.month)
                 ))
         if not month:
             month = Month(
-                id=str(self.year) + '-' + str(self.month),
-                value=str(self.month)
+                id=str(self.date.year) + '-' + str(self.date.month),
+                value=str(self.date.month)
             ).save()
         else:
             month = month[0]
 
         formatted_day = '{0}-{1}-{2}'.format(
-                    self.year, self.month, self.day)
+                    self.date.year, self.date.month, self.date.day)
         day = list(Day.nodes.filter(id=formatted_day))
         if not day:
-            day = Day(id=formatted_day, value=str(self.day)).save()
+            day = Day(id=formatted_day, value=str(self.date.day)).save()
         else:
             day = day[0]
 
@@ -89,5 +63,4 @@ class NodeDate:
         root[0].subset.connect(year)
         year.subset.connect(month)
         month.subset.connect(day)
-
         return day

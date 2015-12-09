@@ -17,11 +17,6 @@ class DayTestCase(TestCase):
         NodeDate('1992-03-11').save()
         NodeDate('1992-09-00').save()
         """
-        print '!!!'
-        d = NodeDate(year=1992).save()
-        serialized_data = DateSerializer(d)
-        print serialized_data
-        print serialized_data.data
 
     def test(self):
         self.assertEquals(True, True)

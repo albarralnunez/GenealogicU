@@ -3,9 +3,9 @@ from rest_framework import serializers
 from .models import Person
 from geoencoding_node_structure.serializers import LocationSerializer
 from date_node_structure.serializers import DateSerializer
-from date_node_structure.core import NodeDate
-from geoencoding_node_structure.core import Location
 from django.core.exceptions import ValidationError
+import ast
+import json
 
 
 class PersonSerializer(serializers.BaseSerializer):
@@ -47,35 +47,71 @@ class PersonSerializer(serializers.BaseSerializer):
                 'genere': "Incorrect data format, should be 'M' or 'W'"
             })
 
-        if son_of and son_of is not type(list):
-            raise ValidationError({
-                'son_of': "Incorrect data format, should be a list"
-            })
-
-        if sons and sons is not type(list):
-            raise ValidationError({
-                'sons': "Incorrect data format, should be a list"
-            })
-
-        if divorced and divorced is not type(list):
-            raise ValidationError({
-                'divorced': "Incorrect data format, should be a list"
-            })
-
-        if adopted and adopted is not type(list):
-            raise ValidationError({
-                'adopted': "Incorrect data format, should be a list"
-            })
-
-        if adopted_by and adopted_by is not type(list):
-            raise ValidationError({
-                'adopted_by': "Incorrect data format, should be a list"
-            })
-
-        if married and married is not type(list):
-            raise ValidationError({
-                'married': "Incorrect data format, should be a list"
-            })
+        if son_of:
+            try:
+                son_of = ast.literal_eval(son_of)
+            except(ValidationError):
+                raise ValidationError({
+                    'son_of': "Incorrect data format, should be a list"
+                })
+        if sons:
+            try:
+                sons = ast.literal_eval(sons)
+            except(ValidationError):
+                raise ValidationError({
+                    'sons': "Incorrect data format, should be a list"
+                })
+        if divorced:
+            try:
+                divorced = ast.literal_eval(divorced)
+            except(ValidationError):
+                raise ValidationError({
+                    'divorced': "Incorrect data format, should be a list"
+                })
+        if adopted:
+            try:
+                adopted = ast.literal_eval(adopted)
+            except(ValidationError):
+                raise ValidationError({
+                    'adopted': "Incorrect data format, should be a list"
+                })
+        if adopted_by:
+            try:
+                adopted_by = ast.literal_eval(adopted_by)
+            except(ValidationError):
+                raise ValidationError({
+                    'adopted_by': "Incorrect data format, should be a list"
+                })
+        if married:
+            try:
+                married = ast.literal_eval(married)
+            except(ValidationError):
+                raise ValidationError({
+                    'married': "Incorrect data format, should be a list"
+                })
+        if lived_in:
+            try:
+                lived_in = ast.literal_eval(lived_in)
+                # lived_in = [json.loads(lv) for lv in lived_in]
+            except(ValidationError):
+                raise ValidationError({
+                    'lived_in': "Incorrect data format," +
+                    "should be a list of JSONs"
+                })
+        if born_in:
+            try:
+                born_in = ast.literal_eval(born_in)
+            except(ValidationError):
+                raise ValidationError({
+                    'born_in': "Incorrect data format, should be a JSON"
+                })
+        if death_in:
+            try:
+                death_in = json.loads(death_in)
+            except(ValidationError):
+                raise ValidationError({
+                    'death_in': "Incorrect data format, should be a JSON"
+                })
 
         # Return the validated values. This will be available as
         # the `.validated_data` property.
@@ -100,9 +136,7 @@ class PersonSerializer(serializers.BaseSerializer):
     def to_representation(self, node):
 
         if self.simple:
-            return {
-                'id': node.id
-            }
+            return '/persons/' + node.id
 
         sons = list(node.sons.all())
         sons_serialized = None
@@ -167,7 +201,7 @@ class PersonSerializer(serializers.BaseSerializer):
                 divorced, many=True, simple=True).data
 
         return {
-            'id': node.id,
+            'url': '/persons/' + node.id,
             'name': node.name,
             'surname': node.surname,
             'second_surname': node.second_surname,
@@ -188,55 +222,40 @@ class PersonSerializer(serializers.BaseSerializer):
     def create(self, validated_data):
         birth_date = validated_data.pop('birth_date')
         death_date = validated_data.pop('death_date')
-        son_of = validated_data.pop('son_of', [])
-        sons = validated_data.pop('sons', [])
-        adopted = validated_data.pop('adopted', [])
-        adopted_by = validated_data.pop('adopted_by', [])
-        married = validated_data.pop('married', [])
-        divorced = validated_data.pop('divorced', [])
+        son_of = validated_data.pop('son_of')
+        sons = validated_data.pop('sons')
+        adopted = validated_data.pop('adopted')
+        adopted_by = validated_data.pop('adopted_by')
+        married = validated_data.pop('married')
+        divorced = validated_data.pop('divorced')
         born_in = validated_data.pop('born_in')
         death_in = validated_data.pop('death_in')
-        lived_in = validated_data.pop('lived_in', [])
+        lived_in = validated_data.pop('lived_in')
 
         result = Person(**validated_data).save()
 
         if birth_date:
-            bd = NodeDate(birth_date).save()
-            result.birth_date.connect(bd)
-
+            result.set_birth_date(birth_date)
         if death_date:
-            dd = NodeDate(death_date).save()
-            result.death_date.connect(dd)
-
-        for father in son_of:
-            result.son_of.connect(father)
-
-        for son in sons:
-            result.sons.connect(son)
-
-        for ad in adopted:
-            result.adopted.connect(ad)
-
-        for ad_by in adopted_by:
-            result.adopted_by.connect(ad_by)
-
-        for m in married:
-            result.marry(m)
-
-        for p in divorced:
-            result.divorce(p)
-
+            result.set_death_date(death_date)
         if born_in:
-            loc = Location(address_components=born_in).save()
-            result.born_in.connect(loc)
-
+            result.set_born_in(born_in)
         if death_in:
-            loc = Location(address_components=death_in).save()
-            result.death_in.connect(loc)
-
-        for location in lived_in:
-            loc = Location(address_components=location).save()
-            result.lived_in.connect(loc)
+            result.set_death_in(death_in)
+        if sons:
+            result.add_sons(sons)
+        if son_of:
+            result.add_sons_of(son_of)
+        if lived_in:
+            result.add_lived_in(lived_in)
+        if divorced:
+            result.add_divorced(divorced)
+        if married:
+            result.add_married(married)
+        if adopted:
+            result.add_married(adopted)
+        if adopted_by:
+            result.add_adopted_by(adopted_by)
 
         return result
 

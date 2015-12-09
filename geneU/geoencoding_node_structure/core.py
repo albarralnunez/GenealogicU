@@ -2,7 +2,6 @@ from neomodel import (
     StructuredNode, StringProperty, JSONProperty,
     RelationshipTo, RelationshipFrom)
 from geocode_service import Client
-import json
 
 
 class RootLocation(StructuredNode):
@@ -53,7 +52,9 @@ class Location:
     def __init__(self, *args, **kwargs):
         self.client = Client.Instance()
         if 'address_components' in kwargs:
-            self.address_components = json.loads(kwargs['address_components'])
+            self.address_components = filter(
+                lambda x: 'postal_code' not in x['types'],
+                kwargs['address_components'])
 
     def save(self):
         response = self.client.request_component(self.address_components)
@@ -62,6 +63,9 @@ class Location:
             raise ValueError('Invalid address')
 
         address_components = response['results'][0]['address_components']
+        address_components = filter(
+                lambda x: 'postal_code' not in x['types'],
+                address_components)
 
         last_component = None
         fst_node = None
@@ -82,7 +86,8 @@ class Location:
                     if type_node:
                         act_component.types.connect(type_node[0])
                     else:
-                        type_node = ComponentType(name=component_type).save()
+                        type_node = ComponentType(
+                            name=component_type).save()
                         act_component.types.connect(type_node)
             else:
                 act_component = act_component[0]
