@@ -220,6 +220,7 @@ class PersonSerializer(serializers.BaseSerializer):
         }
 
     def create(self, validated_data):
+        '''
         birth_date = validated_data.pop('birth_date')
         death_date = validated_data.pop('death_date')
         son_of = validated_data.pop('son_of')
@@ -231,9 +232,9 @@ class PersonSerializer(serializers.BaseSerializer):
         born_in = validated_data.pop('born_in')
         death_in = validated_data.pop('death_in')
         lived_in = validated_data.pop('lived_in')
-
-        result = Person(**validated_data).save()
-
+        '''
+        return Person(**validated_data).complete_save()
+        """
         if birth_date:
             result.set_birth_date(birth_date)
         if death_date:
@@ -258,6 +259,7 @@ class PersonSerializer(serializers.BaseSerializer):
             result.add_adopted_by(adopted_by)
 
         return result
+        """
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)

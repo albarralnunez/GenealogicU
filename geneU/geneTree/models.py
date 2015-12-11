@@ -41,25 +41,51 @@ class Person(StructuredNode):
         AddressComponent, 'LIVED_IN')
 
     def __init__(self, **args):
-        self.birth_date_begin = args.pop('birth_date_begin')
-        self.birth_date_end = args.pop('birth_date_end')
-        self.death_date_begin = args.pop('death_date_begin')
-        self.death_date_end = args.pop('death_date_end')
-        self.son_of = args.pop('son_of')
-        self.sons = args.pop('sons')
-        self.adopted = args.pop('adopted')
-        self.adopted_by = args.pop('adopted_by')
-        self.married = args.pop('married')
-        self.divorced = args.pop('divorced')
-        self.born_in = args.pop('born_in')
-        self.death_in = args.pop('death_in')
-        self.lived_in = args.pop('lived_in')
+        self.rel_birth_date_begin = None
+        self.rel_birth_date_end = None
+        self.rel_death_date_begin = None
+        self.rel_death_date_end = None
+        self.rel_son_of = None
+        self.rel_sons = None
+        self.rel_adopted = None
+        self.rel_adopted_by = None
+        self.rel_married = None
+        self.rel_divorced = None
+        self.rel_born_in = None
+        self.rel_death_in = None
+        self.rel_lived_in = None
+        if 'birth_date_begin' in args:
+            self.rel_birth_date_begin = args.pop('birth_date_begin')
+        if 'birth_date_end' in args:
+            self.rel_birth_date_end = args.pop('birth_date_end')
+        if 'death_date_begin' in args:
+            self.rel_death_date_begin = args.pop('death_date_begin')
+        if 'death_date_end' in args:
+            self.rel_death_date_end = args.pop('death_date_end')
+        if 'son_of' in args:
+            self.rel_son_of = args.pop('son_of')
+        if 'sons' in args:
+            self.rel_sons = args.pop('sons')
+        if 'adopted' in args:
+            self.rel_adopted = args.pop('adopted')
+        if 'adopted_by' in args:
+            self.rel_adopted_by = args.pop('adopted_by')
+        if 'married' in args:
+            self.rel_married = args.pop('married')
+        if 'divorced' in args:
+            self.rel_divorced = args.pop('divorced')
+        if 'born_in' in args:
+            self.rel_born_in = args.pop('born_in')
+        if 'death_in' in args:
+            self.rel_death_in = args.pop('death_in')
+        if 'lived_in' in args:
+            self.rel_lived_in = args.pop('lived_in')
 
         super(Person, self).__init__(self, **args)
 
-    def __get_person(self, per):
+    def __get_person(self, id):
             # return list(Person.nodes.filter(id=per))[0]
-            return Person.nodes.get(id=per)
+            return Person.nodes.get(id=id)
 
     def __add_divorced(self, per):
         for idd in per:
@@ -101,12 +127,12 @@ class Person(StructuredNode):
 
     def __add_sons(self, sons):
         for son_id in sons:
-            son = Person.nodes.filter(id=son_id)
+            son = self.__get_person(id=son_id)
             self.sons.connect(son)
 
     def __add_son_of(self, son_of):
         for idd in son_of:
-            son_of = Person.nodes.filter(id=idd)
+            son_of = self.__get_person(id=idd)
             self.son_of.connect(son_of)
 
     def __set_born_in(self, born_in):
@@ -128,42 +154,43 @@ class Person(StructuredNode):
 
     def __add_adopted(self, adopted):
         for ad in adopted:
-            p = Person.nodes.filter(id=ad)
+            p = self.__get_person(id=ad)
             self.adopted.connect(p)
 
     def __add_adopted_by(self, adopted_by):
         for fath in adopted_by:
-            p = Person.nodes.filter(id=fath)
+            p = self.__get_person(id=fath)
             self.adopted_by.connect(p)
 
-    def save(self):
-        super(Person, self).save(self)
-        if self.birth_date_begin:
-            self.__set_birth_date_begin(self.birth_date_begin)
-        if self.birth_date_end:
-            self.__set_birth_date_end(self.birth_date_end)
-        if self.death_date_begin:
-            self.__set_death_date_begin(self.death_date_begin)
-        if self.birth_date_end:
-            self.__set_birth_date_end(self.birth_date_end)
-        if self.born_in:
-            self.__set_born_in(self.born_in)
-        if self.death_in:
-            self.__set_death_in(self.death_in)
-        if self.sons:
-            self.__add_sons(self.sons)
-        if self.son_of:
-            self.__add_sons_of(self.son_of)
-        if self.lived_in:
-            self.__add_lived_in(self.lived_in)
-        if self.divorced:
-            self.__add_divorced(self.divorced)
-        if self.married:
-            self.__add_married(self.married)
-        if self.adopted:
-            self.__add_married(self.adopted)
-        if self.adopted_by:
-            self.__add_adopted_by(self.adopted_by)
+    #  @db.transaction
+    def complete_save(self):
+        self.save()
+        if self.rel_birth_date_begin:
+            self.__set_birth_date_begin(self.rel_birth_date_begin)
+        if self.rel_birth_date_end:
+            self.__set_birth_date_end(self.rel_birth_date_end)
+        if self.rel_death_date_begin:
+            self.__set_death_date_begin(self.rel_death_date_begin)
+        if self.rel_birth_date_end:
+            self.__set_birth_date_end(self.rel_birth_date_end)
+        if self.rel_born_in:
+            self.__set_born_in(self.rel_born_in)
+        if self.rel_death_in:
+            self.__set_death_in(self.rel_death_in)
+        if self.rel_sons:
+            self.__add_sons(self.rel_sons)
+        if self.rel_son_of:
+            self.__add_son_of(self.rel_son_of)
+        if self.rel_lived_in:
+            self.__add_lived_in(self.rel_lived_in)
+        if self.rel_divorced:
+            self.__add_divorced(self.rel_divorced)
+        if self.rel_married:
+            self.__add_married(self.rel_married)
+        if self.rel_adopted:
+            self.__add_married(self.rel_adopted)
+        if self.rel_adopted_by:
+            self.__add_adopted_by(self.rel_adopted_by)
         return self
 
     @db.transaction

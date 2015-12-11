@@ -12,7 +12,7 @@ class geneeTestCase(TestCase):
 
         bcn = [
             {
-               "long_name" : "Barcelona",
+               "long_name" : "prepucio",
                "short_name" : "Barcelona",
                "types" : [ "locality", "political" ]
             },
@@ -94,47 +94,54 @@ class geneeTestCase(TestCase):
             }
         ]
 
-        dani = Person(
+        sra_maria = Person(
+            name='Maria',
+            surname='Izquierdo',
+            genere='W').complete_save()
+
+        dani_junior = Person(
+            name='Pepi',
+            surname='Albarral',
+            genere='W').complete_save()
+
+        antonio = Person(
+            name='Antonio',
+            surname='Albarral',
+            genere='M',
+            born_in=gir
+            ).complete_save()
+
+        dani2 = Person(
+          name='Daniela',
+          surname='Albarral',
+          genere='W',
+          son_of=[antonio.id]
+          ).complete_save()
+
+        pepi = Person(
+          name='Pepi',
+          surname='Nunez',
+          genere='W',
+          married=[antonio.id],
+          sons=[dani2.id]
+          ).complete_save()
+
+        Person(
             name='Daniel',
             surname='Albarral',
             second_surname='Nunez',
             genere='M',
             birth_date_begin=date(2010, 5, 24),
             birth_date_end=date(2010, 5, 24),
-            born_in=bcn
-            ).save()
+            born_in=bcn,
+            son_of=[pepi.id, antonio.id],
+            sons=[dani_junior.id]
+            ).complete_save()
 
-        pepi = Person(name='Pepi', surname='Nunez', genere='W').save()
-        dani.son_of.connect(pepi)
-        # pepi_birth = NeoDate(date(1991,8,6))
-        # pepi.birth_on.connect(pepi_birth.day)
-
-        antonio = Person(name='Antonio', surname='Albarral', genere='M').save()
-        antonio.sons.connect(dani)
-        antonio.born_in.connect(gir)
-
-        pepi.add_married([antonio.id])
-
-        dani2 = Person(name='Daniela', surname='Albarral', genere='W').save()
-        dani2.son_of.connect(pepi)
-        antonio.sons.connect(dani2)
-
-        dani_junior = Person(
-            name='Pepi',
-            surname='Albarral',
-            genere='W').save()
-        dani.sons.connect(dani_junior)
-
-        sra_maria = Person(
-            name='Maria',
-            surname='Izquierdo',
-            genere='W').save()
-        sra_maria.sons.connect(antonio)
-
+        sra_maria.add_sons([antonio.id])
         antonio.add_divorced([pepi.id])
         pepi.add_married([antonio.id])
 
-    """
     def testt(self):
         try:
             p = list(Person.nodes.filter(name='Daniel'))[0]
@@ -142,9 +149,3 @@ class geneeTestCase(TestCase):
             self.assertEquals(date(1991, 8, 6), p.birth)
         except:
             self.assertEquals(True, True)
-    """
-
-    def test_serializers(self):
-        # p = list(Person.nodes.filter(name='Daniel'))[0]
-        # serialized = PersonSerializer(p, simple=True).data
-        self.assertEquals(True, True)
