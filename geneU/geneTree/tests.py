@@ -131,18 +131,16 @@ class geneeTestCase(TestCase):
             surname='Albarral',
             second_surname='Nunez',
             genere='M',
-            birth_date_begin=datetime(2010, 5, 24),
-            birth_date_end=datetime(2010, 5, 24),
+            birth_date=(datetime(2010, 5, 24), datetime(2010, 5, 24)),
             born_in=bcn,
             son_of=[pepi.id, antonio.id],
             sons=[dani_junior.id],
             lived_in=[bcn, jp]
             ).complete_save()
 
-        p.update_person({
-            'birth_date_begin': datetime(2010, 5, 22),
-            'birth_date_end': datetime(2010, 5, 23)
-            })
+        p.update_person(
+           birth_date=(datetime(2010, 5, 22), datetime(2010, 5, 23))
+            )
 
         sra_maria.add_sons([antonio.id])
         antonio.add_divorced([pepi.id])

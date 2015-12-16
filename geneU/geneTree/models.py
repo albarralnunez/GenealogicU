@@ -41,6 +41,68 @@ class Person(StructuredNode):
         AddressComponent, 'LIVED_IN')
 
     def __init__(self, **args):
+        """
+        def get_birth_date(self):
+            return (
+                self.__get_birth_date_begin().id,
+                self.__get_birth_date_end().id
+                )
+
+        def get_death_date(self):
+            return (
+                self.__get_death_date_begin().id,
+                self.__get_death_date_end().id
+                )
+
+        def get_lived_in(self):
+            a = list(self.lived_in.all())
+            return [x.addres for x in a]
+
+        def get_born_in(self):
+            a = list(self.birth_in.all())
+            return None if not a else a[0].addres
+
+        def get_death_in(self):
+            a = list(self.death_in.all())
+            return None if not a else a[0].addres
+
+        def get_married(self):
+            a = list(self.married.all())
+            return [x.id for x in a]
+
+        def get_divorced(self):
+            a = list(self.divorced.all())
+            return [x.id for x in a]
+
+        def get_adopted(self):
+            a = list(self.adopted.all())
+            return [x.id for x in a]
+
+        def get_adopted_by(self):
+            a = list(self.adopted_by.all())
+            return [x.id for x in a]
+
+        def get_sons(self):
+            a = list(self.sons.all())
+            return [x.id for x in a]
+
+        def get_son_of(self):
+            a = list(self.son_of.all())
+            return [x.id for x in a]
+
+        self.get_son_of = get_son_of
+        self.get_adopted_by = get_adopted_by
+        self.get_sons = get_sons
+        self.get_divorced = get_divorced
+        self.get_married = get_married
+        self.get_birth_date = get_birth_date
+        self.get_death_date = get_death_date
+        self.get_adopted = get_adopted
+        self.get_death_in = get_death_in
+        self.get_lived_in = get_lived_in
+        self.get_born_in = get_born_in
+        """
+
         self.rel_birth_date = (None, None)
         self.rel_death_date = (None, None)
         self.rel_son_of = None
@@ -52,6 +114,7 @@ class Person(StructuredNode):
         self.rel_born_in = None
         self.rel_death_in = None
         self.rel_lived_in = None
+
         if 'birth_date' in args:
             self.rel_birth_date = args.pop('birth_date')
         if 'death_date' in args:
@@ -180,9 +243,7 @@ class Person(StructuredNode):
         a = list(self.death_date_end.all())
         return None if not a else datetime.strptime(a[0].id, "%Y-%m-%d")
 
-    @db.transaction
-    def complete_save(self):
-        self.save()
+    def __set_relations(self):
         if any(self.rel_birth_date):
             self.__set_birth_date(self.rel_birth_date)
         if any(self.rel_death_date):
@@ -205,6 +266,11 @@ class Person(StructuredNode):
             self.__add_married(self.rel_adopted)
         if self.rel_adopted_by:
             self.__add_adopted_by(self.rel_adopted_by)
+
+    @db.transaction
+    def complete_save(self):
+        self.save()
+        self.__set_relations()
         return self
 
     @db.transaction
@@ -254,48 +320,12 @@ class Person(StructuredNode):
         self.__add_adopted_by(adopted_by)
 
     @db.transaction
-    def update_person(self, data):
-        self.name = data.get('name', self.name)
-        self.surname = data.get('surname', self.surname)
-        self.second_surname = data.get('second_surname', self.second_surname)
-        self.genere = data.get('genere', self.genere)
-        self.rel_birth_date = data.get('birth_date')
-        self.rel_death_date = data.get('death_date')
-        self.rel_sons = data.get('sons')
-        self.rel_son_of = data.get('son_of')
-        self.rel_born_in = data.get('born_in')
-        self.rel_death_in = data.get('death_in')
-        self.rel_lived_in = data.get('lived_in')
-        self.rel_divorced = data.get('divorced')
-        self.rel_married = data.get('married')
-        self.rel_adopted = data.get('adopted')
-        self.rel_adopted_by = data.get('adopted_by')
+    def update_person(self, **data):
 
-        if any(self.rel_birth_date):
-            self.__set_birth_date(self.rel_birth_date)
+        #  if 'name' not in data:
+        #    data.append(self.name)
+        print data.get('name')
 
-        if any(self.rel_death_date):
-            self.__set_death_date(self.rel_death_date)
-
-        if self.rel_sons:
-            self.__add_sons(self.rel_sons)
-        if self.rel_son_of:
-            self.__add_sons_of(self.rel_son_of)
-        if self.rel_born_in:
-            self.__set_born_in(self.rel_born_in)
-        if self.rel_death_in:
-            self.__set_death_in(self.rel_death_in)
-        if self.rel_lived_in:
-            self.__add_lived_in(self.rel_lived_in)
-        if self.rel_divorced:
-            self.__add_divorced(self.rel_divorced)
-        if self.rel_married:
-            self.__add_married(self.rel_married)
-        if self.rel_adopted:
-            self.__add_adopted(self.rel_adopted)
-        if self.rel_adopted_by:
-            self.__add_adopted_by(self.rel_adopted_by)
-
-        self.refresh()
-
+        self.__set_relations()
+        #self.save()
         return self

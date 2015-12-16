@@ -38,6 +38,11 @@ class PersonSerializer(serializers.BaseSerializer):
         married = data.get('married')
         divorced = data.get('divorced')
 
+        if not name:
+            raise ValidationError({
+                'name': "name is required"
+                })
+
         # Perform the data validation.
         if genere and genere != 'M' and genere != 'W':
             raise ValidationError({
@@ -268,4 +273,5 @@ class PersonSerializer(serializers.BaseSerializer):
         return Person(**validated_data).complete_save()
 
     def update(self, instance, validated_data):
-        return instance.update_person(validated_data)
+        print validated_data
+        return instance.update_person(**validated_data)
