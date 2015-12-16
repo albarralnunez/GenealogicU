@@ -2,7 +2,7 @@ from django.test import TestCase
 from .models import Person
 from .serializers import PersonSerializer
 from geoencoding_node_structure.core import Location
-from datetime import date
+from datetime import datetime
 from neomodel import db
 
 
@@ -126,26 +126,28 @@ class geneeTestCase(TestCase):
           sons=[dani2.id]
           ).complete_save()
 
-        Person(
+        p = Person(
             name='Daniel',
             surname='Albarral',
             second_surname='Nunez',
             genere='M',
-            birth_date_begin=date(2010, 5, 24),
-            birth_date_end=date(2010, 5, 24),
+            birth_date_begin=datetime(2010, 5, 24),
+            birth_date_end=datetime(2010, 5, 24),
             born_in=bcn,
             son_of=[pepi.id, antonio.id],
-            sons=[dani_junior.id]
+            sons=[dani_junior.id],
+            lived_in=[bcn, jp]
             ).complete_save()
+
+        p.update_person({
+            'birth_date_begin': datetime(2010, 5, 22),
+            'birth_date_end': datetime(2010, 5, 23)
+            })
 
         sra_maria.add_sons([antonio.id])
         antonio.add_divorced([pepi.id])
         pepi.add_married([antonio.id])
 
     def testt(self):
-        try:
-            p = list(Person.nodes.filter(name='Daniel'))[0]
-            self.assertEquals('Daniel', p.name)
-            self.assertEquals(date(1991, 8, 6), p.birth)
-        except:
-            self.assertEquals(True, True)
+        p = list(Person.nodes.filter(name='Daniel'))[0]
+        self.assertEquals('Daniel', p.name)

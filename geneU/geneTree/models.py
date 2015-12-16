@@ -6,7 +6,7 @@ from geoencoding_node_structure.core import AddressComponent, Location
 from date_node_structure.core import Day, NodeDate
 from uuid import uuid4
 from neomodel import db
-
+from datetime import datetime
 # from django.core.exceptions.entry import DoesNotExist
 
 
@@ -41,10 +41,8 @@ class Person(StructuredNode):
         AddressComponent, 'LIVED_IN')
 
     def __init__(self, **args):
-        self.rel_birth_date_begin = None
-        self.rel_birth_date_end = None
-        self.rel_death_date_begin = None
-        self.rel_death_date_end = None
+        self.rel_birth_date = (None, None)
+        self.rel_death_date = (None, None)
         self.rel_son_of = None
         self.rel_sons = None
         self.rel_adopted = None
@@ -54,14 +52,10 @@ class Person(StructuredNode):
         self.rel_born_in = None
         self.rel_death_in = None
         self.rel_lived_in = None
-        if 'birth_date_begin' in args:
-            self.rel_birth_date_begin = args.pop('birth_date_begin')
-        if 'birth_date_end' in args:
-            self.rel_birth_date_end = args.pop('birth_date_end')
-        if 'death_date_begin' in args:
-            self.rel_death_date_begin = args.pop('death_date_begin')
-        if 'death_date_end' in args:
-            self.rel_death_date_end = args.pop('death_date_end')
+        if 'birth_date' in args:
+            self.rel_birth_date = args.pop('birth_date')
+        if 'death_date' in args:
+            self.rel_death_date = args.pop('death_date')
         if 'son_of' in args:
             self.rel_son_of = args.pop('son_of')
         if 'sons' in args:
@@ -101,29 +95,37 @@ class Person(StructuredNode):
                 self.divorced.disconnect(p)
             self.married.connect(p)
 
-    def __set_death_date_begin(self, begin):
-        for dd in self.death_date_begin.all():
-            self.death_date_begin.disconnect(dd)
-        beg = NodeDate(begin).save()
-        self.death_date_begin.connect(beg)
+    def __set_death_date(self, date):
+        begin, end = date
+        if begin and end and end < begin:
+            raise ValueError(
+                'Start date must be less or equal to the end date')
+        if begin:
+            for dd in self.death_date_begin.all():
+                self.death_date_begin.disconnect(dd)
+            beg = NodeDate(begin).save()
+            self.death_date_begin.connect(beg)
+        if end:
+            for dd in self.death_date_end.all():
+                self.death_date_end.disconnect(dd)
+            en = NodeDate(end).save()
+            self.death_date_end.connect(en)
 
-    def __set_death_date_end(self, end):
-        for dd in self.death_date_end.all():
-            self.death_date_end.disconnect(dd)
-        nd = NodeDate(end).save()
-        self.death_date_end.connect(nd)
-
-    def __set_birth_date_begin(self, begin):
-        for dd in self.birth_date_begin.all():
-            self.birth_date_begin.disconnect(dd)
-        beg = NodeDate(begin).save()
-        self.birth_date_begin.connect(beg)
-
-    def __set_birth_date_end(self, end):
-        for dd in self.birth_date_end.all():
-            self.birth_date_end.disconnect(dd)
-        nd = NodeDate(end).save()
-        self.birth_date_end.connect(nd)
+    def __set_birth_date(self, date):
+        begin, end = date
+        if begin and end and end < begin:
+            raise ValueError(
+                'Start date must be less or equal to the end date')
+        if begin:
+            for dd in self.birth_date_begin.all():
+                self.birth_date_begin.disconnect(dd)
+            beg = NodeDate(begin).save()
+            self.birth_date_begin.connect(beg)
+        if end:
+            for dd in self.death_date_end.all():
+                self.death_date_end.disconnect(dd)
+            en = NodeDate(end).save()
+            self.death_date_end.connect(en)
 
     def __add_sons(self, sons):
         for son_id in sons:
@@ -162,17 +164,29 @@ class Person(StructuredNode):
             p = self.__get_person(id=fath)
             self.adopted_by.connect(p)
 
-    #  @db.transaction
+    def __get_birth_date_begin(self):
+        a = list(self.birth_date_begin.all())
+        return None if not a else datetime.strptime(a[0].id, "%Y-%m-%d")
+
+    def __get_birth_date_end(self):
+        a = list(self.birth_date_end.all())
+        return None if not a else datetime.strptime(a[0].id, "%Y-%m-%d")
+
+    def __get_death_date_begin(self):
+        a = list(self.death_date_begin.all())
+        return None if not a else datetime.strptime(a[0].id, "%Y-%m-%d")
+
+    def __get_death_date_end(self):
+        a = list(self.death_date_end.all())
+        return None if not a else datetime.strptime(a[0].id, "%Y-%m-%d")
+
+    @db.transaction
     def complete_save(self):
         self.save()
-        if self.rel_birth_date_begin:
-            self.__set_birth_date_begin(self.rel_birth_date_begin)
-        if self.rel_birth_date_end:
-            self.__set_birth_date_end(self.rel_birth_date_end)
-        if self.rel_death_date_begin:
-            self.__set_death_date_begin(self.rel_death_date_begin)
-        if self.rel_birth_date_end:
-            self.__set_birth_date_end(self.rel_birth_date_end)
+        if any(self.rel_birth_date):
+            self.__set_birth_date(self.rel_birth_date)
+        if any(self.rel_death_date):
+            self.__set_death_date(self.rel_death_date)
         if self.rel_born_in:
             self.__set_born_in(self.rel_born_in)
         if self.rel_death_in:
@@ -202,20 +216,14 @@ class Person(StructuredNode):
         self.__add_married(per)
 
     @db.transaction
-    def set_birth_date_begin(self, begin):
-        self.__set_birth_date_begin(begin)
+    def set_birth_date(self, date):
+        begin, end = date
+        self.__set_birth_date(begin, end)
 
     @db.transaction
-    def set_birth_date_end(self, end):
-        self.__set_birth_date_end(end)
-
-    @db.transaction
-    def set_death_date_begin(self, begin):
-        self.__set_death_date_begin(begin)
-
-    @db.transaction
-    def set_death_date_end(self, end):
-        self.__set_death_date_end(end)
+    def set_death_date(self, date):
+        begin, end = date
+        self.__set_death_date(begin, end)
 
     @db.transaction
     def add_sons(self, sons):
@@ -244,3 +252,50 @@ class Person(StructuredNode):
     @db.transaction
     def add_adopted_by(self, adopted_by):
         self.__add_adopted_by(adopted_by)
+
+    @db.transaction
+    def update_person(self, data):
+        self.name = data.get('name', self.name)
+        self.surname = data.get('surname', self.surname)
+        self.second_surname = data.get('second_surname', self.second_surname)
+        self.genere = data.get('genere', self.genere)
+        self.rel_birth_date = data.get('birth_date')
+        self.rel_death_date = data.get('death_date')
+        self.rel_sons = data.get('sons')
+        self.rel_son_of = data.get('son_of')
+        self.rel_born_in = data.get('born_in')
+        self.rel_death_in = data.get('death_in')
+        self.rel_lived_in = data.get('lived_in')
+        self.rel_divorced = data.get('divorced')
+        self.rel_married = data.get('married')
+        self.rel_adopted = data.get('adopted')
+        self.rel_adopted_by = data.get('adopted_by')
+
+        if any(self.rel_birth_date):
+            self.__set_birth_date(self.rel_birth_date)
+
+        if any(self.rel_death_date):
+            self.__set_death_date(self.rel_death_date)
+
+        if self.rel_sons:
+            self.__add_sons(self.rel_sons)
+        if self.rel_son_of:
+            self.__add_sons_of(self.rel_son_of)
+        if self.rel_born_in:
+            self.__set_born_in(self.rel_born_in)
+        if self.rel_death_in:
+            self.__set_death_in(self.rel_death_in)
+        if self.rel_lived_in:
+            self.__add_lived_in(self.rel_lived_in)
+        if self.rel_divorced:
+            self.__add_divorced(self.rel_divorced)
+        if self.rel_married:
+            self.__add_married(self.rel_married)
+        if self.rel_adopted:
+            self.__add_adopted(self.rel_adopted)
+        if self.rel_adopted_by:
+            self.__add_adopted_by(self.rel_adopted_by)
+
+        self.refresh()
+
+        return self
