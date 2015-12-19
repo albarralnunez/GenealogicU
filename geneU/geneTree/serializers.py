@@ -2,12 +2,11 @@ from rest_framework import serializers
 from .models import Person
 from geoencoding_node_structure.serializers import LocationSerializer
 from date_node_structure.serializers import DateSerializer
-from date_node_structure.core import NodeDate
-from geoencoding_node_structure.core import Location
 from django.core.exceptions import ValidationError
 import ast
 from datetime import datetime
 import json
+import copy
 
 
 class PersonSerializer(serializers.BaseSerializer):
@@ -16,6 +15,40 @@ class PersonSerializer(serializers.BaseSerializer):
 
         self.simple = kwargs.pop('simple', False)
         super(PersonSerializer, self).__init__(*args, **kwargs)
+
+    def __pop_all_relational_data(self, data):
+        relation_data = {}
+        if 'birth_date_begin' in data:
+            relation_data['birth_date_begin'] = data.pop(
+                'birth_date_begin')
+        if 'birth_date_end' in data:
+            relation_data['birth_date_end'] = data.pop(
+                'birth_date_end')
+        if 'death_date_begin' in data:
+            relation_data['death_date_begin'] = data.pop(
+                'death_date_begin')
+        if 'death_date_end' in data:
+            relation_data['death_date_end'] = data.pop(
+                'death_date_end')
+        if 'son_of' in data:
+            relation_data['son_of'] = data.pop('son_of')
+        if 'sons' in data:
+            relation_data['sons'] = data.pop('sons')
+        if 'adopted' in data:
+            relation_data['adopted'] = data.pop('adopted')
+        if 'adopted_by' in data:
+            relation_data['adopted_by'] = data.pop('adopted_by')
+        if 'married' in data:
+            relation_data['married'] = data.pop('married')
+        if 'divorced' in data:
+            relation_data['divorced'] = data.pop('divorced')
+        if 'born_in' in data:
+            relation_data['born_in'] = data.pop('born_in')
+        if 'death_in' in data:
+            relation_data['death_in'] = data.pop('death_in')
+        if 'lived_in' in data:
+            relation_data['lived_in'] = data.pop('lived_in')
+        return relation_data
 
     def to_internal_value(self, data):
 
@@ -29,13 +62,13 @@ class PersonSerializer(serializers.BaseSerializer):
         death_date_end = data.get('death_date_end')
         born_in = data.get('born_in')
         death_in = data.get('death_in')
-        lived_in = data.get('lived_in')
-        son_of = data.get('son_of')
-        sons = data.get('sons')
-        adopted = data.get('adopted')
-        adopted_by = data.get('adopted_by')
-        married = data.get('married')
-        divorced = data.get('divorced')
+        lived_in = data.get('lived_in', [])
+        son_of = data.get('son_of', [])
+        sons = data.get('sons', [])
+        adopted = data.get('adopted', [])
+        adopted_by = data.get('adopted_by', [])
+        married = data.get('married', [])
+        divorced = data.get('divorced', [])
 
         if not name:
             raise ValidationError({
@@ -152,7 +185,7 @@ class PersonSerializer(serializers.BaseSerializer):
 
         # Return the validated values. This will be available as
         # the `.validated_data` property.
-        return {
+        validated_data = {
             'name': name,
             'surname': surname,
             'second_surname': second_surname,
@@ -171,6 +204,14 @@ class PersonSerializer(serializers.BaseSerializer):
             'married': married,
             'divorced': divorced
         }
+
+        aux = copy.deepcopy(validated_data)
+        if self.partial:
+            for key in aux:
+                if key not in data:
+                    validated_data.pop(key)
+
+        return validated_data
 
     def to_representation(self, node):
 
@@ -271,89 +312,18 @@ class PersonSerializer(serializers.BaseSerializer):
         }
 
     def create(self, validated_data):
-        birth_date_begin = None
-        birth_date_end = None
-        death_date_begin = None
-        death_date_end = None
-        born_in = None
-        death_in = None
-        lived_in = []
-        married = []
-        divorced = []
-        adopted = []
-        adopted_by = []
-        sons = []
-        son_of = []
-
-        if validated_data['born_in']:
-            born_in = validated_data.pop('born_in')
-            born_in = Location(address_components=born_in).save()
-        if validated_data['death_in']:
-            death_in = validated_data.pop('death_in')
-            death_in = Location(address_components=death_in).save()
-        if validated_data['lived_in']:
-            lived_in = validated_data.pop('lived_in')
-            lived_in = [
-                Location(address_components=x).save() for x in lived_in]
-        if validated_data['birth_date_begin']:
-            birth_date_begin = NodeDate(
-                validated_data.pop('birth_date_begin')).save()
-        if validated_data['birth_date_end']:
-            birth_date_end = NodeDate(
-                validated_data.pop('birth_date_end')).save()
-        if validated_data['death_date_begin']:
-            death_date_begin = NodeDate(
-                validated_data.pop('death_date_begin')).save()
-        if validated_data['death_date_end']:
-            death_date_end = NodeDate(
-                validated_data.pop('death_date_end')).save()
-        if validated_data['son_of']:
-            son_of = validated_data.pop('son_of')
-            son_of = [list(Person.nodes.filter(id=x))[0] for x in son_of]
-        if validated_data['sons']:
-            sons = validated_data.pop('sons')
-            sons = [list(Person.nodes.filter(id=x))[0] for x in son_of]
-        if validated_data['adopted']:
-            adopted = validated_data.pop('adopted')
-            adopted = [list(Person.nodes.filter(id=x))[0] for x in son_of]
-        if validated_data['adopted_by']:
-            adopted_by = validated_data.pop('adopted_by')
-            adopted_by = [list(Person.nodes.filter(id=x))[0] for x in son_of]
-        if validated_data['married']:
-            married = validated_data.pop('married')
-            married = [list(Person.nodes.filter(id=x))[0] for x in son_of]
-        if validated_data['divorced']:
-            divorced = validated_data.pop('divorced')
-            divorced = [list(Person.nodes.filter(id=x))[0] for x in son_of]
-        person = Person(**validated_data).save()
-        if birth_date_begin:
-            person.birth_date_begin.connect(birth_date_begin)
-        if birth_date_end:
-            person.birth_date_end.connect(birth_date_end)
-        if death_date_begin:
-            person.death_date_begin.connect(death_date_begin)
-        if death_date_end:
-            person.death_date_end.connect(death_date_end)
-        for s in son_of:
-            person.son_of.connect(s)
-        for s in sons:
-            person.sons.connect(s)
-        for ad in adopted:
-            person.adopted.connect(ad)
-        for adb in adopted_by:
-            person.adopted_by.connect(adb)
-        for m in married:
-            person.married.connect(m)
-        for d in divorced:
-            person.divorced.connect(d)
-        if born_in:
-            person.born_in.connect(born_in)
-        if death_in:
-            person.death_in.connect(death_in)
-        for l in lived_in:
-            person.lived_in.connect(l)
-        return person
+        rel = self.__pop_all_relational_data(validated_data)
+        result = Person(**validated_data).save()
+        result.create_relations(**rel)
+        return result
 
     def update(self, instance, validated_data):
         print validated_data
-        return instance.update_person(**validated_data)
+        rel = self.__pop_all_relational_data(validated_data)
+        if self.partial:
+            pass
+        else:
+            instance.destroy_all_relations()
+            instance.set_attr(**validated_data)
+            instance.create_relations(**rel)
+        return instance
