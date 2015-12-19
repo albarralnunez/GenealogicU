@@ -139,19 +139,19 @@ class Person(StructuredNode):
         self.add_divorced(divorced)
 
     def create_relations(self, **data):
-        if 'born_in' in data and data['born_in']:
+        if 'born_in' in data:
             self.set_born_in(data['born_in'])
-        if 'death_in' in data and data['death_in']:
+        if 'death_in' in data:
             self.set_death_in(data['death_in'])
         if 'lived_in' in data:
             self.set_lived_in(data['lived_in'])
-        if 'birth_date_begin' in data and data['birth_date_begin']:
+        if 'birth_date_begin' in data:
             self.set_birth_date_begin(data['birth_date_begin'])
-        if 'death_date_begin' in data and data['death_date_begin']:
+        if 'death_date_begin' in data:
             self.set_death_date_begin(data['death_date_begin'])
-        if 'birth_date_end' in data and data['birth_date_end']:
+        if 'birth_date_end' in data:
             self.set_birth_date_end(data['birth_date_end'])
-        if 'death_date_end' in data and data['death_date_end']:
+        if 'death_date_end' in data:
             self.set_death_date_end(data['death_date_end'])
         if 'son_of' in data:
             self.set_son_of(data['son_of'])
@@ -195,7 +195,11 @@ class Person(StructuredNode):
             self.death_in.disconnect(rel)
 
     def set_attr(self, **data):
-        self.name = data.get('name')
-        self.genere = data.get('genere')
-        self.surname = data.get('surname')
-        self.second_surname = data.get('second_surname')
+        if 'name' in data:
+            self.name = data.get('name')
+        if 'genere' in data:
+            self.genere = data.get('genere')
+        if 'surname' in data:
+            self.surname = data.get('surname')
+        if 'second_surname' in data:
+            self.second_surname = data.get('second_surname')

@@ -318,12 +318,7 @@ class PersonSerializer(serializers.BaseSerializer):
         return result
 
     def update(self, instance, validated_data):
-        print validated_data
         rel = self.__pop_all_relational_data(validated_data)
-        if self.partial:
-            pass
-        else:
-            instance.destroy_all_relations()
-            instance.set_attr(**validated_data)
-            instance.create_relations(**rel)
+        instance.set_attr(**validated_data)
+        instance.create_relations(**rel)
         return instance
