@@ -5,11 +5,26 @@ from neomodel import (
 from geoencoding_node_structure.core import AddressComponent, Location
 from date_node_structure.core import Day, NodeDate
 from uuid import uuid4
-import datetime
 # from django.core.exceptions.entry import DoesNotExist
+from neomodel import db
+
+
+class Marriage(StructuredNode):
+    location = RelationshipTo(
+        AddressComponent, 'LOCATION', cardinality=ZeroOrOne)
+    date = RelationshipTo(
+        Day, 'DATE', cardinality=ZeroOrOne)
+    spouses = Relationship('Person', 'MARRIED')
+
+
+class Divorce(StructuredNode):
+    date = RelationshipTo(
+        Day, 'DATE', cardinality=ZeroOrOne)
+    spouses = Relationship('Person', 'DIVORCED')
 
 
 class Person(StructuredNode):
+
     id = StringProperty(unique_index=True, default=uuid4)
     name = StringProperty(required=True)
     surname = StringProperty(index=True)
@@ -25,8 +40,8 @@ class Person(StructuredNode):
     death_date_end = RelationshipTo(
         Day, 'DEATH_DATE_END', cardinality=ZeroOrOne)
 
-    married = Relationship('Person', 'MARRIED')
-    divorced = Relationship('Person', 'DIVORCED')
+    married = Relationship(Marriage, 'MARRIED')
+    divorced = Relationship(Divorce, 'DIVORCED')
     sons = RelationshipTo('Person', 'SON')
     son_of = RelationshipFrom('Person', 'SON')
     adopted = RelationshipTo('Person', 'ADOPTED')
@@ -39,19 +54,34 @@ class Person(StructuredNode):
     lived_in = RelationshipTo(
         AddressComponent, 'LIVED_IN')
 
-    def add_divorced(self, per):
-        for idd in per:
-            p = Person.nodes.get(id=idd)
-            if (self.married.is_connected(p)):
-                self.married.disconnect(p)
-            self.divorced.connect(p)
+    def get_marriages(self):
+        res = []
+        for marriage in self.married.all():
+            for spouse in marriage.spouses.all():
+                if spouse.id != self.id:
+                    m = {}
+                    date = list(marriage.date.all())
+                    if date:
+                        m['date'] = date[0].id
+                    loc = list(marriage.location.all())
+                    if loc:
+                        m['location'] = loc[0].address
+                    m['spouse'] = spouse.id
+                    res.append(m)
+        return res
 
-    def add_married(self, per):
-        for idd in per:
-            p = Person.nodes.get(id=idd)
-            if (self.divorced.is_connected(p)):
-                self.divorced.disconnect(p)
-            self.married.connect(p)
+    def get_divorces(self):
+        res = []
+        for marriage in self.divorced.all():
+            for spouse in marriage.spouses.all():
+                if spouse.id != self.id:
+                    m = {}
+                    date = list(marriage.date.all())
+                    if date:
+                        m['date'] = date[0].id
+                    m['spouse'] = spouse.id
+                    res.append(m)
+        return res
 
     def set_born_in(self, loc):
         for l in self.born_in.all():
@@ -59,7 +89,7 @@ class Person(StructuredNode):
         if loc:
             self.born_in.connect(
                 Location(address_components=loc).save()
-                )
+            )
 
     def set_death_in(self, loc):
         for l in self.death_in.all():
@@ -67,7 +97,7 @@ class Person(StructuredNode):
         if loc:
             self.death_in.connect(
                 Location(address_components=loc).save()
-                )
+            )
 
     def set_lived_in(self, locs):
         for l in self.lived_in.all():
@@ -80,13 +110,15 @@ class Person(StructuredNode):
         for s in self.sons.all():
             self.sons.disconnect(s)
         for son in sons:
-            self.sons.connect(son)
+            p = Person.nodes.get(id=son)
+            self.sons.connect(p)
 
     def set_son_of(self, son_of):
         for s in self.son_of.all():
             self.son_of.disconnect(s)
         for father in son_of:
-            self.son_of.connect(father)
+            p = Person.nodes.get(id=father)
+            self.son_of.connect(p)
 
     def set_birth_date_begin(self, birth_date_begin):
         for date in self.birth_date_begin.all():
@@ -120,23 +152,42 @@ class Person(StructuredNode):
         for d in self.adopted.all():
             self.adopted.disconnect(d)
         for ad in adopted:
-            self.adopted.connect(ad)
+            p = Person.nodes.get(id=ad)
+            self.adopted.connect(p)
 
     def set_adopted_by(self, adopted_by):
         for d in self.adopted_by.all():
             self.adopted_by.disconnect(d)
         for ad in adopted_by:
-            self.adopted_by.connect(ad)
+            p = Person.nodes.get(id=ad)
+            self.adopted_by.connect(p)
 
     def set_married(self, married):
         for d in self.married.all():
             self.married.disconnect(d)
-        self.add_married(married)
+        for mar in married:
+            spouse = Person.nodes.get(id=mar['spouse'])
+            marriage = Marriage().save()
+            self.married.connect(marriage)
+            spouse.married.connect(marriage)
+            if 'location' in mar:
+                location = Location(address_components=mar['location']).save()
+                marriage.location.connect(location)
+            if 'date' in mar:
+                date = NodeDate(mar['date']).save()
+                marriage.date.connect(date)
 
-    def set_divorced(self, divorced):
+    def set_divorced(self, married):
         for d in self.divorced.all():
             self.divorced.disconnect(d)
-        self.add_divorced(divorced)
+        for mar in married:
+            spouse = Person.nodes.get(id=mar['spouse'])
+            marriage = Divorce().save()
+            self.divorced.connect(marriage)
+            spouse.divorced.connect(marriage)
+            if 'date' in mar:
+                date = NodeDate(mar['date']).save()
+                marriage.date.connect(date)
 
     def create_relations(self, **data):
         if 'born_in' in data:
@@ -203,3 +254,15 @@ class Person(StructuredNode):
             self.surname = data.get('surname')
         if 'second_surname' in data:
             self.second_surname = data.get('second_surname')
+
+    @db.transaction
+    def update_person(self, data, rel):
+        self.set_attr(**data)
+        self.create_relations(**rel)
+
+    @staticmethod
+    @db.transaction
+    def create_person(data, rel):
+        result = Person(**data).save()
+        result.create_relations(**rel)
+        return result

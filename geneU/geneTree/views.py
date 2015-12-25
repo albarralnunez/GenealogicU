@@ -14,9 +14,7 @@ class PersonViewSet(viewsets.ModelViewSet):
 
     def get_object(self):
         qset = copy.deepcopy(self.queryset)
-        person = list(qset.filter(
-            id=self.kwargs[self.lookup_field]
-            ))
-        if not person:
+        try:
+            return qset.get(id=self.kwargs[self.lookup_field])
+        except:
             raise Http404("No Person matches the given query.")
-        return person[0]

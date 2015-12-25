@@ -51,7 +51,6 @@ class PersonSerializer(serializers.BaseSerializer):
         return relation_data
 
     def to_internal_value(self, data):
-
         name = data.get('name')
         surname = data.get('surname')
         second_surname = data.get('second_surname')
@@ -95,13 +94,7 @@ class PersonSerializer(serializers.BaseSerializer):
                 raise ValidationError({
                     'sons': "Incorrect data format, should be a list"
                 })
-        if divorced:
-            try:
-                divorced = ast.literal_eval(divorced)
-            except(ValidationError):
-                raise ValidationError({
-                    'divorced': "Incorrect data format, should be a list"
-                })
+
         if adopted:
             try:
                 adopted = ast.literal_eval(adopted)
@@ -116,13 +109,23 @@ class PersonSerializer(serializers.BaseSerializer):
                 raise ValidationError({
                     'adopted_by': "Incorrect data format, should be a list"
                 })
+
+        """
+        if divorced:
+            try:
+                divorced = ast.literal_eval(divorced)
+            except(ValidationError):
+                raise ValidationError({
+                    'divorced': "Incorrect data format, should be a list"
+                })
         if married:
             try:
                 married = ast.literal_eval(married)
             except(ValidationError):
                 raise ValidationError({
-                    'married': "Incorrect data format, should be a list"
+                    'married': "Incorrect data format, should be a JSON"
                 })
+
         if lived_in:
             try:
                 lived_in = ast.literal_eval(lived_in)
@@ -132,13 +135,15 @@ class PersonSerializer(serializers.BaseSerializer):
                     'lived_in': "Incorrect data format," +
                     "should be a list of JSONs"
                 })
+
         if born_in:
             try:
                 born_in = ast.literal_eval(born_in)
             except(ValidationError):
                 raise ValidationError({
-                    'born_in': "Incorrect data format, should be a JSON"
+                    'born_in': 'Incorrect data format, should be a JSON'
                 })
+
         if death_in:
             try:
                 death_in = json.loads(death_in)
@@ -146,6 +151,29 @@ class PersonSerializer(serializers.BaseSerializer):
                 raise ValidationError({
                     'death_in': "Incorrect data format, should be a JSON"
                 })
+        """
+        if married:
+            for m in married:
+                try:
+                    m['date'] = datetime.strptime(
+                        m['date'], "%Y-%m-%d")
+                except(ValidationError):
+                    raise ValidationError({
+                        'married["date"]': +
+                        "Incorrect data format, should be a list"
+                    })
+
+        if divorced:
+            for m in divorced:
+                try:
+                    m['date'] = datetime.strptime(
+                        m['date'], "%Y-%m-%d")
+                except(ValidationError):
+                    raise ValidationError({
+                        'divorced["date"]': +
+                        "Incorrect data format, should be a list"
+                    })
+
         if birth_date_begin:
             try:
                 birth_date_begin = datetime.strptime(
@@ -278,17 +306,26 @@ class PersonSerializer(serializers.BaseSerializer):
         if birth_date:
             birth_date_end_serialized = DateSerializer(birth_date[0]).data
 
-        married = list(node.married.all())
-        married_serialized = None
-        if married:
-            married_serialized = PersonSerializer(
-                married, many=True, simple=True).data
+        married_serialized = []
+        for married in node.get_marriages():
+            m_aux = {
+                'spouse': '/persons/' + married['spouse']
+            }
 
-        divorced = list(node.divorced.all())
-        divorced_serialized = None
-        if divorced:
-            divorced_serialized = PersonSerializer(
-                divorced, many=True, simple=True).data
+            if 'location' in married:
+                m_aux['location'] = married['location']
+            if 'date' in married:
+                m_aux['date'] = married['date']
+            married_serialized.append(m_aux)
+
+        divorced_serialized = []
+        for divorced in node.get_divorces():
+            m_aux = {
+                'spouse': '/persons/' + divorced['spouse']
+            }
+            if 'date' in divorced:
+                m_aux['date'] = divorced['date']
+            divorced_serialized.append(m_aux)
 
         return {
             'url': '/persons/' + node.id,
@@ -313,12 +350,9 @@ class PersonSerializer(serializers.BaseSerializer):
 
     def create(self, validated_data):
         rel = self.__pop_all_relational_data(validated_data)
-        result = Person(**validated_data).save()
-        result.create_relations(**rel)
-        return result
+        return Person.create_person(validated_data, rel)
 
     def update(self, instance, validated_data):
         rel = self.__pop_all_relational_data(validated_data)
-        instance.set_attr(**validated_data)
-        instance.create_relations(**rel)
+        instance.update_person(validated_data, rel)
         return instance

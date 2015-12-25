@@ -124,7 +124,10 @@ class geneeTestCase(TestCase):
         antonio.sons.connect(dani)
         antonio.born_in.connect(Location(address_components=gir).save())
 
-        pepi.add_married([antonio.id])
+        antonio.create_relations(
+          married=[{
+            'spouse': pepi.id, 'date': date(2010, 12, 2), 'location': bcn}]
+          )
 
         dani2 = Person(name='Daniela', surname='Albarral', genere='W').save()
         dani2.son_of.connect(pepi)
@@ -142,8 +145,12 @@ class geneeTestCase(TestCase):
             genere='W').save()
         sra_maria.sons.connect(antonio)
 
-        antonio.add_divorced([pepi.id])
-        pepi.add_married([antonio.id])
+        sr_juanito = Person(name='Juan').save()
+
+        sr_juanito.create_relations(
+          divorced=[{
+            'spouse': sra_maria.id, 'date': date(2010, 12, 2)}]
+          )
 
     """
     def testt(self):
