@@ -115,7 +115,7 @@ class geneeTestCase(TestCase):
         #  dani.birth_date_end.connect(NodeDate(date(2010, 5, 24)).save())
         #  dani.born_in.connect(Location(address_components=bcn).save())
 
-        pepi = Person(name='Pepi', surname='Nunez', genere='W').save()
+        pepi = Person(name='Pepi', surname='Nunez', genere='F').save()
         dani.son_of.connect(pepi)
         # pepi_birth = NeoDate(date(1991,8,6))
         # pepi.birth_on.connect(pepi_birth.day)
@@ -129,20 +129,20 @@ class geneeTestCase(TestCase):
             'spouse': pepi.id, 'date': date(2010, 12, 2), 'location': bcn}]
           )
 
-        dani2 = Person(name='Daniela', surname='Albarral', genere='W').save()
+        dani2 = Person(name='Daniela', surname='Albarral', genere='F').save()
         dani2.son_of.connect(pepi)
         antonio.sons.connect(dani2)
 
         dani_junior = Person(
             name='Pepi',
             surname='Albarral',
-            genere='W').save()
+            genere='F').save()
         dani.sons.connect(dani_junior)
 
         sra_maria = Person(
             name='Maria',
             surname='Izquierdo',
-            genere='W').save()
+            genere='F').save()
         sra_maria.sons.connect(antonio)
 
         sr_juanito = Person(name='Juan').save()

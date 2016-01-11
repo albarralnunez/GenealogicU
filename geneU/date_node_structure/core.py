@@ -28,6 +28,9 @@ class RootDate(StructuredNode):
 class NodeDate:
 
     def __init__(self, date):
+        '''
+        date is type date
+        '''
         self.date = date
 
     def save(self):

@@ -1,7 +1,7 @@
 from neomodel import (
     StructuredNode, StringProperty,
     RelationshipTo, RelationshipFrom, Relationship,
-    ZeroOrOne)
+    ZeroOrOne, ArrayProperty)
 from geoencoding_node_structure.core import AddressComponent, Location
 from date_node_structure.core import Day, NodeDate
 from uuid import uuid4
@@ -12,6 +12,7 @@ from neomodel import db
 class Marriage(StructuredNode):
     location = RelationshipTo(
         AddressComponent, 'LOCATION', cardinality=ZeroOrOne)
+    location_prop = StringProperty()
     date = RelationshipTo(
         Day, 'DATE', cardinality=ZeroOrOne)
     spouses = Relationship('Person', 'MARRIED')
@@ -20,16 +21,20 @@ class Marriage(StructuredNode):
 class Divorce(StructuredNode):
     date = RelationshipTo(
         Day, 'DATE', cardinality=ZeroOrOne)
+    location_prop = StringProperty()
     spouses = Relationship('Person', 'DIVORCED')
 
 
 class Person(StructuredNode):
 
     id = StringProperty(unique_index=True, default=uuid4)
-    name = StringProperty(required=True)
+    name = StringProperty()
     surname = StringProperty(index=True)
     second_surname = StringProperty(index=True)
-    genere = StringProperty(choices=(('M', 1), ('W', 2)))
+    genere = StringProperty(choices=(('M', 1), ('F', 2)))
+    born_in_prop = StringProperty()
+    death_in_prop = StringProperty()
+    lived_in_prop = ArrayProperty()
 
     birth_date_begin = RelationshipTo(
         Day, 'BIRTH_DATE_BEGIN', cardinality=ZeroOrOne)
@@ -188,6 +193,22 @@ class Person(StructuredNode):
             if 'date' in mar:
                 date = NodeDate(mar['date']).save()
                 marriage.date.connect(date)
+
+    def add_marriage(self, mar):
+        spouse = Person.nodes.get(id=mar['spouse'])
+        marriage = Marriage().save()
+        self.married.connect(marriage)
+        spouse.married.connect(marriage)
+        if 'location' in mar:
+            location = Location(address_components=mar['location']).save()
+            marriage.location.connect(location)
+        if 'date' in mar:
+            date = NodeDate(mar['date']).save()
+            marriage.date.connect(date)
+
+    def add_son(self, son):
+        p = Person.nodes.get(id=son)
+        self.sons.connect(p)
 
     def create_relations(self, **data):
         if 'born_in' in data:
