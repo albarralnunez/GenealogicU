@@ -26,16 +26,18 @@ class GedcomUploader:
         spouses = self.data.get_family_members(act_ele, "PARENTS")
         spouses_obj = [self.__persons[x.pointer()] for x in spouses]
         if len(spouses_obj) > 1:
-            print 'warning'
             date, place = self.data.marriage(spouses[0], spouses[1])
-            date = datetime.strptime(
-                        date, "%Y-%m-%d")
-            print 'warning'
-            marriage = {
-                'spouse': spouses_obj[1].id,
-                'date': date
-                # 'location': place
-                }
+            marriage = {}
+            marriage['spouse'] = spouses_obj[1].id
+            if date:
+                date = date.split(' ')
+                date = ' '.join(
+                    [date[0], date[1][0] + date[1][1:].lower(), date[2]])
+                print date
+                marriage['date'] = datetime.strptime(
+                        date, "%d %b %Y")
+            if place:
+                marriage['simple_location'] = place
             spouses_obj[0].add_marriage(marriage)
         return spouses_obj
 
@@ -62,8 +64,8 @@ class GedcomUploader:
                 print 'Family:'
                 print '  $spouses$'
                 fam = self.data.get_family_members(act_ele, "PARENTS")
-                if len(fam) > 1:
-                    print self.data.marriage(fam[0], fam[1])
+                #  if len(fam) > 1:
+                #       print self.data.marriage(fam[0], fam[1])
                 for spouse in fam:
                     print '-------------------------------'
                     print '  ' + str(spouse.name())
@@ -79,7 +81,7 @@ class GedcomUploader:
                     print '    ' + str(child.pointer())
                     print '-------------------------------'
 
-    @db.transaction
+    #  @db.transaction
     def upload(self):
         #  print self.data.element_dict()
         #  print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
@@ -89,3 +91,4 @@ class GedcomUploader:
 
         #  all families
         self.__create_relations()
+        print 'upload finished'

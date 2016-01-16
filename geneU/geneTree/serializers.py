@@ -48,6 +48,8 @@ class PersonSerializer(serializers.BaseSerializer):
             relation_data['death_in'] = data.pop('death_in')
         if 'lived_in' in data:
             relation_data['lived_in'] = data.pop('lived_in')
+        if 'tree' in data:
+            relation_data['tree'] = data.pop('tree')
         return relation_data
 
     def to_internal_value(self, data):
@@ -68,10 +70,16 @@ class PersonSerializer(serializers.BaseSerializer):
         adopted_by = data.get('adopted_by', [])
         married = data.get('married', [])
         divorced = data.get('divorced', [])
+        tree = data.get('tree')
 
         if not name:
             raise ValidationError({
                 'name': "name is required"
+                })
+
+        if not tree:
+            raise ValidationError({
+                'tree': "tree is required"
                 })
 
         # Perform the data validation.
@@ -230,7 +238,8 @@ class PersonSerializer(serializers.BaseSerializer):
             'adopted': adopted,
             'adopted_by': adopted_by,
             'married': married,
-            'divorced': divorced
+            'divorced': divorced,
+            'tree': tree
         }
 
         aux = copy.deepcopy(validated_data)

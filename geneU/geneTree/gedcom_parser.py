@@ -158,8 +158,9 @@ class Gedcom:
         family = list(fams_families1.intersection(fams_families2))
         if family:
             print family
+            print family[0].children()
             for famdata in family[0].children():
-                if famdata.tag() == "MARR":
+                if famdata.tag() == "MARR" or famdata.tag() == 'DIV':
                     for marrdata in famdata.children():
                         date = ''
                         place = ''
@@ -168,8 +169,7 @@ class Gedcom:
                         if marrdata.tag() == "PLAC":
                             place = marrdata.value()
                         return date, place
-        else:
-            return None, None
+        return None, None
 
     def marriage_years(self, individual):
         """ Return list of marriage years (as int) for an individual. """

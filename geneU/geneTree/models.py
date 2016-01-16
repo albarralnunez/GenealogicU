@@ -1,12 +1,15 @@
 from neomodel import (
     StructuredNode, StringProperty,
     RelationshipTo, RelationshipFrom, Relationship,
-    ZeroOrOne, ArrayProperty)
+    ZeroOrOne, ArrayProperty, Booleanproperty)
 from geoencoding_node_structure.core import AddressComponent, Location
 from date_node_structure.core import Day, NodeDate
+from geoencoding_node_structure.serializers import LocationSerializer
+from date_node_structure.serializers import DateSerializer
 from uuid import uuid4
 # from django.core.exceptions.entry import DoesNotExist
 from neomodel import db
+from core.models import UserNode
 
 
 class Marriage(StructuredNode):
@@ -25,6 +28,12 @@ class Divorce(StructuredNode):
     spouses = Relationship('Person', 'DIVORCED')
 
 
+class Tree(StructuredNode):
+    id = StringProperty(unique_index=True, default=uuid4)
+    oweners = ArrayProperty(required=True)
+    person = RelationshipTo('Person', 'MEMBER')
+
+
 class Person(StructuredNode):
 
     id = StringProperty(unique_index=True, default=uuid4)
@@ -35,6 +44,7 @@ class Person(StructuredNode):
     born_in_prop = StringProperty()
     death_in_prop = StringProperty()
     lived_in_prop = ArrayProperty()
+    private = Booleanproperty(required=True)
 
     birth_date_begin = RelationshipTo(
         Day, 'BIRTH_DATE_BEGIN', cardinality=ZeroOrOne)
@@ -59,6 +69,9 @@ class Person(StructuredNode):
     lived_in = RelationshipTo(
         AddressComponent, 'LIVED_IN')
 
+    tree = Relationship(Tree, 'MEMBER')
+    own = RelationshipFrom(UserNode, 'OWN')
+
     def get_marriages(self):
         res = []
         for marriage in self.married.all():
@@ -67,10 +80,13 @@ class Person(StructuredNode):
                     m = {}
                     date = list(marriage.date.all())
                     if date:
-                        m['date'] = date[0].id
+                        m['date'] = DateSerializer(date[0])
                     loc = list(marriage.location.all())
                     if loc:
-                        m['location'] = loc[0].address
+                        m['location'] = LocationSerializer(loc[0])
+                    if marriage.location_prop:
+                        m['simple_location'] = marriage.location_prop
+
                     m['spouse'] = spouse.id
                     res.append(m)
         return res
@@ -172,7 +188,10 @@ class Person(StructuredNode):
             self.married.disconnect(d)
         for mar in married:
             spouse = Person.nodes.get(id=mar['spouse'])
-            marriage = Marriage().save()
+            marriage = Marriage()
+            if 'simple_location' in mar:
+                marriage.location_prop = mar['simple_location']
+            marriage.save()
             self.married.connect(marriage)
             spouse.married.connect(marriage)
             if 'location' in mar:
@@ -187,7 +206,10 @@ class Person(StructuredNode):
             self.divorced.disconnect(d)
         for mar in married:
             spouse = Person.nodes.get(id=mar['spouse'])
-            marriage = Divorce().save()
+            marriage = Divorce()
+            if 'simple_location' in mar:
+                marriage.location_prop = mar['simple_location']
+            marriage.save()
             self.divorced.connect(marriage)
             spouse.divorced.connect(marriage)
             if 'date' in mar:
@@ -196,7 +218,11 @@ class Person(StructuredNode):
 
     def add_marriage(self, mar):
         spouse = Person.nodes.get(id=mar['spouse'])
-        marriage = Marriage().save()
+        print mar
+        marriage = Marriage()
+        if 'simple_location' in mar:
+            marriage.location_prop = mar['simple_location']
+        marriage.save()
         self.married.connect(marriage)
         spouse.married.connect(marriage)
         if 'location' in mar:
@@ -209,6 +235,10 @@ class Person(StructuredNode):
     def add_son(self, son):
         p = Person.nodes.get(id=son)
         self.sons.connect(p)
+
+    def set_tree(self, tree):
+        p = Tree.nodes.get(id=tree)
+        self.tree.connect(p)
 
     def create_relations(self, **data):
         if 'born_in' in data:
@@ -237,6 +267,8 @@ class Person(StructuredNode):
             self.set_married(data['married'])
         if 'divorced' in data:
             self.set_divorced(data['divorced'])
+        if 'tree' in data:
+            self.set_tree(data['tree'])
 
     def destroy_all_relations(self):
         for rel in self.birth_date_begin.all():
@@ -275,6 +307,12 @@ class Person(StructuredNode):
             self.surname = data.get('surname')
         if 'second_surname' in data:
             self.second_surname = data.get('second_surname')
+        if 'lived_in_prop' in data:
+            self.lived_in_prop = data.get('lived_in_prop')
+        if 'born_in_prop' in data:
+            self.born_in_prop = data.get('born_in_prop')
+        if 'death_in_prop' in data:
+            self.death_in_prop = data.get('death_in_prop')
 
     @db.transaction
     def update_person(self, data, rel):
