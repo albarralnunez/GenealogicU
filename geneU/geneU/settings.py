@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     # 3rd party apps
     'neomodel',
     'rest_framework',
+    'oauth2_provider',
     # project apps
     'geneTree',
     'core',
@@ -108,6 +109,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
+
+OAUTH2_PROVIDER = {
+    # this is the list of available scopes
+    'SCOPES': {
+        'read': 'Read scope',
+        'write': 'Write scope',
+    }
+}
 
 try:
     HOSTNAME = socket.gethostname()

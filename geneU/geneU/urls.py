@@ -15,14 +15,16 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from geneTree.views import PersonViewSet
+from geneTree.views import PersonViewSet, TreeViewSet
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'persons', PersonViewSet, base_name='persons')
+router.register(r'person', PersonViewSet, base_name='person')
+router.register(r'tree', TreeViewSet, base_name='tree')
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     url(r'^api-auth/',
         include('rest_framework.urls', namespace='rest_framework'))
 ]

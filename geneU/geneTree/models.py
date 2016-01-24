@@ -1,7 +1,7 @@
 from neomodel import (
     StructuredNode, StringProperty,
     RelationshipTo, RelationshipFrom, Relationship,
-    ZeroOrOne, ArrayProperty, Booleanproperty)
+    ZeroOrOne, ArrayProperty, BooleanProperty)
 from geoencoding_node_structure.core import AddressComponent, Location
 from date_node_structure.core import Day, NodeDate
 from geoencoding_node_structure.serializers import LocationSerializer
@@ -9,7 +9,6 @@ from date_node_structure.serializers import DateSerializer
 from uuid import uuid4
 # from django.core.exceptions.entry import DoesNotExist
 from neomodel import db
-from core.models import UserNode
 
 
 class Marriage(StructuredNode):
@@ -30,8 +29,9 @@ class Divorce(StructuredNode):
 
 class Tree(StructuredNode):
     id = StringProperty(unique_index=True, default=uuid4)
-    oweners = ArrayProperty(required=True)
-    person = RelationshipTo('Person', 'MEMBER')
+    name = StringProperty(required=True)
+    description = StringProperty()
+    persons = RelationshipTo('Person', 'MEMBER')
 
 
 class Person(StructuredNode):
@@ -44,7 +44,7 @@ class Person(StructuredNode):
     born_in_prop = StringProperty()
     death_in_prop = StringProperty()
     lived_in_prop = ArrayProperty()
-    private = Booleanproperty(required=True)
+    private = BooleanProperty(required=True, default=False)
 
     birth_date_begin = RelationshipTo(
         Day, 'BIRTH_DATE_BEGIN', cardinality=ZeroOrOne)
@@ -68,9 +68,7 @@ class Person(StructuredNode):
         AddressComponent, 'DEATH_IN', cardinality=ZeroOrOne)
     lived_in = RelationshipTo(
         AddressComponent, 'LIVED_IN')
-
     tree = Relationship(Tree, 'MEMBER')
-    own = RelationshipFrom(UserNode, 'OWN')
 
     def get_marriages(self):
         res = []
@@ -80,14 +78,14 @@ class Person(StructuredNode):
                     m = {}
                     date = list(marriage.date.all())
                     if date:
-                        m['date'] = DateSerializer(date[0])
+                        m['date'] = date[0]
                     loc = list(marriage.location.all())
                     if loc:
-                        m['location'] = LocationSerializer(loc[0])
+                        m['location'] = loc[0]
                     if marriage.location_prop:
                         m['simple_location'] = marriage.location_prop
 
-                    m['spouse'] = spouse.id
+                    m['spouse'] = spouse
                     res.append(m)
         return res
 
@@ -99,8 +97,8 @@ class Person(StructuredNode):
                     m = {}
                     date = list(marriage.date.all())
                     if date:
-                        m['date'] = date[0].id
-                    m['spouse'] = spouse.id
+                        m['date'] = date[0]
+                    m['spouse'] = spouse
                     res.append(m)
         return res
 
@@ -313,6 +311,8 @@ class Person(StructuredNode):
             self.born_in_prop = data.get('born_in_prop')
         if 'death_in_prop' in data:
             self.death_in_prop = data.get('death_in_prop')
+        if 'private' in data:
+            self.private = data.get('private')
 
     @db.transaction
     def update_person(self, data, rel):

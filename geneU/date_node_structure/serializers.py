@@ -11,8 +11,8 @@ class DateSerializer(serializers.BaseSerializer):
             raise ValidationError({
                 'date': 'This field is required.'
             })
-
         date = datetime.strptime(date, '%Y-%m-%d')
+        print date
         return {
             'date': date
         }

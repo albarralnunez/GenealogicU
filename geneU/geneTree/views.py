@@ -1,11 +1,13 @@
-from .models import Person
-from .serializers import PersonSerializer
+from .models import Person, Tree
+from .serializers import PersonSerializer, TreeSerializer
 from rest_framework import viewsets
 from django.http import Http404
 from rest_framework.decorators import list_route
-from rest_framework.response import Response
+#  from rest_framework.response import Response
 import copy
 from .gedcom_uploader import GedcomUploader
+from oauth2_provider.ext.rest_framework import TokenHasReadWriteScope
+from rest_framework.permissions import IsAuthenticated
 
 
 def handle_uploaded_file(f):
@@ -17,12 +19,25 @@ def handle_uploaded_file(f):
     #      print str(chunk)
 
 
-class PersonViewSet(viewsets.ModelViewSet):
+class TreeViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated, TokenHasReadWriteScope]
+    queryset = Tree.nodes
+    serializer_class = TreeSerializer
+    lookup_field = 'id'
 
+    def get_object(self):
+        qset = copy.deepcopy(self.queryset)
+        try:
+            return qset.get(id=self.kwargs[self.lookup_field])
+        except:
+            raise Http404("No Person matches the given query.")
+
+
+class PersonViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated, TokenHasReadWriteScope]
     queryset = Person.nodes
     serializer_class = PersonSerializer
     lookup_field = 'id'
-    permission_classes = []
 
     def get_object(self):
         qset = copy.deepcopy(self.queryset)

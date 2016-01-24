@@ -1,12 +1,48 @@
 from rest_framework import serializers
-from .models import Person
+from .models import Person, Tree
 from geoencoding_node_structure.serializers import LocationSerializer
 from date_node_structure.serializers import DateSerializer
 from django.core.exceptions import ValidationError
 import ast
 from datetime import datetime
-import json
 import copy
+
+
+class TreeSerializer(serializers.BaseSerializer):
+
+    def to_internal_value(self, data):
+        name = data.get('name')
+        description = data.get('description')
+
+        if not name:
+            raise ValidationError({
+                'name': "name is required"
+                })
+        return {
+            'name': name,
+            'description': description
+        }
+
+    def to_representation(self, node):
+        return {
+            'name': node.name,
+            'description': node.description,
+            'tree': PersonSerializer(
+                node.persons.all(), many=True, simple=True)
+        }
+
+    def create(self, validated_data):
+        tree = Tree()
+        tree.name = validated_data['name']
+        if 'description' in validated_data:
+            tree.description = validated_data['description']
+        return tree.save()
+
+    def update(self, node, validated_data):
+        node.name = validated_data['name']
+        if 'description' in validated_data:
+            node.description = validated_data['description']
+        return node.save()
 
 
 class PersonSerializer(serializers.BaseSerializer):
@@ -50,6 +86,8 @@ class PersonSerializer(serializers.BaseSerializer):
             relation_data['lived_in'] = data.pop('lived_in')
         if 'tree' in data:
             relation_data['tree'] = data.pop('tree')
+        if 'private' in data:
+            relation_data['private'] = data.pop('private')
         return relation_data
 
     def to_internal_value(self, data):
@@ -71,6 +109,7 @@ class PersonSerializer(serializers.BaseSerializer):
         married = data.get('married', [])
         divorced = data.get('divorced', [])
         tree = data.get('tree')
+        private = data.get('private')
 
         if not name:
             raise ValidationError({
@@ -239,7 +278,8 @@ class PersonSerializer(serializers.BaseSerializer):
             'adopted_by': adopted_by,
             'married': married,
             'divorced': divorced,
-            'tree': tree
+            'tree': tree,
+            'private': private
         }
 
         aux = copy.deepcopy(validated_data)
@@ -318,22 +358,24 @@ class PersonSerializer(serializers.BaseSerializer):
         married_serialized = []
         for married in node.get_marriages():
             m_aux = {
-                'spouse': '/persons/' + married['spouse']
+                'spouse': PersonSerializer(married['spouse'], simple=True).data
             }
 
             if 'location' in married:
-                m_aux['location'] = married['location']
+                m_aux['location'] = LocationSerializer(
+                    married['location']).data
             if 'date' in married:
-                m_aux['date'] = married['date']
+                m_aux['date'] = DateSerializer(married['date']).data
             married_serialized.append(m_aux)
 
         divorced_serialized = []
         for divorced in node.get_divorces():
             m_aux = {
-                'spouse': '/persons/' + divorced['spouse']
+                'spouse': PersonSerializer(
+                    divorced['spouse'], simple=True).data
             }
             if 'date' in divorced:
-                m_aux['date'] = divorced['date']
+                m_aux['date'] = DateSerializer(divorced['date']).data
             divorced_serialized.append(m_aux)
 
         return {
@@ -353,8 +395,9 @@ class PersonSerializer(serializers.BaseSerializer):
             'born_in': born_in_serialized,
             'death_in': death_in_serialized,
             'lived_in': lived_in_serialized,
-            'married': married_serialized,
-            'divorced': divorced_serialized
+            'married': married_serialized if married_serialized else None,
+            'divorced': divorced_serialized if divorced_serialized else None,
+            'private': node.private
         }
 
     def create(self, validated_data):

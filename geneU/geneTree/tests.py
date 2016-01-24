@@ -1,99 +1,102 @@
 from django.test import TestCase
 from .models import Person
 from .serializers import PersonSerializer
-from geoencoding_node_structure.core import Location
+from geoencoding_node_structure.core import Location, Tree
 from date_node_structure.core import NodeDate
 from datetime import date
 from neomodel import db
+from rest_framework.test import APIRequestFactory
+
+bcn = [
+    {
+        "long_name": "Barcelona",
+        "short_name": "Barcelona",
+        "types": ["locality", "political"]
+    },
+    {
+       "long_name": "Barcelona",
+       "short_name": "Barcelona",
+       "types": ["administrative_area_level_4", "political"]
+    },
+    {
+       "long_name": "El Barcelones",
+       "short_name": "El Barcelones",
+       "types": ["administrative_area_level_3", "political"]
+    },
+    {
+       "long_name": "Barcelona",
+       "short_name": "B",
+       "types": ["administrative_area_level_2", "political"]
+    },
+    {
+       "long_name": "Catalonia",
+       "short_name": "CT",
+       "types": ["administrative_area_level_1", "political"]
+    },
+    {
+       "long_name": "Spain",
+       "short_name": "ES",
+       "types": ["country", "political"]
+    }
+]
+
+gir = [
+    {
+       "long_name": "Girona",
+       "short_name": "Girona",
+       "types": ["locality", "political"]
+    },
+    {
+       "long_name": "Girona",
+       "short_name": "Girona",
+       "types": ["administrative_area_level_4", "political"]
+    },
+    {
+       "long_name": "El Girones",
+       "short_name": "El Girones",
+       "types": ["administrative_area_level_3", "political"]
+    },
+    {
+       "long_name": "Province of Girona",
+       "short_name": "Province of Girona",
+       "types": ["administrative_area_level_2", "political"]
+    },
+    {
+       "long_name": "Catalonia",
+       "short_name": "CT",
+       "types": ["administrative_area_level_1", "political"]
+    },
+    {
+       "long_name": "Spain",
+       "short_name": "ES",
+       "types": ["country", "political"]
+    }
+ ]
+
+jp = [
+    {
+       "long_name": "Fukuoka",
+       "short_name": "Fukuoka",
+       "types": ["locality", "political"]
+    },
+    {
+       "long_name": "Fukuoka Prefecture",
+       "short_name": "Fukuoka Prefecture",
+       "types": ["administrative_area_level_1", "political"]
+    },
+    {
+       "long_name": "Japan",
+       "short_name": "JP",
+       "types": ["country", "political"]
+    }
+]
 
 
 class geneeTestCase(TestCase):
 
-    def setUp(self):
+    def test_operations(self):
 
-        bcn = [
-            {
-               "long_name" : "Barcelona",
-               "short_name" : "Barcelona",
-               "types" : [ "locality", "political" ]
-            },
-            {
-               "long_name" : "Barcelona",
-               "short_name" : "Barcelona",
-               "types" : [ "administrative_area_level_4", "political" ]
-            },
-            {
-               "long_name" : "El Barcelones",
-               "short_name" : "El Barcelones",
-               "types" : [ "administrative_area_level_3", "political" ]
-            },
-            {
-               "long_name" : "Barcelona",
-               "short_name" : "B",
-               "types" : [ "administrative_area_level_2", "political" ]
-            },
-            {
-               "long_name" : "Catalonia",
-               "short_name" : "CT",
-               "types" : [ "administrative_area_level_1", "political" ]
-            },
-            {
-               "long_name" : "Spain",
-               "short_name" : "ES",
-               "types" : [ "country", "political" ]
-            }
-         ]
-
-        gir = [
-            {
-               "long_name" : "Girona",
-               "short_name" : "Girona",
-               "types" : [ "locality", "political" ]
-            },
-            {
-               "long_name" : "Girona",
-               "short_name" : "Girona",
-               "types" : [ "administrative_area_level_4", "political" ]
-            },
-            {
-               "long_name" : "El Girones",
-               "short_name" : "El Girones",
-               "types" : [ "administrative_area_level_3", "political" ]
-            },
-            {
-               "long_name" : "Province of Girona",
-               "short_name" : "Province of Girona",
-               "types" : [ "administrative_area_level_2", "political" ]
-            },
-            {
-               "long_name" : "Catalonia",
-               "short_name" : "CT",
-               "types" : [ "administrative_area_level_1", "political" ]
-            },
-            {
-               "long_name" : "Spain",
-               "short_name" : "ES",
-               "types" : [ "country", "political" ]
-            }
-         ]
-
-        jp = [
-            {
-               "long_name" : "Fukuoka",
-               "short_name" : "Fukuoka",
-               "types" : [ "locality", "political" ]
-            },
-            {
-               "long_name" : "Fukuoka Prefecture",
-               "short_name" : "Fukuoka Prefecture",
-               "types" : [ "administrative_area_level_1", "political" ]
-            },
-            {
-               "long_name" : "Japan",
-               "short_name" : "JP",
-               "types" : [ "country", "political" ]
-            }
-        ]
+        tree = Tree(name='Test')
 
         dani = Person(
             name='Daniel',
@@ -166,3 +169,12 @@ class geneeTestCase(TestCase):
         # p = list(Person.nodes.filter(name='Daniel'))[0]
         # serialized = PersonSerializer(p, simple=True).data
         self.assertEquals(True, True)
+
+    def test_api_calls(self):
+        factory = APIRequestFactory()
+        request = factory.post('/person/', {
+          'name': 'Trololo',
+          'surname': 'Albarral',
+          'born_in': bcn
+          })
+        print request
