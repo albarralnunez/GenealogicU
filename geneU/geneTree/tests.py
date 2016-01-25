@@ -1,8 +1,8 @@
 from django.test import TestCase
-from .models import Person
-from .serializers import PersonSerializer
-from geoencoding_node_structure.core import Location, Tree
-from date_node_structure.core import NodeDate
+from .models import Person, Tree
+# from .serializers import PersonSerializer
+from geoencoding_node_structure.core import Location
+# from date_node_structure.core import NodeDate
 from datetime import date
 from neomodel import db
 from rest_framework.test import APIRequestFactory
@@ -94,9 +94,10 @@ jp = [
 
 class geneeTestCase(TestCase):
 
+    @db.transaction
     def test_operations(self):
 
-        tree = Tree(name='Test')
+        tree = Tree(name='Test').save()
 
         dani = Person(
             name='Daniel',
@@ -108,7 +109,8 @@ class geneeTestCase(TestCase):
         dani.create_relations(
           birth_date_begin=date(2010, 5, 24),
           birth_date_end=date(2010, 5, 24),
-          born_in=bcn
+          born_in=bcn,
+          tree=tree.id
           )
 
         dani.create_relations(
@@ -120,11 +122,13 @@ class geneeTestCase(TestCase):
 
         pepi = Person(name='Pepi', surname='Nunez', genere='F').save()
         dani.son_of.connect(pepi)
+        tree.persons.connect(pepi)
         # pepi_birth = NeoDate(date(1991,8,6))
         # pepi.birth_on.connect(pepi_birth.day)
 
         antonio = Person(name='Antonio', surname='Albarral', genere='M').save()
         antonio.sons.connect(dani)
+        tree.persons.connect(antonio)
         antonio.born_in.connect(Location(address_components=gir).save())
 
         antonio.create_relations(
@@ -134,12 +138,14 @@ class geneeTestCase(TestCase):
 
         dani2 = Person(name='Daniela', surname='Albarral', genere='F').save()
         dani2.son_of.connect(pepi)
+        tree.persons.connect(dani2)
         antonio.sons.connect(dani2)
 
         dani_junior = Person(
             name='Pepi',
             surname='Albarral',
             genere='F').save()
+        tree.persons.connect(dani_junior)
         dani.sons.connect(dani_junior)
 
         sra_maria = Person(
@@ -147,9 +153,10 @@ class geneeTestCase(TestCase):
             surname='Izquierdo',
             genere='F').save()
         sra_maria.sons.connect(antonio)
+        tree.persons.connect(sra_maria)
 
         sr_juanito = Person(name='Juan').save()
-
+        tree.persons.connect(sr_juanito)
         sr_juanito.create_relations(
           divorced=[{
             'spouse': sra_maria.id, 'date': date(2010, 12, 2)}]

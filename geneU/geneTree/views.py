@@ -8,6 +8,7 @@ import copy
 from .gedcom_uploader import GedcomUploader
 from oauth2_provider.ext.rest_framework import TokenHasReadWriteScope
 from rest_framework.permissions import IsAuthenticated
+from functools import partial
 
 
 def handle_uploaded_file(f):
@@ -21,9 +22,16 @@ def handle_uploaded_file(f):
 
 class TreeViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, TokenHasReadWriteScope]
-    queryset = Tree.nodes
-    serializer_class = TreeSerializer
     lookup_field = 'id'
+
+    def get_serializer_class(self):
+        return partial(TreeSerializer, user=self.request.user.id)
+
+    def get_queryset(self):
+        qset = Tree.nodes.filter(user=self.request.user.id)
+        print list(qset)
+        print list(Tree.nodes.all())[0].user
+        return qset
 
     def get_object(self):
         qset = copy.deepcopy(self.queryset)

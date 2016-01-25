@@ -1,11 +1,9 @@
 from neomodel import (
     StructuredNode, StringProperty,
     RelationshipTo, RelationshipFrom, Relationship,
-    ZeroOrOne, ArrayProperty, BooleanProperty)
+    ZeroOrOne, ArrayProperty, BooleanProperty, OneOrMore)
 from geoencoding_node_structure.core import AddressComponent, Location
 from date_node_structure.core import Day, NodeDate
-from geoencoding_node_structure.serializers import LocationSerializer
-from date_node_structure.serializers import DateSerializer
 from uuid import uuid4
 # from django.core.exceptions.entry import DoesNotExist
 from neomodel import db
@@ -32,6 +30,11 @@ class Tree(StructuredNode):
     name = StringProperty(required=True)
     description = StringProperty()
     persons = RelationshipTo('Person', 'MEMBER')
+    user = StringProperty(index=True, required=True)
+
+    def __init__(self, user, **args):
+        self.user = user
+        super(Tree, self).__init__(self, **args)
 
 
 class Person(StructuredNode):
@@ -68,7 +71,7 @@ class Person(StructuredNode):
         AddressComponent, 'DEATH_IN', cardinality=ZeroOrOne)
     lived_in = RelationshipTo(
         AddressComponent, 'LIVED_IN')
-    tree = Relationship(Tree, 'MEMBER')
+    tree = Relationship(Tree, 'MEMBER', cardinality=OneOrMore)
 
     def get_marriages(self):
         res = []
@@ -295,6 +298,8 @@ class Person(StructuredNode):
             self.born_in.disconnect(rel)
         for rel in self.death_in.all():
             self.death_in.disconnect(rel)
+        for rel in self.tree.all():
+            self.tree.disconnect(rel)
 
     def set_attr(self, **data):
         if 'name' in data:

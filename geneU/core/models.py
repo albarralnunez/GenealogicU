@@ -1,7 +1,6 @@
 from neomodel import (
     StructuredNode, StringProperty,
-    RelationshipTo, RelationshipFrom, Relationship,
-    ZeroOrOne, ArrayProperty, BooleanProperty)
+    RelationshipTo)
 from django.db import models
 from django.contrib.auth.models import User
 from geneTree.models import Tree

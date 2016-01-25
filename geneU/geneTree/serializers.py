@@ -9,6 +9,9 @@ import copy
 
 
 class TreeSerializer(serializers.BaseSerializer):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', False)
+        super(TreeSerializer, self).__init__(*args, **kwargs)
 
     def to_internal_value(self, data):
         name = data.get('name')
@@ -26,14 +29,14 @@ class TreeSerializer(serializers.BaseSerializer):
     def to_representation(self, node):
         return {
             'name': node.name,
-            'description': node.description,
-            'tree': PersonSerializer(
-                node.persons.all(), many=True, simple=True)
+            'description': node.description
         }
 
     def create(self, validated_data):
-        tree = Tree()
-        tree.name = validated_data['name']
+        tree = Tree(
+            name=validated_data['name'],
+            user=self.user
+        )
         if 'description' in validated_data:
             tree.description = validated_data['description']
         return tree.save()
