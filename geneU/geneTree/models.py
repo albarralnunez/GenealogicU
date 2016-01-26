@@ -32,10 +32,6 @@ class Tree(StructuredNode):
     persons = RelationshipTo('Person', 'MEMBER')
     user = StringProperty(index=True, required=True)
 
-    def __init__(self, user, **args):
-        self.user = user
-        super(Tree, self).__init__(self, **args)
-
 
 class Person(StructuredNode):
 

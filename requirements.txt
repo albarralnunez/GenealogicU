@@ -2,13 +2,16 @@ certifi==0.0.8
 chardet==2.3.0
 decorator==4.0.4
 Django==1.8
+django-braces==1.8.1
 django-filter==0.11.0
+django-oauth-toolkit==0.10.0
 djangorestframework==3.3.1
 lucene-querybuilder==0.2
 Markdown==2.6.3
 neo4django==0.1.8
 neo4jrestclient==2.1.0
 neomodel==2.0.2
+oauthlib==1.0.3
 py2neo==2.0.7
 python-dateutil==2.4.2
 pytz==2015.7

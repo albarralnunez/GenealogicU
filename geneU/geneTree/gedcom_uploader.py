@@ -1,13 +1,14 @@
 from .gedcom_parser import Gedcom
-from .models import Person
+from .models import Person, Tree
 from neomodel import db
 from datetime import datetime
 
 
 class GedcomUploader:
 
-    def __init__(self, gedcom_file):
+    def __init__(self, gedcom_file, tree):
         self.data = Gedcom(gedcom_file)
+        self.tree = tree
         self.__persons = {}
 
     def __create_persons(self):
@@ -16,11 +17,13 @@ class GedcomUploader:
             if act_ele.is_individual():
                 name, surname = act_ele.name()
                 gender = act_ele.gender()
-                self.__persons[act_ele.pointer()] = Person(
+                act_p = Person(
                     name=name if name else None,
                     surname=surname if surname else None,
                     genere=gender if gender else None
                     ).save()
+                self.__persons[act_ele.pointer()] = act_p
+                act_p.tree.connect(self.tree)
 
     def __marriage(self, act_ele):
         spouses = self.data.get_family_members(act_ele, "PARENTS")
@@ -53,7 +56,6 @@ class GedcomUploader:
         for iden in self.data.element_dict():
             act_ele = self.data.element_dict()[iden]
             if act_ele.is_family():
-
                 #  marriages
                 spouses = self.__marriage(act_ele)
 
@@ -81,7 +83,7 @@ class GedcomUploader:
                     print '    ' + str(child.pointer())
                     print '-------------------------------'
 
-    #  @db.transaction
+    @db.transaction
     def upload(self):
         #  print self.data.element_dict()
         #  print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
