@@ -8,7 +8,7 @@ from geneTree.models import Tree
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    node_id = models.CharField(max_length=25)
+    node_id = models.CharField(max_length=50)
 
 
 class UserNode(StructuredNode):

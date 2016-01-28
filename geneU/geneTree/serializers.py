@@ -29,6 +29,7 @@ class TreeSerializer(serializers.BaseSerializer):
                 'name': "name is required"
                 })
         return {
+            'user': self.user,
             'name': name,
             'description': description
         }

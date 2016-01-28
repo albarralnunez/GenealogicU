@@ -47,6 +47,12 @@ class TreeViewSet(viewsets.ModelViewSet):
         )
         return Response(DeepTreeSerializer(self.get_object()).data)
 
+    @detail_route(
+        methods=['get'],
+        url_path='members')
+    def get_members(self, request, id=None):
+        return Response(DeepTreeSerializer(self.get_object()).data)
+
 
 class PersonViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, TokenHasReadWriteScope]
