@@ -1,0 +1,17 @@
+\contentsline {section}{\numberline {1}Contextualizaci\IeC {\'o}n del proyecto}{2}{section.1}
+\contentsline {subsubsection}{\numberline {1.0.1}Los arboles geneal\IeC {\'o}gicos}{2}{subsubsection.1.0.1}
+\contentsline {subsubsection}{\numberline {1.0.2}Uso y aplicaci\IeC {\'o}n de los arboles geneal\IeC {\'o}gicos.}{2}{subsubsection.1.0.2}
+\contentsline {subsection}{\numberline {1.1}Perspectiva general del software actual.}{3}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Tecnolog\IeC {\'\i }a}{3}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {1.2.1}Bases de datos basadas en grafos.}{4}{subsubsection.1.2.1}
+\contentsline {section}{\numberline {2}Planificaci\IeC {\'o}n}{7}{section.2}
+\contentsline {subsection}{\numberline {2.1}Gantt}{7}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Tareas}{8}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}Gr\IeC {\'a}fico gantt}{9}{subsubsection.2.1.2}
+\contentsline {subsection}{\numberline {2.2}Recursos}{10}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Alterativas y plan de acci\IeC {\'o}n}{10}{subsection.2.3}
+\contentsline {section}{\numberline {3}Metodolog\IeC {\'\i }a y rigor}{10}{section.3}
+\contentsline {subsection}{\numberline {3.1}SCRUM}{10}{subsection.3.1}
+\contentsline {section}{\numberline {4}An\IeC {\'a}lisis de alternativas}{11}{section.4}
+\contentsline {section}{\numberline {5}Integraci\IeC {\'o}n de conocimientos}{11}{section.5}
+\contentsline {section}{\numberline {6}Integraci\IeC {\'o}n de leyes y regulaciones}{11}{section.6}

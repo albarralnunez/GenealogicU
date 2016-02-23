@@ -1,0 +1,17 @@
+\begin{thebibliography}{1}
+
+\bibitem{aboutGEDCOM}
+Ryan Heaton.
+\newblock About gedcom, 2014.
+
+\bibitem{graphdbbook}
+Ian Robinson, Jim Webber, and Emil Eifrem.
+\newblock {\em Graph Databases}.
+\newblock O'Reilly Media, Inc., 2013.
+
+\bibitem{neo4jinaction}
+Aleksa Vukotic, Nicki Watt, Tareq Abedrabbo, Dominic Fox, and Jonas Partner.
+\newblock {\em Neo4j in action}.
+\newblock Manning, 2015.
+
+\end{thebibliography}
