@@ -3,15 +3,23 @@
 \contentsline {subsubsection}{\numberline {1.0.2}Uso y aplicaci\IeC {\'o}n de los arboles geneal\IeC {\'o}gicos.}{2}{subsubsection.1.0.2}
 \contentsline {subsection}{\numberline {1.1}Perspectiva general del software actual.}{3}{subsection.1.1}
 \contentsline {subsection}{\numberline {1.2}Tecnolog\IeC {\'\i }a}{3}{subsection.1.2}
-\contentsline {subsubsection}{\numberline {1.2.1}Bases de datos basadas en grafos.}{4}{subsubsection.1.2.1}
-\contentsline {section}{\numberline {2}Planificaci\IeC {\'o}n}{7}{section.2}
-\contentsline {subsection}{\numberline {2.1}Gantt}{7}{subsection.2.1}
-\contentsline {subsubsection}{\numberline {2.1.1}Tareas}{8}{subsubsection.2.1.1}
-\contentsline {subsubsection}{\numberline {2.1.2}Gr\IeC {\'a}fico gantt}{9}{subsubsection.2.1.2}
-\contentsline {subsection}{\numberline {2.2}Recursos}{10}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}Alterativas y plan de acci\IeC {\'o}n}{10}{subsection.2.3}
-\contentsline {section}{\numberline {3}Metodolog\IeC {\'\i }a y rigor}{10}{section.3}
-\contentsline {subsection}{\numberline {3.1}SCRUM}{10}{subsection.3.1}
-\contentsline {section}{\numberline {4}An\IeC {\'a}lisis de alternativas}{11}{section.4}
-\contentsline {section}{\numberline {5}Integraci\IeC {\'o}n de conocimientos}{11}{section.5}
-\contentsline {section}{\numberline {6}Integraci\IeC {\'o}n de leyes y regulaciones}{11}{section.6}
+\contentsline {subsubsection}{\numberline {1.2.1}Bases de datos orientadas en grafos.}{5}{subsubsection.1.2.1}
+\contentsline {section}{\numberline {2}Metodolog\IeC {\'\i }a y rigor}{6}{section.2}
+\contentsline {subsection}{\numberline {2.1}SCRUM}{7}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Desviaciones}{8}{subsection.2.2}
+\contentsline {section}{\numberline {3}Planificaci\IeC {\'o}n}{9}{section.3}
+\contentsline {subsection}{\numberline {3.1}Gantt}{9}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Tareas y Gr\IeC {\'a}ficos gantt}{9}{subsubsection.3.1.1}
+\contentsline {subsection}{\numberline {3.2}Recursos}{12}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Alterativas y plan de acci\IeC {\'o}n}{12}{subsection.3.3}
+\contentsline {section}{\numberline {4}An\IeC {\'a}lisis de alternativas}{13}{section.4}
+\contentsline {subsection}{\numberline {4.1}Tecnologias}{13}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}Base de datos}{13}{subsubsection.4.1.1}
+\contentsline {subsubsection}{\numberline {4.1.2}Lenguaje de programaci\IeC {\'o}n}{14}{subsubsection.4.1.2}
+\contentsline {section}{\numberline {5}Integraci\IeC {\'o}n de conocimientos}{17}{section.5}
+\contentsline {subsection}{\numberline {5.1}Base de datos orientada a grafos}{17}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Backend}{18}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Busqueda de personas similares}{19}{subsection.5.3}
+\contentsline {section}{\numberline {6}Integraci\IeC {\'o}n de leyes y regulaciones}{19}{section.6}
+\contentsline {subsection}{\numberline {6.1}Derecho de informaci\IeC {\'o}n}{19}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Consentimiento del afectado}{19}{subsection.6.2}

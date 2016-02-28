@@ -4,10 +4,18 @@
 Ryan Heaton.
 \newblock About gedcom, 2014.
 
+\bibitem{graphvsrelational}
+Alekh Jindal.
+\newblock Benchmarking graph databases, 2013.
+
 \bibitem{graphdbbook}
 Ian Robinson, Jim Webber, and Emil Eifrem.
 \newblock {\em Graph Databases}.
 \newblock O'Reilly Media, Inc., 2013.
+
+\bibitem{neo4jvsinfogrid}
+Richard Stallman.
+\newblock Java trap, 2004.
 
 \bibitem{neo4jinaction}
 Aleksa Vukotic, Nicki Watt, Tareq Abedrabbo, Dominic Fox, and Jonas Partner.

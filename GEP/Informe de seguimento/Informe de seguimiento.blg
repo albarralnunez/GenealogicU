@@ -3,47 +3,59 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: Informe de seguimiento.aux
 The style file: plain.bst
 Database file #1: mybibliography.bib
+Warning--entry type for "neo4jvsinfogrid" isn't style-file defined
+--line 2 of file mybibliography.bib
+Repeated entry---line 9 of file mybibliography.bib
+ :     neo4jvsinfogrid
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 16 of file mybibliography.bib
+ :     neo4jvsinfogrid
+ :                    ,
+I'm skipping whatever remains of this entry
+Warning--entry type for "graphvsrelational" isn't style-file defined
+--line 23 of file mybibliography.bib
 Warning--entry type for "aboutGEDCOM" isn't style-file defined
---line 1 of file mybibliography.bib
-You've used 3 entries,
+--line 30 of file mybibliography.bib
+You've used 5 entries,
             2118 wiz_defined-function locations,
-            512 strings with 4303 characters,
-and the built_in function-call counts, 843 in all, are:
-= -- 69
-> -- 53
+            519 strings with 4404 characters,
+and the built_in function-call counts, 1237 in all, are:
+= -- 103
+> -- 67
 < -- 0
-+ -- 21
-- -- 18
-* -- 50
-:= -- 153
-add.period$ -- 8
-call.type$ -- 3
-change.case$ -- 16
++ -- 27
+- -- 22
+* -- 62
+:= -- 217
+add.period$ -- 12
+call.type$ -- 5
+change.case$ -- 24
 chr.to.int$ -- 0
-cite$ -- 3
-duplicate$ -- 31
-empty$ -- 67
-format.name$ -- 18
-if$ -- 170
+cite$ -- 5
+duplicate$ -- 45
+empty$ -- 111
+format.name$ -- 22
+if$ -- 256
 int.to.chr$ -- 0
-int.to.str$ -- 3
+int.to.str$ -- 5
 missing$ -- 4
-newline$ -- 17
-num.names$ -- 6
-pop$ -- 31
+newline$ -- 25
+num.names$ -- 10
+pop$ -- 49
 preamble$ -- 1
-purify$ -- 15
+purify$ -- 21
 quote$ -- 0
-skip$ -- 20
+skip$ -- 36
 stack$ -- 0
-substring$ -- 15
-swap$ -- 3
+substring$ -- 25
+swap$ -- 5
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 8
+type$ -- 16
 warning$ -- 0
-while$ -- 6
-width$ -- 4
-write$ -- 30
-(There was 1 warning)
+while$ -- 10
+width$ -- 6
+write$ -- 46
+(There were 2 error messages)

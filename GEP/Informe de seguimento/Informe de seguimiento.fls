@@ -142,19 +142,26 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmti12.tfm
 INPUT ./add/table_find_friends_experiment.png
 INPUT ./add/table_find_friends_experiment.png
 INPUT ./add/table_find_friends_experiment.png
+INPUT ./add/benchmarkingneo4j.png
+INPUT ./add/benchmarkingneo4j.png
+INPUT ./add/benchmarkingneo4j.png
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbxti10.tfm
 INPUT ./add/grdb.png
 INPUT ./add/grdb.png
 INPUT ./add/grdb.png
-INPUT ./add/Task.PNG
-INPUT ./add/Task.PNG
-INPUT ./add/Task.PNG
+INPUT ./add/Scrum_process.png
+INPUT ./add/Scrum_process.png
+INPUT ./add/Scrum_process.png
+INPUT ./add/Task.png
+INPUT ./add/Task.png
+INPUT ./add/Task.png
 INPUT ./add/Gantt_1.PNG
 INPUT ./add/Gantt_1.PNG
 INPUT ./add/Gantt_1.PNG
 INPUT ./add/Gantt_2.PNG
 INPUT ./add/Gantt_2.PNG
 INPUT ./add/Gantt_2.PNG
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm
 INPUT Informe de seguimiento.bbl
 INPUT Informe de seguimiento.bbl
 INPUT Informe de seguimiento.aux
@@ -164,3 +171,4 @@ INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb
+INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb
