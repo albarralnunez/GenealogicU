@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2015-09-01" view-index="0" gantt-divider-location="408" resource-divider-location="300" version="2.7.2" locale="en_US">
+    <description/>
+    <view zooming-state="default:8" id="gantt-chart">
+        <field id="tpd3" name="Name" width="55" order="0"/>
+        <field id="tpd4" name="Begin date" width="16" order="1"/>
+        <field id="tpd5" name="End date" width="27" order="2"/>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Name" width="50" order="0"/>
+        <field id="1" name="Default role" width="50" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="0" mon="0" tue="0" wed="0" thu="0" fri="0" sat="0"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" name="GEP" meeting="false" start="2015-09-14" duration="31" complete="0" expand="true">
+            <depend id="15" type="2" difference="0" hardness="Strong"/>
+            <task id="4" name="Estado del arte y alcance" meeting="false" start="2015-09-14" duration="9" complete="0" expand="true"/>
+            <task id="6" name="Planificación temporal" meeting="false" start="2015-09-23" duration="6" complete="0" expand="true"/>
+            <task id="8" name="Gestión económica y sostenibilidad" meeting="false" start="2015-09-29" duration="7" complete="0" expand="true"/>
+            <task id="9" name="Preparación de la presentación final de GEP" meeting="false" start="2015-10-06" duration="9" complete="0" expand="true"/>
+        </task>
+        <task id="15" name="Especificación" meeting="false" start="2015-10-15" duration="31" complete="0" expand="true">
+            <depend id="26" type="2" difference="0" hardness="Strong"/>
+            <task id="17" name="Redacción de las historias de usuario" meeting="false" start="2015-10-15" duration="9" complete="0" expand="true"/>
+            <task id="38" name="Requisitos no funcionales" color="#8cb6ce" meeting="false" start="2015-10-24" duration="5" complete="0" expand="true"/>
+            <task id="21" name="Especificación de la arquitectura" meeting="false" start="2015-10-29" duration="11" complete="0" expand="true"/>
+            <task id="25" name="Analisis de la seleccion de tecnologias" color="#8cb6ce" meeting="false" start="2015-11-09" duration="6" complete="0" expand="true"/>
+        </task>
+        <task id="26" name="Implementación" color="#000000" meeting="false" start="2015-11-15" duration="154" complete="0" expand="true">
+            <depend id="72" type="2" difference="0" hardness="Strong"/>
+            <task id="28" name="Sprint 1 (Configuración del entorno de pre y pro)" meeting="false" start="2015-11-15" duration="14" complete="0" expand="true">
+                <depend id="32" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="32" name="Sprint 2 (Configuración del entorno de pre y pro)" meeting="false" start="2015-11-29" duration="14" complete="0" expand="true">
+                <depend id="33" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="33" name="Sprint 3 (Persistencia)" meeting="false" start="2015-12-13" duration="14" complete="0" expand="true">
+                <depend id="34" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="34" name="Sprint 4  (Persistencia)" color="#8cb6ce" meeting="false" start="2015-12-27" duration="14" complete="0" expand="true">
+                <depend id="53" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="53" name="Sprint 5 (API -  CRUD)" color="#8cb6ce" meeting="false" start="2016-01-10" duration="14" complete="0" expand="true">
+                <depend id="51" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="51" name="Sprint 6 (AP - Usuarios)" color="#8cb6ce" meeting="false" start="2016-01-24" duration="14" complete="0" expand="true">
+                <depend id="49" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="49" name="Sprint 7 (API - End-points ext)" color="#8cb6ce" meeting="false" start="2016-02-07" duration="14" complete="0" expand="true">
+                <depend id="47" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="47" name="Sprint 8 (API - Async)" color="#8cb6ce" meeting="false" start="2016-02-21" duration="14" complete="0" expand="true">
+                <depend id="45" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="45" name="Sprint 9 (API - Similitudes)" color="#8cb6ce" meeting="false" start="2016-03-06" duration="14" complete="0" expand="true">
+                <depend id="61" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="61" name="Sprint 10 (API - Similitudes)" color="#8cb6ce" meeting="false" start="2016-03-20" duration="14" complete="0" expand="true">
+                <depend id="57" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="57" name="Sprint 11 (Revisión)" color="#8cb6ce" meeting="false" start="2016-04-03" duration="14" complete="0" expand="true"/>
+        </task>
+        <task id="72" name="Revisón documentación" color="#8cb6ce" meeting="false" start="2016-04-17" duration="75" complete="0" expand="true"/>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <taskdisplaycolumns>
+        <displaycolumn property-id="tpd2" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd6" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd3" order="0" width="226" visible="true"/>
+        <displaycolumn property-id="tpd4" order="1" width="65" visible="true"/>
+        <displaycolumn property-id="tpd7" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd8" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd12" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd5" order="2" width="113" visible="true"/>
+        <displaycolumn property-id="tpd10" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd11" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd9" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd1" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd13" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd0" order="-1" width="75" visible="false"/>
+    </taskdisplaycolumns>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
