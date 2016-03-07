@@ -1,7 +1,5 @@
-# Create your tests here.
+# from .core import Location
 from django.test import TestCase
-from .core import Location
-from geocode_service import *
 
 
 class geoencodingTestCase(TestCase):

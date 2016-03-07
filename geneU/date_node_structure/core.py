@@ -1,6 +1,7 @@
 from neomodel import (
     StructuredNode, StringProperty,
     RelationshipTo, RelationshipFrom)
+from datetime import date
 
 
 class Day(StructuredNode):
@@ -32,6 +33,11 @@ class NodeDate:
         date is type date
         '''
         self.date = date
+
+    @classmethod
+    def to_date(self, datee):
+        a = datee.id.split('-')
+        return date(int(a[0]), int(a[1]), int(a[2]))
 
     def save(self):
         year = list(Year.nodes.filter(id=str(self.date.year)))

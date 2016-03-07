@@ -1,0 +1,8 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block body %}
+{% if not request.user.is_authenticated %}
+	<a href="/accounts/signup/" class="btn btn-info" role="button">SignUp</a>
+{% endif %}
+{% endblock %}

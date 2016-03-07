@@ -1,32 +1,61 @@
-"""geneU URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.8/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Add an import:  from blog import urls as blog_urls
-    2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
-"""
+import core.views as views_core
+import geneTree.views as views_genetree
 from django.conf.urls import include, url
 from django.contrib import admin
-from geneTree.views import PersonViewSet, TreeViewSet
-from rest_framework import routers
+from rest_framework import routers, urls
+# from oauth2_provider import login
+
+admin.autodiscover()
 
 router = routers.DefaultRouter()
-router.register(r'person', PersonViewSet, base_name='person')
-router.register(r'tree', TreeViewSet, base_name='tree')
+router.register(
+    r'user',
+    views_core.UserProfileViewSet,
+    base_name='user')
+router.register(
+    r'person',
+    views_genetree.PersonViewSet,
+    base_name='person')
+router.register(
+    r'tree',
+    views_genetree.TreeViewSet,
+    base_name='tree')
+router.register(
+    r'marriage',
+    views_genetree.MarriageViewSet,
+    base_name='marriage')
+router.register(
+    r'divorce',
+    views_genetree.DivorceViewSet,
+    base_name='divorce')
+router.register(
+    r'birth',
+    views_genetree.BirthViewSet,
+    base_name='birth')
+router.register(
+    r'death',
+    views_genetree.DeathViewSet,
+    base_name='death')
+router.register(
+    r'adoption',
+    views_genetree.AdoptionViewSet,
+    base_name='adoption')
+router.register(
+    r'lived',
+    views_genetree.LivedViewSet,
+    base_name='lived')
+# router.register(
+#     r'user',
+#     UserViewSet,
+#     base_name='user')
 
 urlpatterns = [
+    url(r'^$', views_core.index, name='home'),
+    url(r"^accounts/", include("account.urls")),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     url(r'^api-auth/',
-        include('rest_framework.urls', namespace='rest_framework'))
+        include(urls, namespace='rest_framework'))
 ]
 
 urlpatterns += router.urls

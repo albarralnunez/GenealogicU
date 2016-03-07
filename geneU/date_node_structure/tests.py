@@ -1,7 +1,7 @@
 # Create your tests here.
-from django.test import TestCase
 from .core import NodeDate, RootDate
 from .serializers import *
+from django.test import TestCase
 
 
 class DayTestCase(TestCase):

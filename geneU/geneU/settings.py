@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# AUTH_USER_MODEL = 'core.models.UserProfile'
 
 # Application definition
 
@@ -42,11 +43,18 @@ INSTALLED_APPS = (
     'neomodel',
     'rest_framework',
     'oauth2_provider',
+    'django_extensions',
+    'corsheaders',
+    'account',
+    'pinax_theme_bootstrap',
+    'bootstrapform',
+    'celery',
+    # 'django-celery',
     # project apps
-    'geneTree',
     'core',
+    'geneTree',
     'geoencoding_node_structure',
-    'date_node_structure',
+    'date_node_structure'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -54,10 +62,14 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'django.middleware.security.SecurityMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'oauth2_provider.middleware.OAuth2TokenMiddleware'
+    # 'account.middleware.LocaleMiddleware',
+    # 'account.middleware.TimezoneMiddleware',
 )
 
 ROOT_URLCONF = 'geneU.urls'
@@ -65,7 +77,7 @@ ROOT_URLCONF = 'geneU.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,6 +88,12 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+TEMPLATE_CONTEXT_PROCESSORS = [
+    "account.context_processors.account",
+    'django.core.context_processors.request',
+    'pinax_theme_bootstrap.context_processors.theme'
 ]
 
 WSGI_APPLICATION = 'geneU.wsgi.application'
@@ -98,7 +116,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
+USE_I18N = False
 
 USE_L10N = True
 
@@ -126,6 +144,45 @@ OAUTH2_PROVIDER = {
         'write': 'Write scope',
     }
 }
+
+AUTHENTICATION_BACKENDS = (
+    # 'oauth2_provider.backends.OAuth2Backend',
+    # Uncomment following if you want to access the admin
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+"""
+# Name of nodes to start
+# here we have a single node
+CELERYD_NODES = "w1"
+# or we could have three nodes:
+# CELERYD_NODES = "w1 w2 w3"
+# Where to chdir at start.
+CELERYD_CHDIR = "."
+# Extra arguments to celeryd
+CELERYD_OPTS = "--time-limit=300 --concurrency=8"
+# Name of the celery config module.
+CELERY_CONFIG_MODULE = "celeryconfig"
+# %n will be replaced with the nodename.
+# CELERYD_LOG_FILE = "/var/log/celery/%n.log"
+# CELERYD_PID_FILE = "/var/run/celery/%n.pid"
+
+# Workers should run as an unprivileged user.
+CELERYD_USER = "celery"
+CELERYD_GROUP = "celery"
+"""
+
+CORS_ORIGIN_ALLOW_ALL = False
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = '25'
+# EMAIL_HOST_USER = os.environ['GMAIL']
+# EMAIL_HOST_PASSWORD = os.environ['GMAIL_PSW']
+# DEFAULT_FROM_EMAIL = os.environ['GMAIL']
+# DEFAULT_TO_EMAIL = os.environ['GMAIL']
 
 try:
     HOSTNAME = socket.gethostname()

@@ -1,7 +1,7 @@
+from geocode_service import Client
 from neomodel import (
     StructuredNode, StringProperty, JSONProperty,
     RelationshipTo, RelationshipFrom)
-from geocode_service import Client
 
 
 class RootLocation(StructuredNode):

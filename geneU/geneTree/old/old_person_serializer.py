@@ -1,11 +1,11 @@
-from rest_framework import serializers
-from .models import Person
 from geoencoding_node_structure.serializers import LocationSerializer
 from date_node_structure.serializers import DateSerializer
+from .models import Person
+from rest_framework import serializers
 from django.core.exceptions import ValidationError
-import ast
 from datetime import datetime
 import copy
+import re
 
 
 class PersonSerializer(serializers.BaseSerializer):
@@ -49,8 +49,6 @@ class PersonSerializer(serializers.BaseSerializer):
             relation_data['lived_in'] = data.pop('lived_in')
         if 'tree' in data:
             relation_data['tree'] = data.pop('tree')
-        if 'private' in data:
-            relation_data['private'] = data.pop('private')
         return relation_data
 
     def to_internal_value(self, data):
@@ -72,7 +70,6 @@ class PersonSerializer(serializers.BaseSerializer):
         married = data.get('married', [])
         divorced = data.get('divorced', [])
         tree = data.get('tree')
-        private = data.get('private')
 
         if not name:
             raise ValidationError({
@@ -90,35 +87,24 @@ class PersonSerializer(serializers.BaseSerializer):
                 'genere': "Incorrect data format, should be 'M' or 'W'"
             })
 
-        if son_of:
-            try:
-                son_of = ast.literal_eval(son_of)
-            except(ValidationError):
-                raise ValidationError({
-                    'son_of': "Incorrect data format, should be a list"
-                })
-        if sons:
-            try:
-                sons = ast.literal_eval(sons)
-            except(ValidationError):
-                raise ValidationError({
-                    'sons': "Incorrect data format, should be a list"
-                })
+        if type(son_of) != list:
+            raise ValidationError({
+                'son_of': "Incorrect data format, should be a list"
+            })
 
-        if adopted:
-            try:
-                adopted = ast.literal_eval(adopted)
-            except(ValidationError):
-                raise ValidationError({
-                    'adopted': "Incorrect data format, should be a list"
-                })
-        if adopted_by:
-            try:
-                adopted_by = ast.literal_eval(adopted_by)
-            except(ValidationError):
-                raise ValidationError({
-                    'adopted_by': "Incorrect data format, should be a list"
-                })
+        if type(sons) != list:
+            raise ValidationError({
+                'sons': "Incorrect data format, should be a list"
+            })
+
+        if type(adopted) != list:
+            raise ValidationError({
+                'adopted': "Incorrect data format, should be a list"
+            })
+        if type(adopted_by) != list:
+            raise ValidationError({
+                'adopted_by': "Incorrect data format, should be a list"
+            })
 
         if married:
             for m in married:
@@ -178,7 +164,12 @@ class PersonSerializer(serializers.BaseSerializer):
                     'death_date_end': "Incorrect data format," +
                     " the date format should be YYYY-MM-DD"
                     })
-
+        try:
+            tree = re.match(r'\/tree\/(.+)', tree).group(1)
+        except:
+            raise ValidationError({
+                    'tree': "Incorrect format"
+                    })
         # Return the validated values. This will be available as
         # the `.validated_data` property.
         validated_data = {
@@ -199,8 +190,7 @@ class PersonSerializer(serializers.BaseSerializer):
             'adopted_by': adopted_by,
             'married': married,
             'divorced': divorced,
-            'tree': tree,
-            'private': private
+            'tree': tree
         }
 
         aux = copy.deepcopy(validated_data)
@@ -214,7 +204,7 @@ class PersonSerializer(serializers.BaseSerializer):
     def to_representation(self, node):
 
         if self.simple:
-            return '/persons/' + node.id
+            return '/person/' + node.id
 
         sons = list(node.sons.all())
         sons_serialized = None
@@ -300,7 +290,7 @@ class PersonSerializer(serializers.BaseSerializer):
             divorced_serialized.append(m_aux)
 
         return {
-            'url': '/persons/' + node.id,
+            'url': '/person/' + node.id,
             'name': node.name,
             'surname': node.surname,
             'second_surname': node.second_surname,
@@ -318,7 +308,6 @@ class PersonSerializer(serializers.BaseSerializer):
             'lived_in': lived_in_serialized,
             'married': married_serialized if married_serialized else None,
             'divorced': divorced_serialized if divorced_serialized else None,
-            'private': node.private
         }
 
     def create(self, validated_data):

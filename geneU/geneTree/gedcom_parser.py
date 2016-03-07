@@ -157,8 +157,8 @@ class Gedcom:
         fams_families2 = set(self.families(individual2, "FAMS"))
         family = list(fams_families1.intersection(fams_families2))
         if family:
-            print family
-            print family[0].children()
+            # print family
+            # print family[0].children()
             for famdata in family[0].children():
                 if famdata.tag() == "MARR" or famdata.tag() == 'DIV':
                     for marrdata in famdata.children():
@@ -207,13 +207,14 @@ class Gedcom:
         return False
 
     def families(self, individual, family_type="FAMS"):
-        """ Return family elements listed for an individual. 
+        """ Return family elements listed for an individual.
         family_type can be FAMS (families where the individual is a spouse) or
         FAMC (families where the individual is a child). If a value is not
         provided, FAMS is default value.
         """
         if not individual.is_individual():
-            raise ValueError("Operation only valid for elements with INDI tag.")
+            raise ValueError(
+                "Operation only valid for elements with INDI tag.")
         families = []
         for child in individual.children():
             is_fams = (child.tag() == family_type and
@@ -229,7 +230,8 @@ class Gedcom:
         used to specify only natural (genetic) ancestors.
         """
         if not indi.is_individual():
-            raise ValueError("Operation only valid for elements with INDI tag.")
+            raise ValueError(
+                "Operation only valid for elements with INDI tag.")
         parents = self.get_parents(indi, anc_type)
         ancestors = parents
         for parent in parents:

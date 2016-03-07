@@ -1,11 +1,15 @@
-from django.test import TestCase
-from .models import Person, Tree
-# from .serializers import PersonSerializer
-from geoencoding_node_structure.core import Location
-# from date_node_structure.core import NodeDate
-from datetime import date
 from neomodel import db
-from rest_framework.test import APIRequestFactory
+from core.models import UserNode
+from geneTree.models import Tree, Person
+from geoencoding_node_structure.core import Location
+from datetime import date
+from django.contrib.auth.models import User
+from date_node_structure.core import RootDate
+from geoencoding_node_structure.core import RootLocation
+from oauth2_provider.models import Application, AccessToken
+from datetime import timedelta
+from django.utils import timezone
+
 
 bcn = [
     {
@@ -92,12 +96,55 @@ jp = [
 ]
 
 
-class geneeTestCase(TestCase):
+class setup():
 
-    @db.transaction
-    def test_operations(self):
+    def __init__(self, *args, **kwargs):
+        self.user = None
+        self.token_bearer = None
+        self.app = None
+        self.person1 = None
+        self.person2 = None
+        self.person3 = None
+        self.tree = None
+
+    def __create_client_app(self, user):
+        def _create_authorization_header(token):
+            return "Bearer {0}".format(token)
+
+        self.app = Application.objects.create(
+            client_type=Application.CLIENT_CONFIDENTIAL,
+            authorization_grant_type=Application.GRANT_AUTHORIZATION_CODE,
+            redirect_uris='https://www.none.com/oauth2/callback',
+            name='dummy',
+            user=user
+        )
+        access_token = AccessToken.objects.create(
+            user=user,
+            scope='read write',
+            expires=timezone.now() + timedelta(seconds=300),
+            token='secret-access-token-key',
+            application=self.app
+        )
+        self.token_bearer = _create_authorization_header(access_token)
+
+    def setup(self):
+        user = User(username='dummy', email='dummy@geneu.com')
+        user.set_password('dummy')
+        user.save()
+        self.user = user
+        self.__create_client_app(user)
+
+        exs = list(RootLocation.nodes.all())
+        if not exs:
+            RootLocation().save()
+
+        exs = list(RootDate.nodes.all())
+        if not exs:
+            RootDate().save()
 
         tree = Tree(name='Test').save()
+        user = UserNode.nodes.get(id=user.id)
+        user.own.connect(tree)
 
         dani = Person(
             name='Daniel',
@@ -162,26 +209,25 @@ class geneeTestCase(TestCase):
             'spouse': sra_maria.id, 'date': date(2010, 12, 2)}]
           )
 
-    """
-    def testt(self):
-        try:
-            p = list(Person.nodes.filter(name='Daniel'))[0]
-            self.assertEquals('Daniel', p.name)
-            self.assertEquals(date(1991, 8, 6), p.birth)
-        except:
-            self.assertEquals(True, True)
-    """
+        self.person1 = antonio
+        self.person2 = dani2
+        self.person3 = sr_juanito
+        self.tree = tree
 
-    def test_serializers(self):
-        # p = list(Person.nodes.filter(name='Daniel'))[0]
-        # serialized = PersonSerializer(p, simple=True).data
-        self.assertEquals(True, True)
+    @staticmethod
+    def clean_up():
+        db.cypher_query(
+                  '''
+                  MATCH (n)\
+                  OPTIONAL MATCH (n)-[r]-()\
+                  WITH n,r LIMIT 100000 DELETE n,r;\
+                  '''
+              )
 
-    def test_api_calls(self):
-        factory = APIRequestFactory()
-        request = factory.post('/person/', {
-          'name': 'Trololo',
-          'surname': 'Albarral',
-          'born_in': bcn
-          })
-        print request
+        exs = list(RootLocation.nodes.all())
+        if not exs:
+            RootLocation().save()
+
+        exs = list(RootDate.nodes.all())
+        if not exs:
+            RootDate().save()

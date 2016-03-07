@@ -1,0 +1,58 @@
+Performing system checks...
+
+System check identified no issues (0 silenced).
+January 30, 2016 - 20:24:36
+Django version 1.8, using settings 'geneU.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+[('/usr/lib/python2.7/threading.py', 783, '__bootstrap', 'self.__bootstrap_inner()'), ('/usr/lib/python2.7/threading.py', 810, '__bootstrap_inner', 'self.run()'), ('/usr/lib/python2.7/threading.py', 763, 'run', 'self.__target(*self.__args, **self.__kwargs)'), ('/usr/lib/python2.7/SocketServer.py', 593, 'process_request_thread', 'self.finish_request(request, client_address)'), ('/usr/lib/python2.7/SocketServer.py', 334, 'finish_request', 'self.RequestHandlerClass(request, client_address, self)'), ('/home/daniel/GenealogicU/env/local/lib/python2.7/site-packages/django/core/servers/basehttp.py', 102, '__init__', 'super(WSGIRequestHandler, self).__init__(*args, **kwargs)'), ('/usr/lib/python2.7/SocketServer.py', 649, '__init__', 'self.handle()'), ('/home/daniel/GenealogicU/env/local/lib/python2.7/site-packages/django/core/servers/basehttp.py', 182, 'handle', 'handler.run(self.server.get_app())'), ('/usr/lib/python2.7/wsgiref/handlers.py', 85, 'run', 'self.result = application(self.environ, self.start_response)'), ('/home/daniel/GenealogicU/env/local/lib/python2.7/site-packages/django/contrib/staticfiles/handlers.py', 63, '__call__', 'return self.application(environ, start_response)'), ('/home/daniel/GenealogicU/env/local/lib/python2.7/site-packages/django/core/handlers/wsgi.py', 189, '__call__', 'response = self.get_response(request)'), ('/home/daniel/GenealogicU/env/local/lib/python2.7/site-packages/django/core/handlers/base.py', 132, 'get_response', 'response = wrapped_callback(request, *callback_args, **callback_kwargs)'), ('/home/daniel/GenealogicU/env/local/lib/python2.7/site-packages/django/views/decorators/csrf.py', 58, 'wrapped_view', 'return view_func(*args, **kwargs)'), ('/home/daniel/GenealogicU/env/local/lib/python2.7/site-packages/rest_framework/viewsets.py', 87, 'view', 'return self.dispatch(request, *args, **kwargs)'), ('/home/daniel/GenealogicU/env/local/lib/python2.7/site-packages/rest_framework/views.py', 463, 'dispatch', 'response = handler(request, *args, **kwargs)'), ('/home/daniel/GenealogicU/env/local/lib/python2.7/site-packages/rest_framework/mixins.py', 22, 'create', 'headers = self.get_success_headers(serializer.data)'), ('/home/daniel/GenealogicU/env/local/lib/python2.7/site-packages/rest_framework/serializers.py', 239, 'data', 'self._data = self.to_representation(self.instance)'), ('/home/daniel/GenealogicU/geneU/geneTree/serializers.py', 54, 'to_representation', "'user': UserSerializer(userp).data,"), ('/home/daniel/GenealogicU/env/local/lib/python2.7/site-packages/rest_framework/serializers.py', 239, 'data', 'self._data = self.to_representation(self.instance)'), ('/home/daniel/GenealogicU/geneU/core/serializers.py', 68, 'to_representation', 'UserNode.nodes.get(id=obj.id).own.all(), many=True)'), ('/home/daniel/GenealogicU/env/local/lib/python2.7/site-packages/rest_framework/serializers.py', 101, '__new__', 'return cls.many_init(*args, **kwargs)'), ('/home/daniel/GenealogicU/env/local/lib/python2.7/site-packages/rest_framework/serializers.py', 122, 'many_init', 'child_serializer = cls(*args, **kwargs)'), ('/home/daniel/GenealogicU/geneU/geneTree/serializers.py', 29, '__init__', 'print repr(traceback.extract_stack())')]
+############################################################
+Performing system checks...
+
+System check identified no issues (0 silenced).
+January 30, 2016 - 20:25:38
+Django version 1.8, using settings 'geneU.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+January 30, 2016 - 20:28:07
+Django version 1.8, using settings 'geneU.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+January 30, 2016 - 20:36:17
+Django version 1.8, using settings 'geneU.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+January 31, 2016 - 04:04:53
+Django version 1.8, using settings 'geneU.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+January 31, 2016 - 04:08:17
+Django version 1.8, using settings 'geneU.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+January 31, 2016 - 04:22:44
+Django version 1.8, using settings 'geneU.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+January 31, 2016 - 04:23:48
+Django version 1.8, using settings 'geneU.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
