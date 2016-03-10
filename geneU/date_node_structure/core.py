@@ -7,22 +7,23 @@ from datetime import date
 class Day(StructuredNode):
     id = StringProperty(unique_index=True)
     value = StringProperty(index=True)
-    belongs = RelationshipFrom('Month', 'SUBSET')
+    belongs = RelationshipFrom('Month', 'MONTH')
 
 
 class Month(StructuredNode):
     id = StringProperty(unique_index=True)
     value = StringProperty(index=True)
-    subset = RelationshipTo(Day, 'SUBSET')
-    belongs = RelationshipFrom('Year', 'SUBSET')
+    subset = RelationshipTo(Day, 'MONTH')
+    belongs = RelationshipFrom('Year', 'YEAR')
 
 
 class Year(StructuredNode):
     id = StringProperty(unique_index=True)
-    subset = RelationshipTo(Month, 'SUBSET')
+    subset = RelationshipTo(Month, 'YEAR')
 
 
 class RootDate(StructuredNode):
+    name = StringProperty(unique_index=True, default='root_date')
     subset = RelationshipTo(Year, 'DATE')
 
 

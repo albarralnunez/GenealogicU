@@ -244,14 +244,77 @@ class setup():
         self.person3.set_tree(self.tree)
         self.location = bcn
 
+    def event_setup(self):
+        user = User(username='dummy', email='dummy@geneu.com')
+        user.set_password('dummy')
+        user.save()
+        self.user = user
+        self.__create_client_app(user)
+        exs = list(RootLocation.nodes.all())
+        if not exs:
+            RootLocation().save()
+        exs = list(RootDate.nodes.all())
+        if not exs:
+            RootDate().save()
+        t = models_person.Tree(name='Test').save()
+        user = UserNode.nodes.get(id=user.id)
+
+        t.set_owner(user)
+
+        self.tree = t
+        self.person1 = models_person.Person(name='person1').save()
+        self.person1.set_tree(self.tree)
+        self.person2 = models_person.Person(name='person2').save()
+        self.person2.set_tree(self.tree)
+        self.person3 = models_person.Person(name='person3').save()
+        self.person3.set_tree(self.tree)
+        self.location = bcn
+
+        event1 = {
+            'loc': bcn,
+            'date_begin': date(1991, 1, 1),
+            'date_end': date(1994, 12, 10),
+            'person': self.person1
+        }
+
+        l = models_person.Lived.const(**event1)
+        print 'e1: ', l.id
+
+        event2 = {
+            'loc': bcn,
+            'date_begin': date(1990, 4, 2),
+            'date_end': date(1992, 1, 5),
+            'person': self.person3
+        }
+
+        event4 = {
+            'loc': bcn,
+            'date_begin': date(1993, 4, 2),
+            'date_end': date(1995, 1, 5),
+            'person': self.person3
+        }
+        models_person.Lived.const(**event4)
+
+        l = models_person.Lived.const(**event2)
+        print 'e2: ', l.id
+
+        event3 = {
+            'loc': gir,
+            'date_begin': date(1992, 1, 2),
+            'date_end': date(1993, 1, 3),
+            'person': self.person2
+        }
+
+        models_person.Lived.const(**event3)
+
     @staticmethod
     def clean_up():
         db.cypher_query(
             '''
-                  MATCH (n)\
-                  OPTIONAL MATCH (n)-[r]-()\
-                  WITH n,r LIMIT 100000 DELETE n,r;\
-                  '''
+            MATCH (n) \
+            OPTIONAL MATCH (n)-[r]-() \
+            WITH n,r LIMIT 100000 DELETE n,r; \
+            '''
         )
 
         exs = list(RootLocation.nodes.all())

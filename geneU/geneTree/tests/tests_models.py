@@ -96,11 +96,6 @@ class modelsTestCase(TestCase):
         )
         self.assertTrue(b)
 
-    def test_get_similar_lived(self):
-        b = self.setup.person1.get_similar_lived()
-        print b
-        self.assertEqual(True, True)
-
     """
     def test_get_marriages(self):
         p = self.setup.person1

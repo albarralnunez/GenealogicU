@@ -6,6 +6,12 @@ from uuid import uuid4
 from geoencoding_node_structure.core import AddressComponent, Location
 from date_node_structure.core import Day, NodeDate
 # import geneTree.models_person as'
+from string import Template
+
+
+class ClassProperty(property):
+    def __get__(self, cls, owner):
+        return self.fget.__get__(None, owner)()
 
 
 class Tree(StructuredNode):
@@ -25,21 +31,18 @@ class Tree(StructuredNode):
 
 class Event(StructuredNode):
     id = StringProperty(unique_index=True, default=uuid4)
-    location = RelationshipTo(
-        AddressComponent, 'LOCATION', cardinality=ZeroOrOne)
+    location = Relationship(AddressComponent, 'LOCATION')
     location_prop = StringProperty()
-    date_begin = RelationshipTo(
-        Day, 'DATE_BEGIN', cardinality=ZeroOrOne)
-    date_end = RelationshipTo(
-        Day, 'DATE_END', cardinality=ZeroOrOne)
+    date_begin = Relationship(Day, 'DATE_BEGIN')
+    date_end = Relationship(Day, 'DATE_END')
     description = StringProperty()
 
     def set_event(
             self, loc=None, location_prop=None, description=None,
             date_begin=None, date_end=None):
         if loc:
-            loc = Location(address_components=loc).save()
-            self.location.connect(loc)
+            locat = Location(address_components=loc).save()
+            self.location.connect(locat)
         if date_begin:
             date_begin = NodeDate(date_begin).save()
             self.date_begin.connect(date_begin)
@@ -61,6 +64,14 @@ class Marriage(Event):
     def get_spouses(self):
         return list(self.married.all())
 
+    @classmethod
+    def const(
+            self, loc=None, location_prop=None,
+            description=None, date_begin=None, date_end=None):
+        a = self().save()
+        a.set_event(loc, location_prop, description, date_begin, date_end)
+        return a
+
 
 class Divorce(Event):
     divorced = Relationship('Person', 'DIVORCED')
@@ -70,6 +81,14 @@ class Divorce(Event):
 
     def get_spouses(self):
         return list(self.divorced.all())
+
+    @classmethod
+    def const(
+            self, loc=None, location_prop=None,
+            description=None, date_begin=None, date_end=None):
+        a = self().save()
+        a.set_event(loc, location_prop, description, date_begin, date_end)
+        return a
 
 
 class Birth(Event):
@@ -92,6 +111,15 @@ class Birth(Event):
         else:
             return None
 
+    @classmethod
+    def const(
+            self, son, loc=None, location_prop=None,
+            description=None, date_begin=None, date_end=None):
+        a = self().save()
+        a.son.connect(son)
+        a.set_event(loc, location_prop, description, date_begin, date_end)
+        return a
+
 
 class Death(Event):
     person = Relationship('Person', 'DEATH')
@@ -105,6 +133,15 @@ class Death(Event):
             return a[0]
         else:
             return None
+
+    @classmethod
+    def const(
+            self, person, loc=None, location_prop=None,
+            description=None, date_begin=None, date_end=None):
+        a = self().save()
+        a.person.connect(person)
+        a.set_event(loc, location_prop, description, date_begin, date_end)
+        return a
 
 
 class Adoption(Event):
@@ -127,6 +164,15 @@ class Adoption(Event):
     def get_fathers(self):
         return list(self.father_adpt.all())
 
+    @classmethod
+    def const(
+            self, son, loc=None, location_prop=None,
+            description=None, date_begin=None, date_end=None):
+        a = self().save()
+        a.son_adpt.connect(son)
+        a.set_event(loc, location_prop, description, date_begin, date_end)
+        return a
+
 
 class Lived(Event):
     lived_in = Relationship('Person', 'LIVED_IN')
@@ -140,6 +186,15 @@ class Lived(Event):
             return a[0]
         else:
             None
+
+    @classmethod
+    def const(
+            self, person, loc=None, location_prop=None,
+            description=None, date_begin=None, date_end=None):
+        a = self().save()
+        a.lived_in.connect(person)
+        a.set_event(loc, location_prop, description, date_begin, date_end)
+        return a
 
 
 class Person(StructuredNode):
@@ -160,6 +215,87 @@ class Person(StructuredNode):
     lived_in = Relationship('Lived', 'LIVED_IN')
 
     tree = Relationship(Tree, 'MEMBER', cardinality=OneOrMore)
+
+    query_similars = \
+        Template("""
+        START a=node({self})
+        MATCH a-[:$relation]-(e1)-[:LOCATION]-()-[:LOCATION]-(e2)-[:$relation]-(b)
+        MATCH e1-[:DATE_BEGIN]-(e1_date_begin)-[:MONTH]-(e1_month_begin)-[:YEAR]-(e1_year_begin)
+        MATCH e1-[:DATE_END]-(e1_date_end)-[:MONTH]-(e1_month_end)-[:YEAR]-(e1_year_end)
+        MATCH e2-[:DATE_BEGIN]-(e2_date_begin)-[:MONTH]-(e2_month_begin)-[:YEAR]-(e2_year_begin)
+        MATCH e2-[:DATE_END]-(e2_date_end)-[:MONTH]-(e2_month_end)-[:YEAR]-(e2_year_end)
+        WHERE a <> b
+        //intersection time between events in the same location
+        AND ((e2_year_begin.id > e1_year_begin.id AND e2_year_begin.id < e1_year_end.id)
+            OR (e1_year_begin.id = e1_year_end.id AND e1_month_begin.value = e1_month_end.value
+        AND e2_year_begin.id = e1_year_begin.id AND e2_month_begin.value = e1_month_begin.value
+        AND e2_date_begin.value >= e1_date_begin.value AND e2_date_begin.value < e1_date_end.value)
+        OR (e1_year_begin.id = e1_year_end.id AND e1_month_begin.value < e1_month_end.value
+        AND e2_year_begin.id = e1_year_begin.id
+        AND ((e2_month_begin.value = e1_month_begin.value AND e2_date_begin.value >= e1_date_begin.value)
+        OR (e2_month_begin.value > e1_month_begin.value AND e2_month_begin.value < e1_month_end.value)
+        OR (e2_month_begin.value = e1_month_end.value AND e2_date_begin.value < e1_date_end.value)))
+        OR (e1_year_begin.id < e1_year_end.id
+        AND e2_year_begin.id = e1_year_begin.id
+        AND ((e2_month_begin.value > e1_month_begin.value)
+        OR (e2_month_begin.value = e1_month_begin.value AND e2_date_begin.value >= e1_date_begin.value)))
+        OR (e1_year_begin.id < e1_year_end.id
+        AND e2_year_begin.id = e1_year_end.id
+        AND ((e2_month_begin.value < e1_month_end.value)
+        OR (e2_month_begin.value = e1_month_end.value AND e2_date_begin.value < e1_date_end.value))))
+        OR ((e2_year_end.id > e1_year_begin.id AND e2_year_end.id < e1_year_end.id)
+            OR (e1_year_begin.id = e1_year_end.id AND e1_month_begin.value = e1_month_end.value
+        AND e2_year_end.id = e1_year_begin.id AND e2_month_end.value = e1_month_begin.value
+        AND e2_date_end.value >= e1_date_begin.value AND e2_date_end.value < e1_date_end.value)
+        OR (e1_year_begin.id = e1_year_end.id AND e1_month_begin.value < e1_month_end.value
+        AND e2_year_end.id = e1_year_begin.id
+        AND ((e2_month_end.value = e1_month_begin.value AND e2_date_end.value >= e1_date_begin.value)
+        OR (e2_month_end.value > e1_month_begin.value AND e2_month_end.value < e1_month_end.value)
+        OR (e2_month_end.value = e1_month_end.value AND e2_date_end.value < e1_date_end.value)))
+        OR (e1_year_begin.id < e1_year_end.id
+        AND e2_year_end.id = e1_year_begin.id
+        AND ((e2_month_end.value > e1_month_begin.value)
+        OR (e2_month_end.value = e1_month_begin.value AND e2_date_end.value >= e1_date_begin.value)))
+        OR (e1_year_begin.id < e1_year_end.id
+        AND e2_year_end.id = e1_year_end.id
+        AND ((e2_month_end.value < e1_month_end.value)
+        OR (e2_month_end.value = e1_month_end.value AND e2_date_end.value < e1_date_end.value))))
+        OR (((e1_year_begin.id > e2_year_begin.id AND e1_year_begin.id < e2_year_end.id)
+            OR (e2_year_begin.id = e2_year_end.id AND e2_month_begin.value = e2_month_end.value
+        AND e1_year_begin.id = e2_year_begin.id AND e1_month_begin.value = e2_month_begin.value
+        AND e1_date_begin.value >= e2_date_begin.value AND e1_date_begin.value < e2_date_end.value)
+        OR (e2_year_begin.id = e2_year_end.id AND e2_month_begin.value < e2_month_end.value
+        AND e1_year_begin.id = e2_year_begin.id
+        AND ((e1_month_begin.value = e2_month_begin.value AND e1_date_begin.value >= e2_date_begin.value)
+        OR (e1_month_begin.value > e2_month_begin.value AND e1_month_begin.value < e2_month_end.value)
+        OR (e1_month_begin.value = e2_month_end.value AND e1_date_begin.value < e2_date_end.value)))
+        OR (e2_year_begin.id < e2_year_end.id
+        AND e1_year_begin.id = e2_year_begin.id
+        AND ((e1_month_begin.value > e2_month_begin.value)
+        OR (e1_month_begin.value = e2_month_begin.value AND e1_date_begin.value >= e2_date_begin.value)))
+        OR (e2_year_begin.id < e2_year_end.id
+        AND e1_year_begin.id = e2_year_end.id
+        AND ((e1_month_begin.value < e2_month_end.value)
+        OR (e1_month_begin.value = e2_month_end.value AND e1_date_begin.value < e2_date_end.value))))
+        AND ((e1_year_end.id > e2_year_begin.id AND e1_year_end.id < e2_year_end.id)
+            OR (e2_year_begin.id = e2_year_end.id AND e2_month_begin.value = e2_month_end.value
+        AND e1_year_end.id = e2_year_begin.id AND e1_month_end.value = e2_month_begin.value
+        AND e1_date_end.value >= e2_date_begin.value AND e1_date_end.value < e2_date_end.value)
+        OR (e2_year_begin.id = e2_year_end.id AND e2_month_begin.value < e2_month_end.value
+        AND e1_year_end.id = e2_year_begin.id
+        AND ((e1_month_end.value = e2_month_begin.value AND e1_date_end.value >= e2_date_begin.value)
+        OR (e1_month_end.value > e2_month_begin.value AND e1_month_end.value < e2_month_end.value)
+        OR (e1_month_end.value = e2_month_end.value AND e1_date_end.value < e2_date_end.value)))
+        OR (e2_year_begin.id < e2_year_end.id
+        AND e1_year_end.id = e2_year_begin.id
+        AND ((e1_month_end.value > e2_month_begin.value)
+        OR (e1_month_end.value = e2_month_begin.value AND e1_date_end.value >= e2_date_begin.value)))
+        OR (e2_year_begin.id < e2_year_end.id
+        AND e1_year_end.id = e2_year_end.id
+        AND ((e1_month_end.value < e2_month_end.value)
+        OR (e1_month_end.value = e2_month_end.value AND e1_date_end.value < e2_date_end.value)))))
+        RETURN b
+        """)
 
     def set_lieved(
             self, date_begin=None,
@@ -284,53 +420,16 @@ class Person(StructuredNode):
     def get_lived(self):
         return self.lived_in.all()
 
+    @classmethod
+    def get_query_similars(cls):
+        return cls.query_similars
+
     def get_similar_lived(self):
-        query = \
-            """
-            START a=node({self})
-            MATCH a-[:FRIEND]->(b)
-            RETURN b
-            """
+        query = self.get_query_similars().substitute(relation='LIVED_IN')
+        print 'query resp: ', self.cypher(query)
         results, columns = self.cypher(query)
-        return [self.inflate(row[0]) for row in results]
+        res = [self.inflate(row[0]) for row in results]
+        print res
+        print list(set(res))
+        return list(set(res))
 
-'''
-def get_marriages(self):
-    res = []
-    for marriage in self.married.all():
-        for spouse in marriage.married.all():
-            if spouse.id != self.id:
-                m = {}
-                date = list(marriage.date_begin.all())
-                if date:
-                    m['date_begin'] = NodeDate.to_date(date[0])
-                date = list(marriage.date_end.all())
-                if date:
-                    m['date_end'] = NodeDate.to_date(date[0])
-
-                loc = list(marriage.location.all())
-                if loc:
-                    m['location'] = loc[0]
-                if marriage.location_prop:
-                    m['location_prop'] = marriage.location_prop
-
-                m['spouse'] = spouse
-                res.append(m)
-    return res
-
-def get_divorces(self):
-    res = []
-    for marriage in self.divorced.all():
-        for spouse in marriage.divorced.all():
-            if spouse.id != self.id:
-                m = {}
-                date = list(marriage.date_begin.all())
-                if date:
-                    m['date_begin'] = NodeDate.to_date(date[0])
-                date = list(marriage.date_end.all())
-                if date:
-                    m['date_end'] = NodeDate.to_date(date[0])
-                m['spouse'] = spouse
-                res.append(m)
-    return res
-'''

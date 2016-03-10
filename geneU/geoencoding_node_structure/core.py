@@ -5,6 +5,7 @@ from neomodel import (
 
 
 class RootLocation(StructuredNode):
+    name = StringProperty(unique_index=True, default='root_location')
     location = RelationshipTo('AddressComponent', 'LOCATION')
 
 

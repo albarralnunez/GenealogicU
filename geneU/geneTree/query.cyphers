@@ -1,0 +1,113 @@
+        START a=node({self})
+        MATCH a-[:$relation]-(e1)-[:LOCATION]-()-[:LOCATION]-(e2)-[:$relation]-(b)
+        MATCH e1-[:DATE_BEGIN]-(e1_date_begin)-[:MONTH]-(e1_month_begin)-[:YEAR]-(e1_year_begin)
+        MATCH e1-[:DATE_END]-(e1_date_end)-[:MONTH]-(e1_month_end)-[:YEAR]-(e1_year_end)
+        MATCH e2-[:DATE_BEGIN]-(e2_date_begin)-[:MONTH]-(e2_month_begin)-[:YEAR]-(e2_year_begin)
+        MATCH e2-[:DATE_END]-(e2_date_end)-[:MONTH]-(e2_month_end)-[:YEAR]-(e2_year_end)
+        WHERE a <> b
+        
+        AND ((e2_year_begin.id > e1_year_begin.id AND e2_year_begin.id < e1_year_end.id)
+            OR (e1_year_begin.id = e1_year_end.id AND e1_month_begin.value = e1_month_end.value
+        AND e2_year_begin.id = e1_year_begin.id AND e2_month_begin.value = e1_month_begin.value
+        AND e2_date_begin.value >= e1_date_begin.value AND e2_date_begin.value < e1_date_end.value)
+        OR (e1_year_begin.id = e1_year_end.id AND e1_month_begin.value < e1_month_end.value
+        AND e2_year_begin.id = e1_year_begin.id
+        AND ((e2_month_begin.value = e1_month_begin.value AND e2_date_begin.value >= e1_date_begin.value)
+        OR (e2_month_begin.value > e1_month_begin.value AND e2_month_begin.value < e1_month_end.value)
+        OR (e2_month_begin.value = e1_month_end.value AND e2_date_begin.value < e1_date_end.value)))
+        OR (e1_year_begin.id < e1_year_end.id
+        AND e2_year_begin.id = e1_year_begin.id
+        AND ((e2_month_begin.value > e1_month_begin.value)
+        OR (e2_month_begin.value = e1_month_begin.value AND e2_date_begin.value >= e1_date_begin.value)))
+        OR (e1_year_begin.id < e1_year_end.id
+        AND e2_year_begin.id = e1_year_end.id
+        AND ((e2_month_begin.value < e1_month_end.value)
+        OR (e2_month_begin.value = e1_month_end.value AND e2_date_begin.value < e1_date_end.value))))
+
+        OR ((e2_year_end.id > e1_year_begin.id AND e2_year_end.id < e1_year_end.id)
+            OR (e1_year_begin.id = e1_year_end.id AND e1_month_begin.value = e1_month_end.value
+        AND e2_year_end.id = e1_year_begin.id AND e2_month_end.value = e1_month_begin.value
+        AND e2_date_end.value >= e1_date_begin.value AND e2_date_end.value < e1_date_end.value)
+        OR (e1_year_begin.id = e1_year_end.id AND e1_month_begin.value < e1_month_end.value
+        AND e2_year_end.id = e1_year_begin.id
+        AND ((e2_month_end.value = e1_month_begin.value AND e2_date_end.value >= e1_date_begin.value)
+        OR (e2_month_end.value > e1_month_begin.value AND e2_month_end.value < e1_month_end.value)
+        OR (e2_month_end.value = e1_month_end.value AND e2_date_end.value < e1_date_end.value)))
+        OR (e1_year_begin.id < e1_year_end.id
+        AND e2_year_end.id = e1_year_begin.id
+        AND ((e2_month_end.value > e1_month_begin.value)
+        OR (e2_month_end.value = e1_month_begin.value AND e2_date_end.value >= e1_date_begin.value)))
+        OR (e1_year_begin.id < e1_year_end.id
+        AND e2_year_end.id = e1_year_end.id
+        AND ((e2_month_end.value < e1_month_end.value)
+        OR (e2_month_end.value = e1_month_end.value AND e2_date_end.value < e1_date_end.value))))
+        
+        OR (((e1_year_begin.id > e2_year_begin.id AND e1_year_begin.id < e2_year_end.id)
+            OR (e2_year_begin.id = e2_year_end.id AND e2_month_begin.value = e2_month_end.value
+        AND e1_year_begin.id = e2_year_begin.id AND e1_month_begin.value = e2_month_begin.value
+        AND e1_date_begin.value >= e2_date_begin.value AND e1_date_begin.value < e2_date_end.value)
+        OR (e2_year_begin.id = e2_year_end.id AND e2_month_begin.value < e2_month_end.value
+        AND e1_year_begin.id = e2_year_begin.id
+        AND ((e1_month_begin.value = e2_month_begin.value AND e1_date_begin.value >= e2_date_begin.value)
+        OR (e1_month_begin.value > e2_month_begin.value AND e1_month_begin.value < e2_month_end.value)
+        OR (e1_month_begin.value = e2_month_end.value AND e1_date_begin.value < e2_date_end.value)))
+        OR (e2_year_begin.id < e2_year_end.id
+        AND e1_year_begin.id = e2_year_begin.id
+        AND ((e1_month_begin.value > e2_month_begin.value)
+        OR (e1_month_begin.value = e2_month_begin.value AND e1_date_begin.value >= e2_date_begin.value)))
+        OR (e2_year_begin.id < e2_year_end.id
+        AND e1_year_begin.id = e2_year_end.id
+        AND ((e1_month_begin.value < e2_month_end.value)
+        OR (e1_month_begin.value = e2_month_end.value AND e1_date_begin.value < e2_date_end.value))))
+
+        AND ((e1_year_end.id > e2_year_begin.id AND e1_year_end.id < e2_year_end.id)
+            OR (e2_year_begin.id = e2_year_end.id AND e2_month_begin.value = e2_month_end.value
+        AND e1_year_end.id = e2_year_begin.id AND e1_month_end.value = e2_month_begin.value
+        AND e1_date_end.value >= e2_date_begin.value AND e1_date_end.value < e2_date_end.value)
+        OR (e2_year_begin.id = e2_year_end.id AND e2_month_begin.value < e2_month_end.value
+        AND e1_year_end.id = e2_year_begin.id
+        AND ((e1_month_end.value = e2_month_begin.value AND e1_date_end.value >= e2_date_begin.value)
+        OR (e1_month_end.value > e2_month_begin.value AND e1_month_end.value < e2_month_end.value)
+        OR (e1_month_end.value = e2_month_end.value AND e1_date_end.value < e2_date_end.value)))
+        OR (e2_year_begin.id < e2_year_end.id
+        AND e1_year_end.id = e2_year_begin.id
+        AND ((e1_month_end.value > e2_month_begin.value)
+        OR (e1_month_end.value = e2_month_begin.value AND e1_date_end.value >= e2_date_begin.value)))
+        OR (e2_year_begin.id < e2_year_end.id
+        AND e1_year_end.id = e2_year_end.id
+        AND ((e1_month_end.value < e2_month_end.value)
+        OR (e1_month_end.value = e2_month_end.value AND e1_date_end.value < e2_date_end.value)))))
+        
+        RETURN b
+
+
+
+        
+'''
+            START a=node({self})
+            MATCH a-[:LIVED_IN]-(e1)-[:LOCATION]-()-[:LOCATION]-(e2)-[:LIVED_IN]-(b)
+            MATCH e1-[:DATE_BEGIN]-(e1_date_begin)-[:MONTH]-(e1_month_begin)-[:YEAR]-(e1_year_begin)
+            MATCH e1-[:DATE_END]-(e1_date_end)-[:MONTH]-(e1_month_end)-[:YEAR]-(e1_year_end)
+            MATCH e2-[:DATE_BEGIN]-(e2_date_begin)-[:MONTH]-(e2_month_begin)-[:YEAR]-(e2_year_begin)
+            MATCH e2-[:DATE_END]-(e2_date_end)-[:MONTH]-(e2_month_end)-[:YEAR]-(e2_year_end)
+            WHERE a <> b
+            AND ((e2_year_begin.id > e1_year_begin.id AND e2_year_begin.id < e1_year_end.id)
+                OR (e1_year_begin.id = e1_year_end.id AND e1_month_begin.value = e1_month_end.value
+            AND e2_year_begin.id = e1_year_begin.id AND e2_month_begin.value = e1_month_begin.value
+            AND e2_date_begin.value >= e1_date_begin.value AND e2_date_begin.value < e1_date_end.value)
+            OR (e1_year_begin.id = e1_year_end.id AND e1_month_begin.value < e1_month_end.value
+            AND e2_year_begin.id = e1_year_begin.id
+            AND ((e2_month_begin.value = e1_month_begin.value AND e2_date_begin.value >= e1_date_begin.value)
+            OR (e2_month_begin.value > e1_month_begin.value AND e2_month_begin.value < e1_month_end.value)
+            OR (e2_month_begin.value = e1_month_end.value AND e2_date_begin.value < e1_date_end.value)))
+            OR (e1_year_begin.id < e1_year_end.id
+            AND e2_year_begin.id = e1_year_begin.id
+            AND ((e2_month_begin.value > e1_month_begin.value)
+            OR (e2_month_begin.value = e1_month_begin.value AND e2_date_begin.value >= e1_date_begin.value)))
+            OR (e1_year_begin.id < e1_year_end.id
+            AND e2_year_begin.id = e1_year_end.id
+            AND ((e2_month_begin.value < e1_month_end.value)
+            OR (e2_month_begin.value = e1_month_end.value AND e2_date_begin.value < e1_date_end.value))))
+            RETURN b
+            
+'''
