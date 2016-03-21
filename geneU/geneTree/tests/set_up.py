@@ -7,9 +7,10 @@ from oauth2_provider.models import Application, AccessToken
 from datetime import timedelta, date
 from django.utils import timezone
 import geneTree.models_person as models_person
+import random
+import string
 
-
-bcn = [
+bcn = {'address_components': [
     {
         "long_name": "Barcelona",
         "short_name": "Barcelona",
@@ -40,9 +41,20 @@ bcn = [
         "short_name": "ES",
         "types": ["country", "political"]
     }
-]
+]}
 
-gir = [
+cat = {'place_id': 'ChIJ8_UwhdxbpBIRUMijIeD6AAE'}
+
+sp = {'address_components': [
+    {
+        "long_name": "Spain",
+        "short_name": "ES",
+        "types": ["country", "political"]
+    }
+]}
+
+
+gir = {'address_components': [
     {
         "long_name": "Girona",
         "short_name": "Girona",
@@ -73,9 +85,9 @@ gir = [
         "short_name": "ES",
         "types": ["country", "political"]
     }
-]
+]}
 
-jp = [
+jp = {'address_components': [
     {
         "long_name": "Fukuoka",
         "short_name": "Fukuoka",
@@ -91,7 +103,7 @@ jp = [
         "short_name": "JP",
         "types": ["country", "political"]
     }
-]
+]}
 
 
 class setup():
@@ -165,7 +177,7 @@ class setup():
         b = models_person.Birth().save()
         date_begin = NodeDate(date(2010, 5, 24)).save()
         date_end = NodeDate(date(2010, 5, 24)).save()
-        location = Location(address_components=bcn).save()
+        location = Location(**bcn).save()
         set_event(
             b=b, loc=location, date_begin=date_begin, date_end=date_end)
         b.son.connect(dani)
@@ -182,7 +194,7 @@ class setup():
         m = models_person.Marriage().save()
         date_begin = NodeDate(date(2009, 5, 24)).save()
         date_end = NodeDate(date(2010, 6, 24)).save()
-        location = Location(address_components=bcn).save()
+        location = Location(**bcn).save()
         set_event(
             b=m, loc=location, date_begin=date_begin, date_end=date_end)
         m.married.connect(pepi)
@@ -191,7 +203,7 @@ class setup():
         m = models_person.Birth().save()
         date_begin = NodeDate(date(2000, 5, 24)).save()
         date_end = NodeDate(date(2000, 6, 24)).save()
-        location = Location(address_components=gir).save()
+        location = Location(**gir).save()
         set_event(
             b=m, loc=location, date_begin=date_begin, date_end=date_end)
         m.son.connect(antonio)
@@ -202,15 +214,21 @@ class setup():
             genere='F').save()
         m.father.connect(sra_maria)
 
-        sr_juanito = models_person.Person(name='Juan').save()
+        sr_juanito = models_person.Person(name='Juan', genere='F').save()
         tree.persons.connect(sr_juanito)
         m = models_person.Divorce().save()
         m.divorced.connect(sr_juanito)
         m.divorced.connect(sra_maria)
 
-        random = models_person.Person(name='Random').save()
-        d = models_person.Death().save()
-        d.person.connect(sr_juanito)
+        random = models_person.Person(name='Random', genere='M').save()
+
+        event1 = {
+            'loc': cat,
+            'date_begin': date(1900, 11, 1),
+            'date_end': date(2000, 12, 1),
+            'person': random
+        }
+        models_person.Death.const(**event1)
 
         self.person1 = antonio
         self.person2 = random
@@ -236,15 +254,15 @@ class setup():
         t.set_owner(user)
 
         self.tree = t
-        self.person1 = models_person.Person().save()
+        self.person1 = models_person.Person(genere='M').save()
         self.person1.set_tree(self.tree)
-        self.person2 = models_person.Person().save()
+        self.person2 = models_person.Person(genere='M').save()
         self.person2.set_tree(self.tree)
-        self.person3 = models_person.Person().save()
+        self.person3 = models_person.Person(genere='M').save()
         self.person3.set_tree(self.tree)
         self.location = bcn
 
-    def event_setup(self):
+    def std(self):
         user = User(username='dummy', email='dummy@geneu.com')
         user.set_password('dummy')
         user.save()
@@ -256,56 +274,370 @@ class setup():
         exs = list(RootDate.nodes.all())
         if not exs:
             RootDate().save()
-        t = models_person.Tree(name='Test').save()
+        t1 = models_person.Tree(name='Test1').save()
+        t2 = models_person.Tree(name='Test2').save()
         user = UserNode.nodes.get(id=user.id)
+        t1.set_owner(user)
+        t2.set_owner(user)
+        self.tree = t1
+        self.person1 = models_person.Person(genere='M', name='person1').save()
+        self.person1.set_tree(t1)
+        self.person2 = models_person.Person(genere='M', name='person2').save()
+        self.person2.set_tree(t2)
 
-        t.set_owner(user)
+    def event_setup_1(self):
+        '''
+        def corte e2 interseccion e1
+        '''
+        self.std()
+        event1 = {
+            'loc': bcn,
+            'date_begin': date(1900, 11, 1),
+            'date_end': date(2000, 12, 1),
+            'person': self.person1
+        }
+        models_person.Lived.const(**event1)
+        event2 = {
+            'loc': bcn,
+            'date_begin': date(1890, 10, 2),
+            'date_end': date(1991, 11, 3),
+            'person': self.person2
+        }
+        models_person.Lived.const(**event2)
 
-        self.tree = t
-        self.person1 = models_person.Person(name='person1').save()
+    def event_setup_2(self):
+        '''
+        def corte e2 interseccion e1
+        '''
+        self.std()
+        event1 = {
+            'loc': bcn,
+            'date_begin': date(1800, 11, 1),
+            'date_end': date(1801, 12, 1),
+            'person': self.person1
+        }
+        models_person.Lived.const(**event1)
+        event2 = {
+            'loc': bcn,
+            'date_begin': date(1700, 10, 2),
+            'date_end': date(1900, 11, 3),
+            'person': self.person2
+        }
+        models_person.Lived.const(**event2)
+
+    def event_setup_3(self):
+        '''
+        def corte e2 interseccion e1
+        '''
+        self.std()
+        event1 = {
+            'loc': bcn,
+            'date_begin': date(1900, 11, 1),
+            'date_end': date(2000, 12, 1),
+            'person': self.person1
+        }
+        models_person.Lived.const(**event1)
+        event2 = {
+            'loc': bcn,
+            'date_begin': date(1991, 10, 2),
+            'date_end': date(2001, 11, 3),
+            'person': self.person2
+        }
+        models_person.Lived.const(**event2)
+
+    def event_setup_4(self):
+        '''
+        def  e2 no interseccion e1
+        '''
+        self.std()
+        event1 = {
+            'loc': bcn,
+            'date_begin': date(1900, 11, 1),
+            'date_end': date(2000, 12, 1),
+            'person': self.person1
+        }
+        models_person.Lived.const(**event1)
+        event2 = {
+            'loc': bcn,
+            'date_begin': date(2001, 10, 2),
+            'date_end': date(2001, 11, 3),
+            'person': self.person2
+        }
+        models_person.Lived.const(**event2)
+
+    def event_setup_5(self):
+        '''
+        def  e2 no interseccion e1
+        '''
+        self.std()
+        event1 = {
+            'loc': bcn,
+            'date_begin': date(1900, 11, 1),
+            'date_end': date(2000, 12, 1),
+            'person': self.person1
+        }
+        models_person.Lived.const(**event1)
+        event2 = {
+            'loc': jp,
+            'date_begin': date(1990, 10, 2),
+            'date_end': date(2001, 11, 3),
+            'person': self.person2
+        }
+        models_person.Lived.const(**event2)
+
+    def event_setup_6(self):
+        '''
+        def  e2 no interseccion e1
+        '''
+        self.std()
+        event1 = {
+            'loc': bcn,
+            'date_begin': date(1900, 11, 1),
+            'date_end': date(2000, 12, 1),
+            'person': self.person1
+        }
+        models_person.Lived.const(**event1)
+        event2 = {
+            'loc': cat,
+            'date_begin': date(1990, 10, 2),
+            'date_end': date(2001, 11, 3),
+            'person': self.person2
+        }
+        models_person.Lived.const(**event2)
+
+    def event_setup_7(self):
+        '''
+        def  e2 no interseccion e1
+        '''
+        self.std()
+        event1 = {
+            'loc': sp,
+            'date_begin': date(1900, 11, 1),
+            'date_end': date(2000, 12, 1),
+            'person': self.person1
+        }
+        models_person.Lived.const(**event1)
+        event2 = {
+            'loc': cat,
+            'date_begin': date(1990, 10, 2),
+            'date_end': date(2001, 11, 3),
+            'person': self.person2
+        }
+        models_person.Lived.const(**event2)
+
+    def event_setup_8(self):
+        '''
+        def  e2 no interseccion e1
+        '''
+        self.std()
+        event1 = {
+            'loc': bcn,
+            'date_begin': date(1900, 11, 1),
+            'date_end': date(2000, 12, 1),
+            'person': self.person1
+        }
+        models_person.Lived.const(**event1)
+        event2 = {
+            'loc': gir,
+            'date_begin': date(1990, 10, 2),
+            'date_end': date(2001, 11, 3),
+            'person': self.person2
+        }
+        models_person.Lived.const(**event2)
+
+    def event_setup_9(self):
+        '''
+        def  e2 no interseccion e1
+        '''
+        self.std()
+        event1 = {
+            'loc': cat,
+            'date_begin': date(1900, 11, 1),
+            'date_end': date(2000, 12, 1),
+            'person': self.person1
+        }
+        models_person.Lived.const(**event1)
+        event2 = {
+            'loc': bcn,
+            'date_begin': date(1990, 10, 2),
+            'date_end': date(2001, 11, 3),
+            'person': self.person2
+        }
+        models_person.Lived.const(**event2)
+
+    def event_setup_10(self):
+        '''
+        def  e2 no interseccion e1
+        '''
+        self.std()
+        event1 = {
+            'loc': cat,
+            'date_begin': date(1900, 11, 1),
+            'date_end': date(2000, 12, 1),
+            'person': self.person1
+        }
+        models_person.Lived.const(**event1)
+        event2 = {
+            'loc': sp,
+            'date_begin': date(1990, 10, 2),
+            'date_end': date(2001, 11, 3),
+            'person': self.person2
+        }
+        models_person.Lived.const(**event2)
+
+    def event_setup_11(self):
+        '''
+        def  e2 no interseccion e1
+        '''
+        self.std()
+        event1 = {
+            'loc': cat,
+            'date_begin': date(1900, 11, 1),
+            'date_end': date(2000, 12, 1),
+            'person': self.person1
+        }
+        models_person.Lived.const(**event1)
+        event2 = {
+            'loc': sp,
+            'date_begin': date(1990, 10, 2),
+            'date_end': date(2001, 11, 3),
+            'person': self.person2
+        }
+        models_person.Lived.const(**event2)
+        event2 = {
+            'loc': jp,
+            'date_begin': date(1990, 10, 2),
+            'date_end': date(2001, 11, 3),
+            'person': self.person2
+        }
+        models_person.Lived.const(**event2)
+
+    def event_setup(self):
+        id = ''.join(random.SystemRandom().choice(
+            string.ascii_uppercase + string.digits) for _ in range(10))
+        username = 'dummy' + id
+        user = User(username=username, email=username+'@geneu.com')
+        user.set_password('dummy')
+        user.save()
+        self.user = user
+        self.__create_client_app(user)
+        exs = list(RootLocation.nodes.all())
+        if not exs:
+            RootLocation().save()
+        exs = list(RootDate.nodes.all())
+        if not exs:
+            RootDate().save()
+        t1 = models_person.Tree(name='Test1').save()
+        t2 = models_person.Tree(name='Test2').save()
+        user = UserNode.nodes.get(id=user.id)
+        t1.set_owner(user)
+        t2.set_owner(user)
+        self.tree = t1
+        self.person1 = models_person.Person(
+            genere='M', name='person1').save()
         self.person1.set_tree(self.tree)
-        self.person2 = models_person.Person(name='person2').save()
+        self.person2 = models_person.Person(
+            genere='M', name='person2').save()
         self.person2.set_tree(self.tree)
-        self.person3 = models_person.Person(name='person3').save()
+        self.person3 = models_person.Person(
+            genere='M', name='person3').save()
         self.person3.set_tree(self.tree)
+        self.person4 = models_person.Person(
+            genere='M', name='person4').save()
+        self.person4.set_tree(self.tree)
+        self.person5 = models_person.Person(
+            genere='M', name='person5').save()
+        self.person5.set_tree(t2)
         self.location = bcn
 
         event1 = {
-            'loc': bcn,
-            'date_begin': date(1991, 1, 1),
-            'date_end': date(1994, 12, 10),
+            'loc': cat,
+            'date_begin': date(1900, 11, 1),
+            'date_end': date(2000, 12, 1),
             'person': self.person1
         }
+        models_person.Lived.const(**event1)
 
-        l = models_person.Lived.const(**event1)
-        print 'e1: ', l.id
+        event1 = {
+            'loc': cat,
+            'date_begin': date(2001, 11, 1),
+            'date_end': date(2001, 12, 1),
+            'person': self.person1
+        }
+        models_person.Death.const(**event1)
 
         event2 = {
             'loc': bcn,
-            'date_begin': date(1990, 4, 2),
-            'date_end': date(1992, 1, 5),
+            'date_begin': date(1890, 10, 2),
+            'date_end': date(1991, 11, 3),
             'person': self.person3
         }
+        models_person.Lived.const(**event2)
 
         event4 = {
             'loc': bcn,
-            'date_begin': date(1993, 4, 2),
-            'date_end': date(1995, 1, 5),
+            'date_begin': date(1992, 10, 2),
+            'date_end': date(2001, 11, 3),
             'person': self.person3
         }
+
         models_person.Lived.const(**event4)
 
-        l = models_person.Lived.const(**event2)
-        print 'e2: ', l.id
-
         event3 = {
-            'loc': gir,
+            'loc': sp,
             'date_begin': date(1992, 1, 2),
             'date_end': date(1993, 1, 3),
             'person': self.person2
         }
-
         models_person.Lived.const(**event3)
+
+        event5 = {
+            'loc': jp,
+            'date_begin': date(1991, 1, 2),
+            'date_end': date(1993, 1, 3),
+            'person': self.person4
+        }
+        models_person.Lived.const(**event5)
+
+        event5 = {
+            'loc': bcn,
+            'date_begin': date(1890, 1, 2),
+            'date_end': date(1890, 1, 3),
+            'person': self.person4
+        }
+        models_person.Lived.const(**event5)
+
+        event5 = {
+            'loc': bcn,
+            'date_begin': date(1890, 1, 2),
+            'date_end': date(1890, 1, 3),
+            'person': self.person5
+        }
+        models_person.Lived.const(**event5)
+
+        event = {
+            'loc': cat,
+            'date_begin': date(1900, 11, 1),
+            'date_end': date(2000, 12, 1),
+            'person': self.person5
+        }
+        models_person.Lived.const(**event)
+
+        event = {
+            'loc': cat,
+            'date_begin': date(1900, 11, 1),
+            'date_end': date(2000, 12, 1),
+            'person': self.person5
+        }
+        models_person.Lived.const(**event)
+
+        event1 = {
+            'loc': cat,
+            'date_begin': date(2001, 11, 1),
+            'date_end': date(2001, 12, 1),
+            'person': self.person5
+        }
+        models_person.Death.const(**event1)
 
     @staticmethod
     def clean_up():
@@ -313,7 +645,7 @@ class setup():
             '''
             MATCH (n) \
             OPTIONAL MATCH (n)-[r]-() \
-            WITH n,r LIMIT 100000 DELETE n,r; \
+            WITH n,r LIMIT 1000 DELETE n,r; \
             '''
         )
 

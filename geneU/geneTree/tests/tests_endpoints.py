@@ -54,3 +54,20 @@ class endpointsTestCase(APITestCase):
             HTTP_AUTHORIZATION=self.setup.token_bearer
         )
         self.assertTrue(status.is_success(response.status_code))
+
+    def test_get_person_serach(self):
+        '''
+        search person
+        '''
+        url = reverse(
+            'person-detail',
+            kwargs={'id': self.setup.person1.id}
+        )
+        url += 'search/'
+        response = self.client.post(
+            url,
+            format='json',
+            HTTP_AUTHORIZATION=self.setup.token_bearer
+        )
+
+        self.assertTrue(status.is_success(response.status_code))

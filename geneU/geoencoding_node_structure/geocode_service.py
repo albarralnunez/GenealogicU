@@ -65,15 +65,17 @@ class Client:
                 request=request_given(*args),
                 key=GOOGLE_API_KEY
                 )
+            # print request
             sock = urllib.urlopen(request)
             response = sock.read()
+            print response
             sock.close()
             json_response = json.loads(response[:-1])
             return json_response
 
         return new
 
-    @request
+    # @request
     def request_component(self, query):
         request = '?components='
         request += '|'.join(
@@ -82,4 +84,30 @@ class Client:
                 short_name=component['short_name']
                 ) for component in query]
             )
+
+        return {
+            'status': 'test',
+            'results': [{
+                'address_components': query
+            }]}
+        return request
+
+    # @request
+    def request_place_id(self, query):
+        return {
+            'status': 'test',
+            'results': [{
+                'address_components': [{
+                    "long_name": "Catalonia",
+                    "short_name": "CT",
+                    "types": ["administrative_area_level_1", "political"]
+                    },
+                    {
+                    "long_name": "Spain",
+                    "short_name": "ES",
+                    "types": ["country", "political"]
+                    }]
+            }]}
+        request = '?place_id='
+        request += query
         return request

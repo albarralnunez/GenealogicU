@@ -1,6 +1,7 @@
 from geneU.celery import app
 from geneU.settings import HOSTNAME
 from django.core.mail import send_mail
+from geneTree.finder import finder
 
 
 @app.task(name='geenTree.geneU.gedcom_uploader_task')
@@ -38,9 +39,9 @@ def gedcom_uploader_task(fil, tree):
 
 @app.task(name='geneU.geenTree.check_coincidence')
 def check_coincidence_task(per):
-    from .models import Person
 
-    main = Person.nodes.get(id=per)
+    f = finder()
+    f.find_persons(per)
 
     rec = ['albarralnunez@gmail.com']
     sen = 'geneU@localhost.com'

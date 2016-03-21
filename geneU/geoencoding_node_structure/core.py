@@ -6,7 +6,7 @@ from neomodel import (
 
 class RootLocation(StructuredNode):
     name = StringProperty(unique_index=True, default='root_location')
-    location = RelationshipTo('AddressComponent', 'LOCATION')
+    location = RelationshipTo('AddressComponent', 'ROOT_LOCATION')
 
 
 class ComponentType(StructuredNode):
@@ -16,6 +16,7 @@ class ComponentType(StructuredNode):
 class AddressComponent(StructuredNode):
     id = StringProperty(unique_index=True)
     address = JSONProperty()
+    place_id = StringProperty()
     formatted_address = StringProperty(index=True)
     belongs = RelationshipFrom('AddressComponent', 'SUBSECTION')
     subsection = RelationshipTo('AddressComponent', 'SUBSECTION')
@@ -52,13 +53,20 @@ class Location:
 
     def __init__(self, *args, **kwargs):
         self.client = Client.Instance()
+        self.address_components = None
+        self.place_id = None
         if 'address_components' in kwargs:
             self.address_components = filter(
                 lambda x: 'postal_code' not in x['types'],
                 kwargs['address_components'])
+        if 'place_id' in kwargs:
+            self.place_id = kwargs['place_id']
 
     def save(self):
-        response = self.client.request_component(self.address_components)
+        if self.address_components:
+            response = self.client.request_component(self.address_components)
+        if self.place_id:
+            response = self.client.request_place_id(self.place_id)
 
         if response['status'] == 'ZERO_RESULTS':
             raise ValueError('Invalid address')

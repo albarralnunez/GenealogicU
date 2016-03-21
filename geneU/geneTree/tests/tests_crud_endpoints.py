@@ -82,7 +82,7 @@ class endpointscrudTestCase(APITestCase):
         data = {
             'spouse1': self.setup.person3.id,
             'spouse2': self.setup.person1.id,
-            'locaion': self.setup.location,
+            'location': self.setup.location,
             'descritive_location': 'location',
             'date_being': date(2000, 3, 1),
             'date_end': date(2000, 3, 1)
@@ -93,6 +93,7 @@ class endpointscrudTestCase(APITestCase):
             format='json',
             HTTP_AUTHORIZATION=self.setup.token_bearer
         )
+        print response
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_post_person_marriage(self):
@@ -106,7 +107,7 @@ class endpointscrudTestCase(APITestCase):
         url += 'marriage/'
         data = {
             'spouse1': self.setup.person1.id,
-            'locaion': self.setup.location,
+            'location': self.setup.location,
             'descritive_location': 'location',
             'date_being': date(2000, 3, 1),
             'date_end': date(2000, 3, 1)
@@ -139,7 +140,8 @@ class endpointscrudTestCase(APITestCase):
         data = {
             'spouse1': self.setup.person3.id,
             'spouse2': self.setup.person1.id,
-            'locaion': self.setup.location,
+            'location': self.setup.location,
+            'loca'
             'descritive_location': 'location',
             'date_being': date(2000, 3, 1),
             'date_end': date(2000, 3, 1)
@@ -163,7 +165,7 @@ class endpointscrudTestCase(APITestCase):
         url += 'divorce/'
         data = {
             'spouse1': self.setup.person1.id,
-            'locaion': self.setup.location,
+            'location': self.setup.location,
             'descritive_location': 'location',
             'date_being': date(2000, 3, 1),
             'date_end': date(2000, 3, 1)
@@ -197,7 +199,7 @@ class endpointscrudTestCase(APITestCase):
             'father1': self.setup.person2.id,
             'father2': self.setup.person1.id,
             'son': self.setup.person3.id,
-            'locaion': self.setup.location,
+            'location': self.setup.location,
             'descritive_location': 'location',
             'date_being': date(2000, 3, 1),
             'date_end': date(2000, 3, 1)
@@ -222,7 +224,7 @@ class endpointscrudTestCase(APITestCase):
         data = {
             'father2': self.setup.person1.id,
             'father1': self.setup.person2.id,
-            'locaion': self.setup.location,
+            'location': self.setup.location,
             'descritive_location': 'location',
             'date_being': date(2000, 3, 1),
             'date_end': date(2000, 3, 1)
@@ -254,7 +256,7 @@ class endpointscrudTestCase(APITestCase):
         url = reverse('death-list')
         data = {
             'death': self.setup.person2.id,
-            'locaion': self.setup.location,
+            'location': self.setup.location,
             'descritive_location': 'location',
             'date_being': date(2000, 3, 1),
             'date_end': date(2000, 3, 1)
@@ -277,7 +279,7 @@ class endpointscrudTestCase(APITestCase):
         )
         url += 'death/'
         data = {
-            'locaion': self.setup.location,
+            'location': self.setup.location,
             'descritive_location': 'location',
             'date_being': date(2000, 3, 1),
             'date_end': date(2000, 3, 1)
@@ -311,7 +313,7 @@ class endpointscrudTestCase(APITestCase):
             'father1': self.setup.person2.id,
             'father2': self.setup.person1.id,
             'son': self.setup.person3.id,
-            'locaion': self.setup.location,
+            'location': self.setup.location,
             'descritive_location': 'location',
             'date_being': date(2000, 3, 1),
             'date_end': date(2000, 3, 1)
@@ -336,7 +338,7 @@ class endpointscrudTestCase(APITestCase):
         data = {
             'father2': self.setup.person1.id,
             'father1': self.setup.person2.id,
-            'locaion': self.setup.location,
+            'location': self.setup.location,
             'descritive_location': 'location',
             'date_being': date(2000, 3, 1),
             'date_end': date(2000, 3, 1)
@@ -368,7 +370,7 @@ class endpointscrudTestCase(APITestCase):
         url = reverse('lived-list')
         data = {
             'person': self.setup.person2.id,
-            'locaion': self.setup.location,
+            'location': self.setup.location,
             'descritive_location': 'location',
             'date_being': date(2000, 3, 1),
             'date_end': date(2000, 3, 1)
@@ -391,7 +393,7 @@ class endpointscrudTestCase(APITestCase):
         )
         url += 'lived/'
         data = {
-            'locaion': self.setup.location,
+            'location': self.setup.location,
             'descritive_location': 'location',
             'date_being': date(2000, 3, 1),
             'date_end': date(2000, 3, 1)

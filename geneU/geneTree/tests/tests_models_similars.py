@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from datetime import date
 from geneTree.models_person import *
 from geneTree.models_event import *
 from django.test import TestCase
 from set_up import setup
-from geoencoding_node_structure.core import AddressComponent, Location
-from date_node_structure.core import Day, NodeDate
 
 
 class models_similarsTestCase(TestCase):
@@ -14,29 +11,116 @@ class models_similarsTestCase(TestCase):
     def setUp(self):
         self.setup = setup()
         self.setup.clean_up()
-        self.setup.event_setup()
-        self.jp = [
-            {
-                "long_name": "Fukuoka",
-                "short_name": "Fukuoka",
-                "types": ["locality", "political"]
-            },
-            {
-                "long_name": "Fukuoka Prefecture",
-                "short_name": "Fukuoka Prefecture",
-                "types": ["administrative_area_level_1", "political"]
-            },
-            {
-                "long_name": "Japan",
-                "short_name": "JP",
-                "types": ["country", "political"]
-            }
-        ]
 
     def tearDown(self):
         self.setup.clean_up()
 
-    def test_get_similar_lived(self):
+    def test_get_similar_lived_1(self):
+        print '----------------------'
+        print 'test_similar_lived_1'
+        self.setup.event_setup_1()
         b = self.setup.person1.get_similar_lived()
-        print [x.name for x in b]
-        self.assertEqual([x.name for x in b], [self.setup.person3.name])
+        self.assertEqual(
+            set([x.name for x in b]),
+            set([self.setup.person2.name])
+        )
+
+    def test_get_similar_lived_2(self):
+        print '----------------------'
+        print 'test_similar_lived_2'
+        self.setup.event_setup_2()
+        b = self.setup.person1.get_similar_lived()
+        self.assertEqual(
+            set([x.name for x in b]),
+            set([self.setup.person2.name])
+        )
+
+    def test_get_similar_lived_3(self):
+        print '----------------------'
+        print 'test_similar_lived_3'
+        self.setup.event_setup_3()
+        b = self.setup.person1.get_similar_lived()
+        self.assertEqual(
+            set([x.name for x in b]),
+            set([self.setup.person2.name])
+        )
+
+    def test_get_similar_lived_4(self):
+        print '----------------------'
+        print 'test_similar_lived_4'
+        self.setup.event_setup_4()
+        b = self.setup.person1.get_similar_lived()
+        self.assertEqual(
+            set([x.name for x in b]),
+            set([])
+        )
+
+    def test_get_similar_lived_5(self):
+        print '----------------------'
+        print 'test_similar_lived_5'
+        self.setup.event_setup_5()
+        b = self.setup.person1.get_similar_lived()
+        self.assertEqual(
+            set([x.name for x in b]),
+            set([])
+        )
+
+    def test_get_similar_lived_6(self):
+        print '----------------------'
+        print 'test_similar_lived_6'
+        self.setup.event_setup_6()
+        b = self.setup.person1.get_similar_lived()
+        self.assertEqual(
+            set([x.name for x in b]),
+            set([self.setup.person2.name])
+        )
+
+    def test_get_similar_lived_7(self):
+        print '----------------------'
+        print 'test_similar_lived_7'
+        self.setup.event_setup_7()
+        b = self.setup.person1.get_similar_lived()
+        self.assertEqual(
+            set([x.name for x in b]),
+            set([])
+        )
+
+    def test_get_similar_lived_8(self):
+        print '----------------------'
+        print 'test_similar_lived_8'
+        self.setup.event_setup_8()
+        b = self.setup.person1.get_similar_lived()
+        self.assertEqual(
+            set([x.name for x in b]),
+            set([])
+        )
+
+    def test_get_similar_lived_9(self):
+        print '----------------------'
+        print 'test_similar_lived_9'
+        self.setup.event_setup_9()
+        b = self.setup.person1.get_similar_lived()
+        self.assertEqual(
+            set([x.name for x in b]),
+            set([])
+        )
+
+    def test_get_similar_lived_10(self):
+        print '----------------------'
+        print 'test_similar_lived_10'
+        self.setup.event_setup_10()
+        b = self.setup.person1.get_similar_lived()
+        self.assertEqual(
+            set([x.name for x in b]),
+            set([self.setup.person2.name])
+        )
+
+    def test_get_similar_lived_11(self):
+        print '----------------------'
+        print 'test_similar_lived_11'
+        self.setup.event_setup_11()
+        b = self.setup.person1.get_similar_lived()
+        self.assertEqual(
+            set([x.name for x in b]),
+            set([self.setup.person2.name])
+        )

@@ -1,10 +1,17 @@
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from geneTree.tests.set_up import setup
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = "clean all nodes and relations of the db"
 
-    def handle_noargs(self, **options):
-        set_up = setup()
-        set_up.setup()
+    def add_arguments(self, parser):
+        parser.add_argument('-s', '--set', nargs='?', help='...')
+
+    def handle(self, *args, **options):
+        se = setup()
+        if not options['set']:
+            se.setup()
+        else:
+            comm = 'se.{0}()'.format(options['set'])
+            exec(comm)

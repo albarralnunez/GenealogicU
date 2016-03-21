@@ -1,5 +1,5 @@
 from neomodel import (
-    StructuredNode, StringProperty,
+    StructuredNode, StringProperty, IntegerProperty,
     RelationshipTo, RelationshipFrom)
 from datetime import date
 
@@ -7,6 +7,7 @@ from datetime import date
 class Day(StructuredNode):
     id = StringProperty(unique_index=True)
     value = StringProperty(index=True)
+    ordinal = IntegerProperty(unique_index=True)
     belongs = RelationshipFrom('Month', 'MONTH')
 
 
@@ -24,7 +25,7 @@ class Year(StructuredNode):
 
 class RootDate(StructuredNode):
     name = StringProperty(unique_index=True, default='root_date')
-    subset = RelationshipTo(Year, 'DATE')
+    subset = RelationshipTo(Year, 'ROOT_DATE')
 
 
 class NodeDate:
@@ -63,7 +64,10 @@ class NodeDate:
                     self.date.year, self.date.month, self.date.day)
         day = list(Day.nodes.filter(id=formatted_day))
         if not day:
-            day = Day(id=formatted_day, value=str(self.date.day)).save()
+            day = Day(
+                    id=formatted_day,
+                    value=str(self.date.day),
+                    ordinal=self.date.toordinal()).save()
         else:
             day = day[0]
 

@@ -4,7 +4,7 @@ from .gedcom_uploader import GedcomUploader
 from core.models import UserProfile, UserNode
 from rest_framework import serializers
 from django.core.exceptions import ValidationError
-from .tasks import gedcom_uploader_task
+from .tasks import gedcom_uploader_task, check_coincidence_task
 
 
 class DeepTreeSerializer(serializers.BaseSerializer):

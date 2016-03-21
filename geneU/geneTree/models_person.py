@@ -41,7 +41,7 @@ class Event(StructuredNode):
             self, loc=None, location_prop=None, description=None,
             date_begin=None, date_end=None):
         if loc:
-            locat = Location(address_components=loc).save()
+            locat = Location(**loc).save()
             self.location.connect(locat)
         if date_begin:
             date_begin = NodeDate(date_begin).save()
@@ -56,7 +56,7 @@ class Event(StructuredNode):
 
 
 class Marriage(Event):
-    married = Relationship('Person', 'MARRIED')
+    married = Relationship('Person', 'SPOUSE')
 
     def add_spouse(self, married):
         self.married.connect(married)
@@ -74,7 +74,7 @@ class Marriage(Event):
 
 
 class Divorce(Event):
-    divorced = Relationship('Person', 'DIVORCED')
+    divorced = Relationship('Person', 'SPOUSE')
 
     def add_spouse(self, married):
         self.divorced.connect(married)
@@ -203,10 +203,10 @@ class Person(StructuredNode):
     name = StringProperty()
     surname = StringProperty(index=True)
     second_surname = StringProperty(index=True)
-    genere = StringProperty(choices=(('M', 1), ('F', 2)))
+    genere = StringProperty(choices=(('M', 1), ('F', 2)), required=True)
 
-    married = Relationship('Marriage', 'MARRIED')
-    divorced = Relationship('Divorce', 'DIVORCED')
+    married = Relationship('Marriage', 'SPOUSE')
+    divorced = Relationship('Divorce', 'SPOUSE')
     death = Relationship('Death', 'DEATH')
     father = Relationship('Birth', 'FATHER')
     father_adpt = Relationship('Adoption', 'FATHER')
@@ -215,87 +215,6 @@ class Person(StructuredNode):
     lived_in = Relationship('Lived', 'LIVED_IN')
 
     tree = Relationship(Tree, 'MEMBER', cardinality=OneOrMore)
-
-    query_similars = \
-        Template("""
-        START a=node({self})
-        MATCH a-[:$relation]-(e1)-[:LOCATION]-()-[:LOCATION]-(e2)-[:$relation]-(b)
-        MATCH e1-[:DATE_BEGIN]-(e1_date_begin)-[:MONTH]-(e1_month_begin)-[:YEAR]-(e1_year_begin)
-        MATCH e1-[:DATE_END]-(e1_date_end)-[:MONTH]-(e1_month_end)-[:YEAR]-(e1_year_end)
-        MATCH e2-[:DATE_BEGIN]-(e2_date_begin)-[:MONTH]-(e2_month_begin)-[:YEAR]-(e2_year_begin)
-        MATCH e2-[:DATE_END]-(e2_date_end)-[:MONTH]-(e2_month_end)-[:YEAR]-(e2_year_end)
-        WHERE a <> b
-        //intersection time between events in the same location
-        AND ((e2_year_begin.id > e1_year_begin.id AND e2_year_begin.id < e1_year_end.id)
-            OR (e1_year_begin.id = e1_year_end.id AND e1_month_begin.value = e1_month_end.value
-        AND e2_year_begin.id = e1_year_begin.id AND e2_month_begin.value = e1_month_begin.value
-        AND e2_date_begin.value >= e1_date_begin.value AND e2_date_begin.value < e1_date_end.value)
-        OR (e1_year_begin.id = e1_year_end.id AND e1_month_begin.value < e1_month_end.value
-        AND e2_year_begin.id = e1_year_begin.id
-        AND ((e2_month_begin.value = e1_month_begin.value AND e2_date_begin.value >= e1_date_begin.value)
-        OR (e2_month_begin.value > e1_month_begin.value AND e2_month_begin.value < e1_month_end.value)
-        OR (e2_month_begin.value = e1_month_end.value AND e2_date_begin.value < e1_date_end.value)))
-        OR (e1_year_begin.id < e1_year_end.id
-        AND e2_year_begin.id = e1_year_begin.id
-        AND ((e2_month_begin.value > e1_month_begin.value)
-        OR (e2_month_begin.value = e1_month_begin.value AND e2_date_begin.value >= e1_date_begin.value)))
-        OR (e1_year_begin.id < e1_year_end.id
-        AND e2_year_begin.id = e1_year_end.id
-        AND ((e2_month_begin.value < e1_month_end.value)
-        OR (e2_month_begin.value = e1_month_end.value AND e2_date_begin.value < e1_date_end.value))))
-        OR ((e2_year_end.id > e1_year_begin.id AND e2_year_end.id < e1_year_end.id)
-            OR (e1_year_begin.id = e1_year_end.id AND e1_month_begin.value = e1_month_end.value
-        AND e2_year_end.id = e1_year_begin.id AND e2_month_end.value = e1_month_begin.value
-        AND e2_date_end.value >= e1_date_begin.value AND e2_date_end.value < e1_date_end.value)
-        OR (e1_year_begin.id = e1_year_end.id AND e1_month_begin.value < e1_month_end.value
-        AND e2_year_end.id = e1_year_begin.id
-        AND ((e2_month_end.value = e1_month_begin.value AND e2_date_end.value >= e1_date_begin.value)
-        OR (e2_month_end.value > e1_month_begin.value AND e2_month_end.value < e1_month_end.value)
-        OR (e2_month_end.value = e1_month_end.value AND e2_date_end.value < e1_date_end.value)))
-        OR (e1_year_begin.id < e1_year_end.id
-        AND e2_year_end.id = e1_year_begin.id
-        AND ((e2_month_end.value > e1_month_begin.value)
-        OR (e2_month_end.value = e1_month_begin.value AND e2_date_end.value >= e1_date_begin.value)))
-        OR (e1_year_begin.id < e1_year_end.id
-        AND e2_year_end.id = e1_year_end.id
-        AND ((e2_month_end.value < e1_month_end.value)
-        OR (e2_month_end.value = e1_month_end.value AND e2_date_end.value < e1_date_end.value))))
-        OR (((e1_year_begin.id > e2_year_begin.id AND e1_year_begin.id < e2_year_end.id)
-            OR (e2_year_begin.id = e2_year_end.id AND e2_month_begin.value = e2_month_end.value
-        AND e1_year_begin.id = e2_year_begin.id AND e1_month_begin.value = e2_month_begin.value
-        AND e1_date_begin.value >= e2_date_begin.value AND e1_date_begin.value < e2_date_end.value)
-        OR (e2_year_begin.id = e2_year_end.id AND e2_month_begin.value < e2_month_end.value
-        AND e1_year_begin.id = e2_year_begin.id
-        AND ((e1_month_begin.value = e2_month_begin.value AND e1_date_begin.value >= e2_date_begin.value)
-        OR (e1_month_begin.value > e2_month_begin.value AND e1_month_begin.value < e2_month_end.value)
-        OR (e1_month_begin.value = e2_month_end.value AND e1_date_begin.value < e2_date_end.value)))
-        OR (e2_year_begin.id < e2_year_end.id
-        AND e1_year_begin.id = e2_year_begin.id
-        AND ((e1_month_begin.value > e2_month_begin.value)
-        OR (e1_month_begin.value = e2_month_begin.value AND e1_date_begin.value >= e2_date_begin.value)))
-        OR (e2_year_begin.id < e2_year_end.id
-        AND e1_year_begin.id = e2_year_end.id
-        AND ((e1_month_begin.value < e2_month_end.value)
-        OR (e1_month_begin.value = e2_month_end.value AND e1_date_begin.value < e2_date_end.value))))
-        AND ((e1_year_end.id > e2_year_begin.id AND e1_year_end.id < e2_year_end.id)
-            OR (e2_year_begin.id = e2_year_end.id AND e2_month_begin.value = e2_month_end.value
-        AND e1_year_end.id = e2_year_begin.id AND e1_month_end.value = e2_month_begin.value
-        AND e1_date_end.value >= e2_date_begin.value AND e1_date_end.value < e2_date_end.value)
-        OR (e2_year_begin.id = e2_year_end.id AND e2_month_begin.value < e2_month_end.value
-        AND e1_year_end.id = e2_year_begin.id
-        AND ((e1_month_end.value = e2_month_begin.value AND e1_date_end.value >= e2_date_begin.value)
-        OR (e1_month_end.value > e2_month_begin.value AND e1_month_end.value < e2_month_end.value)
-        OR (e1_month_end.value = e2_month_end.value AND e1_date_end.value < e2_date_end.value)))
-        OR (e2_year_begin.id < e2_year_end.id
-        AND e1_year_end.id = e2_year_begin.id
-        AND ((e1_month_end.value > e2_month_begin.value)
-        OR (e1_month_end.value = e2_month_begin.value AND e1_date_end.value >= e2_date_begin.value)))
-        OR (e2_year_begin.id < e2_year_end.id
-        AND e1_year_end.id = e2_year_end.id
-        AND ((e1_month_end.value < e2_month_end.value)
-        OR (e1_month_end.value = e2_month_end.value AND e1_date_end.value < e2_date_end.value)))))
-        RETURN b
-        """)
 
     def set_lieved(
             self, date_begin=None,
@@ -310,6 +229,10 @@ class Person(StructuredNode):
         if description:
             self.description = description
         return b
+
+    @classmethod
+    def get(cls, id):
+        return cls.nodes.get(id=id)
 
     def set_marriage(
             self, spouse, date_begin=None,
@@ -420,16 +343,50 @@ class Person(StructuredNode):
     def get_lived(self):
         return self.lived_in.all()
 
-    @classmethod
-    def get_query_similars(cls):
-        return cls.query_similars
+    @staticmethod
+    def __get_query_similars():
+        return Template("""
+            START a=node({self})
+            MATCH a-[:$relation]-(e1)<-[:LOCATION|SUBSECTION*]-(loc)-[:LOCATION]-(e2)-[:$relation]-(b),
+                e1-[:DATE_BEGIN]-(e1_begin),
+                e1-[:DATE_END]-(e1_end),
+                e2-[:DATE_BEGIN]-(e2_begin),
+                e2-[:DATE_END]-(e2_end)
+            WHERE a <> b AND b.genere = a.genere
+            AND NOT (a<-[:MEMBER]-()-[:MEMBER]->b)
+            AND (e1_begin.ordinal <= e2_begin.ordinal AND e1_end.ordinal >= e2_begin.ordinal
+                OR e1_begin.ordinal <= e2_end.ordinal AND e1_end.ordinal >= e2_end.ordinal
+                OR e2_begin.ordinal <= e1_begin.ordinal AND e2_end.ordinal >= e1_end.ordinal)
+            RETURN b
+            """)
 
     def get_similar_lived(self):
-        query = self.get_query_similars().substitute(relation='LIVED_IN')
-        print 'query resp: ', self.cypher(query)
+        query = self.__get_query_similars().substitute(relation='LIVED_IN')
         results, columns = self.cypher(query)
         res = [self.inflate(row[0]) for row in results]
-        print res
-        print list(set(res))
-        return list(set(res))
+        return [x.id for x in res]
 
+    def get_similar_death(self):
+        query = self.__get_query_similars().substitute(relation='DEATH')
+        results, columns = self.cypher(query)
+        res = [self.inflate(row[0]) for row in results]
+        return [x.id for x in res]
+
+    def get_similar_birth_adp(self):
+        query = self.__get_query_similars().substitute(relation='SON')
+        results, columns = self.cypher(query)
+        res = [self.inflate(row[0]) for row in results]
+        return [x.id for x in res]
+
+    def get_similar_marriages(self):
+
+        query = self.__get_query_similars().substitute(relation='SPOUSE')
+        results, columns = self.cypher(query)
+        res = [self.inflate(row[0]) for row in results]
+        return [x.id for x in res]
+
+    def get_similar_divorces(self):
+        query = self.__get_query_similars().substitute(relation='SPOUSE')
+        results, columns = self.cypher(query)
+        res = [self.inflate(row[0]) for row in results]
+        return [x.id for x in res]

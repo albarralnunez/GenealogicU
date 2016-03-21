@@ -15,23 +15,23 @@ class modelsTestCase(TestCase):
         self.setup = setup()
         self.setup.clean_up()
         self.setup.setup()
-        self.jp = [
-                    {
-                       "long_name": "Fukuoka",
-                       "short_name": "Fukuoka",
-                       "types": ["locality", "political"]
-                    },
-                    {
-                       "long_name": "Fukuoka Prefecture",
-                       "short_name": "Fukuoka Prefecture",
-                       "types": ["administrative_area_level_1", "political"]
-                    },
-                    {
-                       "long_name": "Japan",
-                       "short_name": "JP",
-                       "types": ["country", "political"]
-                    }
-                ]
+        self.jp = {'address_components': [
+            {
+                "long_name": "Fukuoka",
+                "short_name": "Fukuoka",
+                "types": ["locality", "political"]
+            },
+            {
+                "long_name": "Fukuoka Prefecture",
+                "short_name": "Fukuoka Prefecture",
+                "types": ["administrative_area_level_1", "political"]
+            },
+            {
+                "long_name": "Japan",
+                "short_name": "JP",
+                "types": ["country", "political"]
+            }
+        ]}
 
     def tearDown(self):
         self.setup.clean_up()

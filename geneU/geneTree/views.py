@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from oauth2_provider.ext.rest_framework import TokenHasReadWriteScope
 from rest_framework.permissions import IsAuthenticated
 from functools import partial
+from geneTree.tasks import check_coincidence_task
 import copy
 
 
@@ -75,10 +76,16 @@ class PersonViewSet(viewsets.ModelViewSet):
     serializer_class = serializer_person.PersonSerializer
     lookup_field = 'id'
 
+    def pickle_person(per):
+        print("pickling a C instance...")
+        return models_person.Person.nodes
+
     def get_object(self):
         qset = copy.deepcopy(self.queryset)
         try:
-            return qset.get(id=self.kwargs[self.lookup_field])
+            res = qset.get(id=self.kwargs[self.lookup_field])
+            # res = pickle.load(res)
+            return res
         except:
             raise Http404("No Person matches the given query.")
 
@@ -171,6 +178,14 @@ class PersonViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
+
+    @detail_route(
+        methods=['get'],
+        url_path='search')
+    def search_similars(self, request, id=None):
+        check_coincidence_task.apply_async((id,))
+        return Response('{detail: Accepted}',
+                        status=status.HTTP_202_ACCEPTED)
 
 
 class MarriageViewSet(viewsets.ModelViewSet):
