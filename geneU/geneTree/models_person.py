@@ -203,7 +203,8 @@ class Person(StructuredNode):
     name = StringProperty()
     surname = StringProperty(index=True)
     second_surname = StringProperty(index=True)
-    genere = StringProperty(choices=(('M', 1), ('F', 2)), required=True)
+    genere = StringProperty(
+                    choices=(('M', 1), ('F', 2), ('U', 3)), required=True)
 
     married = Relationship('Marriage', 'SPOUSE')
     divorced = Relationship('Divorce', 'SPOUSE')

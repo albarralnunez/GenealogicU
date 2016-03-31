@@ -54,6 +54,7 @@ urlpatterns = [
     url(r"^accounts/", include("account.urls")),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    url(r'^docs/', include('rest_framework_swagger.urls')),
     url(r'^api-auth/',
         include(urls, namespace='rest_framework'))
 ]

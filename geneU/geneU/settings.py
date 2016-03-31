@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'pinax_theme_bootstrap',
     'bootstrapform',
     'celery',
+    'rest_framework_swagger',
     # 'django-celery',
     # project apps
     'core',

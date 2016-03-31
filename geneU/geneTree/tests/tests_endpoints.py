@@ -15,7 +15,7 @@ class endpointsTestCase(APITestCase):
 
     def tearDown(self):
         self.setup.clean_up()
-
+    """
     def test_get_tree_members(self):
         '''
         create tree
@@ -54,7 +54,7 @@ class endpointsTestCase(APITestCase):
             HTTP_AUTHORIZATION=self.setup.token_bearer
         )
         self.assertTrue(status.is_success(response.status_code))
-
+    """
     def test_get_person_serach(self):
         '''
         search person
@@ -64,10 +64,10 @@ class endpointsTestCase(APITestCase):
             kwargs={'id': self.setup.person1.id}
         )
         url += 'search/'
-        response = self.client.post(
+        response = self.client.get(
             url,
             format='json',
             HTTP_AUTHORIZATION=self.setup.token_bearer
         )
-
+        print response
         self.assertTrue(status.is_success(response.status_code))
