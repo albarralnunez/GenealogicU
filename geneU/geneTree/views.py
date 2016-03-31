@@ -71,6 +71,8 @@ class TreeViewSet(viewsets.ModelViewSet):
 
 
 class PersonViewSet(viewsets.ModelViewSet):
+    """
+    """
     permission_classes = [IsAuthenticated, TokenHasReadWriteScope]
     queryset = models_person.Person.nodes
     serializer_class = serializer_person.PersonSerializer

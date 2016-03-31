@@ -349,7 +349,7 @@ class PersonSerializer(serializers.BaseSerializer):
             'name': name,
             'surname': surname,
             'second_surname': second_surname,
-            'gener': genere,
+            'genere': genere,
             'tree': tree
         }
 

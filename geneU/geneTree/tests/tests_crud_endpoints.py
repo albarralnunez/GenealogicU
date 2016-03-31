@@ -64,6 +64,7 @@ class endpointscrudTestCase(APITestCase):
         url = reverse('person-list')
         data = {
             'name': 'test',
+            'genere': 'F',
             'tree': self.setup.tree.id
         }
         response = self.client.post(
@@ -93,7 +94,6 @@ class endpointscrudTestCase(APITestCase):
             format='json',
             HTTP_AUTHORIZATION=self.setup.token_bearer
         )
-        print response
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_post_person_marriage(self):

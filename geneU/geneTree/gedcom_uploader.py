@@ -23,7 +23,7 @@ class GedcomUploader:
                 act_p = models.Person(
                     name=name if name else None,
                     surname=surname if surname else None,
-                    genere=gender if gender else None
+                    genere=gender if gender else 'U'
                     ).save()
                 self.__persons[act_ele.pointer()] = act_p
                 act_p.tree.connect(self.tree)
