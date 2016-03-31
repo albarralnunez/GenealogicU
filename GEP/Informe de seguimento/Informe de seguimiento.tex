@@ -1,3 +1,4 @@
+% !TeX spellcheck = es_ES
 \documentclass[12pt]{article} % Default font size is 12pt, it can be changed here
 \usepackage[utf8]{inputenc}
 \usepackage{geometry} % Required to change the page size to A4
@@ -13,7 +14,7 @@
 \usepackage{fancyhdr}
 \usepackage{lscape}
 \usepackage{afterpage}
-
+\usepackage[spanish]{babel}
 \linespread{1.2} % Line spacing
 
 %\setlength{\parindent}{15pt}
@@ -64,7 +65,7 @@ Daniel \textsc{Albarral Nuñez} % Your name
 ~
 \begin{minipage}{0.4\textwidth}
 \begin{flushright} \large
-\emph{Supervisor:} \\
+\emph{Director:} \\
 Enric \textsc{Mayol} % Supervisor's Name
 \end{flushright}
 \end{minipage}\\[4cm]
@@ -77,7 +78,7 @@ Enric \textsc{Mayol} % Supervisor's Name
 %	DATE SECTION
 %----------------------------------------------------------------------------------------
 
-{\large Q1 - 2015-2016}\\[2cm] % Date, change the \today to a set date if you want to be precise
+%{\large Q1 - 2015-2016}\\[2cm] % Date, change the \today to a set date if you want to be precise
 
 %----------------------------------------------------------------------------------------
 %	LOGO SECTION
@@ -105,10 +106,10 @@ Enric \textsc{Mayol} % Supervisor's Name
 \section{Contextualización del proyecto}
 
 \subsubsection{Los arboles genealógicos}
-Un arboles genealógico, también llamado genorama, es la representación gráfica de los antepasados  y descendientes de un individuo.Para su representación  se suelen usar tablas o arboles, siendo esta ultima la forma más común y la que se usara en el proyecto.
+Un arbole genealógico, también llamado genorama, es la representación gráfica de los antepasados  y descendientes de un individuo.Para su representación  se suelen usar tablas o arboles, siendo esta ultima la forma más común y la que se usara en el proyecto.
 
 \subsubsection{Uso y aplicación de los arboles genealógicos.}
-Los arboles genealógicos son una herramienta de la genealogía, que se encarga de estudiar y seguir la ascendencia y descendencia de una persona o familia. La genealogía es una ciencia auxiliar de la Historia y es trabajada por un genealogista. Uno de los objetivos del software a desatollar es dar soporte a los genealogistas. \linebreak Por otro lado hay varias comunidades de aficionados que llevan sus propios arboles genealógicos, el software creado también les podrá dar servicio a esta tipología de usuarios.
+Los arboles genealógicos se usan como herramienta en la genealogía, que se encarga de estudiar y seguir la ascendencia y descendencia de una persona o familia. La genealogía es una ciencia auxiliar de la Historia y es trabajada por un genealogista. Uno de los objetivos del software a desarrollar es dar soporte a los genealogistas. \linebreak Por otro lado hay varias comunidades de aficionados que llevan sus propios arboles genealógicos, el software creado también les podrá dar servicio a esta tipología de usuarios.
 
 \newpage
 \subsection{Perspectiva general del software actual.}
@@ -121,9 +122,9 @@ La mayor parte del software genealógico actual esta basado en soluciones de esc
 Las soluciones más avanzadas, aparte de la gestión de arboles también ofrecen herramientas más orientadas a la investigación, como podrían ser sistemas de búsqueda de individuos basados en sus relaciones o herramientas estadísticas.
 
 \subsection{Tecnología}
-Dada la naturaleza social del tipo de software que se busca desarrollar, nacen ciertas complicaciones tecnológicas que en los últimos tiempos se han sido considerablemente investigadas, debido a la gran repercusión de las redes sociales. Las tecnologías clásicas orientadas a la persistencia de datos como las bases de datos SQL, plantean la dificultad de tener un coste muy alto de consulta cuando se pregunta acerca de datos  con un alto nivel de relación entre ellos. Una de las soluciones más usadas para solucionar este problema son las bases de datos orientadas a grafos, uno de los casos de éxito es el caso de Twitter, que desarrollo su propia solución, FolckDB, una base de datos orietnada a grafos, tolerante a fallos, diseñada para tratar con grandes conjuntos de datos, con información no critica.\newline
+Dada la naturaleza social del tipo de software que se busca desarrollar, nacen ciertas complicaciones tecnológicas que en los últimos tiempos se han sido considerablemente investigadas, debido a la gran repercusión de las redes sociales. Las tecnologías clásicas orientadas a la persistencia de datos como las bases de datos SQL, plantean la dificultad de tener un coste muy alto de consulta cuando se pregunta acerca de datos  con un alto nivel de relación entre ellos. Una de las soluciones más usadas para solucionar este problema son las bases de datos orientadas a grafos, uno de los casos de éxito es el caso de Twitter, que desarrollo su propia solución, FolckDB, una base de datos orientada a grafos, tolerante a fallos, diseñada para tratar con grandes conjuntos de datos, con información no critica.\newline
 En el libro \textbf{Neo4j in Action} \cite{neo4jinaction}, Partner and Vukotic realizan el siguiente experimento: \newline
-El experimento consiste en comparar una base de datos relacional con neo4j \textit{GraphDB}, en ambas se representa el mismo modelo donde diferentes personas tienen multiples amigos. Se realizan diferentes consultas donde se pretende aberiguar si existe un camino entre dos personas escojidas al azar que los una en una profundidad de como mucho cinco relaciones. Las bases de datos constan de 1000000 personas, cada una con 50 amigos aproximadamente. Los resultados fueron los siguientes:
+El experimento consiste en comparar una base de datos relacional con neo4j \textit{GraphDB}, en ambas se representa el mismo modelo donde diferentes personas tienen múltiples amigos. Se realizan diferentes consultas donde se pretende averiguar si existe un camino entre dos personas escogidas al azar que los una en una profundidad de como mucho cinco relaciones. Las bases de datos constan de 1000000 personas, cada una con 50 amigos aproximadamente. Los resultados fueron los siguientes:
 
 \begin{figure}[ht!]
 \center
@@ -132,7 +133,7 @@ El experimento consiste en comparar una base de datos relacional con neo4j \text
 \label{fig:compa}
 \end{figure}
 
-Con este experimento podemos ver como en las consultas donde la profundidad es mayor, o dicho de otra forma, donde la conectividad juega un papel más importante, la base de datos orientada a grafos es mucho más rápida. Esto es debido, en gran parte, a que las relaciones en las bases de datos orietnadas a grafos son \textit{ciudadanos de primer orden} a diferencia de las bases de datos relacionales que tratan las relaciones mediante claves foráneas, lo que proboca que tengan que usar una gran cantidad de joins para resolver el problema, elevando mucho el coste computacional.
+Con este experimento podemos ver como en las consultas donde la profundidad es mayor, o dicho de otra forma, donde la conectividad juega un papel más importante, la base de datos orientada a grafos es mucho más rápida. Esto es debido, en gran parte, a que las relaciones en las bases de datos orientadas a grafos son \textit{ciudadanos de primer orden} a diferencia de las bases de datos relacionales que tratan las relaciones mediante claves foráneas, lo que provoca que tengan que usar una gran cantidad de \textit{joins} para resolver el problema, elevando mucho el coste de resolución.
 
 
 En el articulo Benchmarking Graph Databases de Alekh Jinda \cite{graphvsrelational} realiza una comparación entre diferentes bases de datos con diferentes naturalezas.
@@ -140,8 +141,8 @@ En el articulo Benchmarking Graph Databases de Alekh Jinda \cite{graphvsrelation
 \begin{description}
 \item[Neo4j]: Orientada a grafos.
 \item[MySQL]: Orientada al tratamiento de filas.
-\item[Vertica]: Orietnada al tratamiento de columans.
-\item[VoltDB]: Base de datos en momoria principal.
+\item[Vertica]: Orientada al tratamiento de columnas.
+\item[VoltDB]: Base de datos en memoria principal.
 \end{description}
 
 Los conjuntos de datos usados son los siguientes:
@@ -159,17 +160,19 @@ Las querys aplicadas son \textit{Pagerank} para analizar el comportamiento bajo 
 \label{fig:benchmarkingneo4j}
 \end{figure}
 
-Podemos ver que los resultados son contradictorios con el estudio anterior, estaria pendiente de un analisis futuro explicar el por que es estos resultados contradictorios. A pesar de esto neo4j sigue siendo una buena opción, ya que el lenguaje cypher puede facilitar la creación de querys sobre el modelo a trabajar, dado que un arbol se expresa en forma de grafo de forma natural. Tambien hay que tener en cuetna que este estudio solo examina la rapidez, no el uso de memoria y posiblemente VoldDB al estar orienta a el uso intensivo de memoria principal saldria muy perjudicada.
+Podemos ver que los resultados son contradictorios con el estudio anterior, estaría pendiente de un análisis futuro explicar el por que es estos resultados contradictorios. A pesar de esto neo4j sigue siendo una buena opción, ya que el lenguaje cypher puede facilitar la creación de consultas sobre el modelo a trabajar, dado que un árbol se expresa en forma de grafo de forma natural. También hay que tener en cuenta que este estudio solo examina la rapidez, no el uso de memoria y posiblemente VoldDB al estar orienta a el uso intensivo de memoria principal saldría muy perjudicada.
 
 \subsubsection{Bases de datos orientadas en grafos.}
 La gran cantidad de proyectos que han nacido en los últimos años hace prácticamente imposible hacer una comparativa concreta de todas las tecnologías existentes. Pero podemos diferenciar el panorama actual haciendo dos generalizaciones:
 \begin{description}
-\item[Tecnologías usadas para propósitos transaccionales].\linebreak Orientadas ha dar un servicio online en tiempo real a una aplicación.
-\linebreak Estas tecnologías son llamadas \textbf\textit{bases de datos orientadas en grafos}. Estas son nuestro principal objeto de estudio. Son el equivalente a las OLTP en el modelo transaccional.
-\item[Tecnologías usadas principalmente para el análisis de grafos].\linebreak Llamados \textbf\textit{Motores de procesamiento de grafos}, siguiendo el mismo símil que antes, podríamos pensarlos como herramientas de \textit{data mining} y análisis de procesos(OLAP)
-\end{description}
+\item[Tecnologías usadas para propósitos transaccionales].\linebreak Orientadas a dar un servicio \textit{online} en tiempo real a una aplicación. Simplifican la diseño del modelo de datos cuando este puede representarse de forma más intuitiva con un grafo. 
+\linebreak Estas tecnologías son llamadas \textbf\textit{bases de datos orientadas en grafos}. Son el equivalente a las OLTP en el modelo transaccional.
+
 
 \noindent\fbox{\parbox{\textwidth}{\begin{flushleft} OLTP (\textbf{O}n\textbf{L}ine \textbf{T}ransaction \textbf{P}rocessing):\end{flushleft} Es un tipo de procesamiento que facilita y administra aplicaciones transaccionales, usualmente para entrada de datos y recuperación y procesamiento de transacciones (gestor transaccional). Los paquetes de software para OLTP se basan en la arquitectura cliente-servidor ya que suelen ser utilizados por empresas con una red informática distribuida..}}
+
+\item[Tecnologías usadas principalmente para el análisis de grafos].\linebreak Llamados \textbf\textit{Motores de procesamiento de grafos}, siguiendo el mismo símil que antes, podríamos pensarlos como herramientas de \textit{data mining} y análisis de procesos(OLAP)
+\end{description}
 
 Las bases de datos orientadas en grafos son sistemas de bases de datos que permiten operaciones CRUD (\textit{Create, Read, Update y Delete}) sobre los objetos representados en ellas. Suelen estar orientadas a funcionar con sistemas transaccionales (OLTP), como aviamos mencionado anteriormente. Sus principales propiedades son, las relaciones son \textit{ciudadanos de primer orden}, a diferencia de otros modelos, como el relacional que tienen que usar claves foráneas. En este tipo de base de datos para representar el dominio de nuestro problema simplemente nos b
 asta con definir los nodos y las relaciones que lo componen.
@@ -183,6 +186,7 @@ En el libro Graph Databases \cite{graphdbbook}, encontramos el siguiente gráfic
 \label{fig:grdb}
 \end{figure}
 
+\newpage
 %----------------------------------------------------------------------------------------
 %   Metodología y rigor
 %----------------------------------------------------------------------------------------
@@ -196,7 +200,7 @@ Para el desarrollo del proyecto se ha escogido como metodología de trabajo SCRU
 	\item[Product backlog]:
 	\linebreak Para crear el \textit{product backlog} se han definido un seguido de historias de usuario, de acuerdo con el tutor del proyecto, que asume el rol de \textit{product owner}. Estas historias de usuario se revisaran constantemente en los \textit{sprint backlogs}.
 	\item[Sprints]:
-	\linebreak Se desarrollaran a lo largo de dos semanas, en este tiempo se desarrollaran las historias de usuario escojidas.
+	\linebreak Se desarrollaran a lo largo de dos semanas, en este tiempo se desarrollaran las historias de usuario escogidas.
 	\item[Sprint backlog]:
 	\linebreak Se realizaran al final de cada \textit{sprint}, dado que esta tarea estará limitada por la disponibilidad del tutor y el alumno, se dara flexibilidad pudiendo realizar el \textit{sprint backlog} de varios \textit{sprints} en una reunión. Durante estas reuniones se revisaran las historias de usuario, reorganizando su prioridad, modificando su contenido, añadiendo nuevas o eliminando historias que no se crean necesarias.
 \end{description}
@@ -209,7 +213,7 @@ Para el desarrollo del proyecto se ha escogido como metodología de trabajo SCRU
 \end{figure}
 
 \subsection{Desviaciones}
-Dado al carácter flexible de la metodología, esta no se ha tenido que cambiar como tal, si bien se ha tendio hacer . Por otro lado durante los \textit{sprints backlogs} se han modificado considerablemente las historias de usuario, lo que ha repercutido en una re-orientación del proyecto, como se explicara en el análisis de alternativas.
+Dado al carácter flexible de la metodología, esta no se ha cambiado. Por otro lado durante los \textit{sprints backlogs} se han modificado considerablemente las historias de usuario, lo que ha repercutido en una re-orientación del proyecto, como se explicara en el análisis de alternativas.
 \newpage
 %----------------------------------------------------------------------------------------
 %   Planificación
@@ -252,13 +256,19 @@ El gantt adjuntado a continuación tiene varias peculiaridades:
 \newpage
 
 \subsection{Recursos}
-Las necesidades en recursos serán muy escuetas dado que todo el software que se usara es libre y las maquinas en las que se trabaja en preproducción serán virtuales. La única necesidad de tener unos recursos que se necesiten planificar, ya que requieren ser contratados, son los servidores en los que se hará el \textit{deploy}, se tendrán que contratar durante las semanas que dures los \textit{sprints} en los que se haga el \textit{deploy.}
+Las necesidades en recursos serán muy escuetas dado que todo el software que se usara es libre y las maquinas en las que se trabaja en pre-producción serán virtuales. La única necesidad de tener unos recursos que se necesiten planificar, ya que requieren ser contratados, son los servidores en los que se hará el \textit{deploy}, se tendrán que contratar durante las semanas que dures los \textit{sprints} en los que se haga el \textit{deploy.} Por otro lado en cuanto a recursos humanos el proyecto se llevara a cabo por un solo desarrollador que se encargar tanto de la programación como la documentación.
 
 \subsection{Alterativas y plan de acción}
 Dado que el proyecto se desarrollara usando \textit{Scrum}, al final de cada \textit{sprint}, durante el \textit{sprint backlog} se determinara si se han cumplido las expectativas del \textit{sprint}. Por otro lado en el \textit{sprint planning} se tendrá en cuenta si han habido carencias o \textit{bugs} en los anteriores \textit{sprints} para incorporarlos como historias de usuario al siguiente \textit{sprint}. 
 
 Como se ha comentado en el alcance, se diseñara un software abierto orientado al desarrollo continuado. Por lo que en el \textit{sprint} 13 se dará por concluido el proyecto, y se documentara el estado en el que se encuentre y las historias de usuario pendientes.
 \newpage
+
+\subsection{Desviaciones}
+Del planteamento inicial del proyecto se ha decidido prescindir del desarrollo del \textit{frontend} y centrar se en la parte del \textit{backend}. Se ha creado \textit{endpoints} asíncronos par las funcionalidades más pesadas y se ha añadido un endpoint para subir archivos GEDCOM.
+
+\subsection{Estado actual de ejecución}
+En el punto actual de ejecución del proyecto se da por concluida la implementación de todas las funcionalidades.
 
 %----------------------------------------------------------------------------------------
 %   Análisis de alternativas
@@ -270,14 +280,14 @@ Como se ha comentado en el alcance, se diseñara un software abierto orientado a
 %----------------------------------------------------------------------------------------
 
 \subsection{Tecnologias}
-Se ha establecido como condición necesaria para todas las tecnologías que sean \textit{opensource} o \textit{freeware}.
+Se ha establecido como condición necesaria para todas las tecnologías que sean \textit{opensource} o \textit{freeware}. 
 
 \subsubsection{Base de datos}
 Se han valorado las siguientes bases de datos:
 
 \begin{description}
 \item[HyperGraphDB (\url{http://hypergraphdb.org/})]:
-\\Es un base de datos orientada a grafos de propósito general, extensible, potable, distribuida y integrable. Diseñada especialmente para proyectos sobre inteligencia artificial y web semántica. Tambien se pude usar como base de datos orientada a objetos.
+\\Es un base de datos orientada a grafos de propósito general, extensible, potable, distribuida y integrable. Diseñada especialmente para proyectos sobre inteligencia artificial y web semántica. También se pude usar como base de datos orientada a objetos.
 \item[InfoGrid (\url{http://infogrid.org})]:
 \\Es una base de datos orientada a grafos especialmente enfocada al desarrollo de aplicaciones \textit{backend} REST-ful. Hace especial énfasis en la orientación a objetos. De este proyecto destaca su modularidad. 
 \item[Neo4j (\url{http://neo4j.com/})]:
@@ -285,15 +295,15 @@ Se han valorado las siguientes bases de datos:
 \end{description}
 
 \textbf{Decisón}:\\
-Final mente se ha seleccionado Neo4j. Se ha descartado el uso de HyperGraphDB, dado que pudiendose acomodar a las necesidades del proyecto no es tan eficiente como InfoGrid y Neo4j cuando usamos la base de datos como una base de datos orientada a objetos puramente.
+Final mente se ha seleccionado Neo4j. Se ha descartado el uso de HyperGraphDB, dado que pudiéndose acomodar a las necesidades del proyecto no es tan eficiente como InfoGrid y Neo4j cuando usamos la base de datos como una base de datos orientada a objetos puramente.
 InfoGrid se ha descartado al no ser tan eficiente como neo4j en el tratamiento de datos en una lógica de grafos, esto se debe a que en InfoGrid los datos no se guardan nativa-mente en estructuras de grafo \cite{neo4jvsinfogrid}.
 
 \subsubsection{Lenguaje de programación}
-Los lenguajes escogidos para el análisis han estado seleccionados con criterios subjetivos, seleccionandolos de tal forma que aporten alternativas a la hora tanto de dar agilidad a la implementación como a ser eficientes en el rendimiento. También se ha tendió en cuenta los \textit{frameworks} que se pueden usar en estos lenguajes para la consecución de una API rest.\\Para desarrollar este proyecto se ha optado entre los siguientes lenguajes de programación.
+Los lenguajes escogidos para el análisis han estado seleccionados con criterios subjetivos, seleccionándolos de tal forma que aporten alternativas a la hora tanto de dar agilidad a la implementación como a ser eficientes en el rendimiento. También se ha tendió en cuenta los \textit{frameworks} que se pueden usar en estos lenguajes para la consecución de una API rest.\\Para desarrollar este proyecto se ha optado entre los siguientes lenguajes de programación.
 
 \begin{description}
 \item[Scala (\url{www.scala-lang.org/})]:
-\\Scala és un lenguaje de propósito general multi-paradigma, da soporte completo para programación funcional y orientada a objetos, tambien dispone de un sistema de inferencia de tipo statico muy potente. Se compila a Java byte code y se ejecuta sobre la maquina virtual de Java. Es totalmente interoperable con Java por lo que se pueden usar librerías Java y viceversa.
+\\Scala es un lenguaje de propósito general multi-paradigma, da soporte completo para programación funcional y orientada a objetos, también dispone de un sistema de inferencia de tipo estático muy potente. Se compila a Java byte code y se ejecuta sobre la maquina virtual de Java. Es totalmente interoperable con Java por lo que se pueden usar librerías Java y viceversa.
 
 Frameworks:
 \begin{description}
@@ -307,10 +317,10 @@ Frameworks:
 \end{description}
 
 \item[Lift(\url{liftweb.net/})]:
-\\Es un \textit{framework} para scala, esta diseñado para seguir la arquitectura 'View First". Clama ser uno de los frameworks más seguros y destaca por los siguientes puntos:
+\\Es un \textit{framework} para scala, esta diseñado para seguir la arquitectura 'View First". Clama ser uno de los \textit{frameworks} más seguros y destaca por los siguientes puntos:
 \begin{description}
-\item[Seguridad]: \\Lift es resistente a casi todas las vulnerabilidades comunes incluyendo la mayoria de la lista ``OWASP \textit{top 10} de".
-\item[Amigable para el desarollador]: \\Lisft esta diseñado para facilitar la creación de aplicaciones de forma rapida y sencilla.
+\item[Seguridad]: \\Lift es resistente a casi todas las vulnerabilidades comunes incluyendo la mayoría de la lista ``OWASP \textit{top 10} de".
+\item[Amigable para el desarrollador]: \\Lisft esta diseñado para facilitar la creación de aplicaciones de forma rápida y sencilla.
 \item[Escalable]: \\Esta diseñado para dar soporte a grandes cantidades de trafico.
 \item[Modular]: \\El programa se compone de módulos, esto da mucha agilidad a la hora ampliar las funcionalidades de los proyectos y da una arquitectura muy limpia y fácil de mantener.
 \end{description}
@@ -363,7 +373,7 @@ En el proyecto se integran 3 grandes bloques:
 Se ha diseñado el modelo y de una DB orientada a grafos que represente un árbol genealógico. 
 Para la cración del modelo se han usado diferentes técnicas, como los arboles temporales \cite{graphdbbook}. Para las localizaciones se ha creado un sistema que almacena direcciones in-equivocas forma única en forma de árbol, esto se ha conseguido por medio de la API de google maps haciendo uso de los geocomponentes. De esta forma tanto las fechas como las direcciones pueden funciónar como un \textit{``hyperedge''} ya que conseguimos relacionar los diferentes subgrafos por medio de estos nodos.
 
-\subsection{Backend} Creación de un \textit{backend} rest-ful con orientación social, para gestionar la base de datos orietnada a grafos. A la hora de construir este \textit{backend} se ha tenido en cuenta patrones arquitectónicos que faciliten la mantenibilidad y ampliabilidad de la aplicación. Este \textit{backend}constara principalmente de:
+\subsection{Backend} Creación de un \textit{backend} rest-ful con orientación social, para gestionar la base de datos orientada a grafos. A la hora de construir este \textit{backend} se ha tenido en cuenta patrones arquitectónicos que faciliten la mantenibilidad y ampliabilidad de la aplicación. Este \textit{backend}constara principalmente de:
 
 \subsubsection*{Gestión de usuarios}
 Para la gestión de usuarios no se creara ningún \textit{endpoint} en la API por cuestiones de seguridad, se proporcionara una interfaz para poder gestionar los usuarios desde un \textit{frontend }. Los usuarios para darse de alta tendrán que confirmar su correo electrónico.
@@ -375,7 +385,7 @@ Los usuarios, para poder realizar peticiones a los \textit{endpoints} de la API,
 En los \textit{end-points} más pesados la peticiónes seran asincronias. Esto se conseguira con Rabit MQ como \textit{message broker} y celerys, una librería python que nos permite enviar menssages a la cola de Rabit MQ y gestionar los \textit{workers} que trabajaran sobre ella.
 
 \subsubsection*{Endpoints}
-El \textit{backend} consta de todos los \textit{endpoints} necesarios para realizar todas las operaciónes crud sobre el modelo de forma rest-ful. Aparte se incluirán otros \textit{endpoints} para realizar operaciones adicionales.
+El \textit{backend} consta de todos los \textit{endpoints} necesarios para realizar todas las operaciónes crud sobre el modelo de forma rest-ful. Aparte se incluirán otros \textit{endpoints} para realizar  operaciones adicionales.
 
 \subsection{Busqueda de personas similares}
 El programa permitirá encontrar coincidencias entre las personas de la DB. Para ello se aprovechara el potencial de la base de datos orientada a grafos. Para ello se buscaran personas que compartan fechas y lugares en diferentes eventos, nacimiento, muerte, etc. Una vez encontrados estos candidatos se aplicaran heuristicos para determinar en que medida esas dos personas pueden ser la misma.
