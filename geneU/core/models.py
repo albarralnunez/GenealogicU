@@ -6,6 +6,7 @@ import geneTree.models
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 # from django.db import transaction
+from django.conf import settings
 
 
 class UserNode(StructuredNode):
@@ -14,7 +15,8 @@ class UserNode(StructuredNode):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=25, blank=True)
     private = models.BooleanField(default=False)
 

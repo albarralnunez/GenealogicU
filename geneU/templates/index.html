@@ -4,5 +4,7 @@
 {% block body %}
 {% if not request.user.is_authenticated %}
 	<a href="/accounts/signup/" class="btn btn-info" role="button">SignUp</a>
+{% else %}
+	<a href="/o/applications/" class="btn btn-info" role="button">Applications</a>
 {% endif %}
 {% endblock %}

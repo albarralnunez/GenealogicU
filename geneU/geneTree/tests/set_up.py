@@ -123,7 +123,7 @@ class setup():
 
         self.app = Application.objects.create(
             client_type=Application.CLIENT_CONFIDENTIAL,
-            authorization_grant_type=Application.GRANT_AUTHORIZATION_CODE,
+            authorization_grant_type=Application.GRANT_PASSWORD,
             redirect_uris='https://www.none.com/oauth2/callback',
             name='dummy',
             user=user
@@ -221,6 +221,14 @@ class setup():
         m.divorced.connect(sra_maria)
 
         random = models_person.Person(name='Random', genere='M').save()
+
+        event1 = {
+            'loc': cat,
+            'date_begin': date(1500, 10, 1),
+            'date_end': date(2000, 12, 1),
+            'son': random
+        }
+        models_person.Birth.const(**event1)
 
         event1 = {
             'loc': cat,
@@ -558,14 +566,21 @@ class setup():
         }
         models_person.Lived.const(**event1)
 
+        # event1 = {
+        #     'loc': cat,
+        #     'date_begin': date(2001, 11, 1),
+        #     'date_end': date(2001, 12, 1),
+        #     'son': self.person1
+        # }
+
+        # models_person.Birth.const(**event1)
         event1 = {
             'loc': cat,
-            'date_begin': date(2001, 11, 1),
+            'date_begin': date(1500, 11, 1),
             'date_end': date(2001, 12, 1),
             'person': self.person1
         }
         models_person.Death.const(**event1)
-
         event2 = {
             'loc': bcn,
             'date_begin': date(1890, 10, 2),

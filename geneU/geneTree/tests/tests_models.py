@@ -65,17 +65,6 @@ class modelsTestCase(TestCase):
         )
         self.assertTrue(b)
 
-    def test_set_birth(self):
-        b = self.setup.person2.set_birth(
-            date_begin=date(2011, 5, 24),
-            date_end=date(2011, 5, 25),
-            loc=self.jp,
-            loc_p='test',
-            father1=self.setup.person2,
-            father2=self.setup.person3
-        )
-        self.assertTrue(b)
-
     def test_set_death(self):
         b = self.setup.person1.set_death(
             date_begin=date(2011, 5, 24),
