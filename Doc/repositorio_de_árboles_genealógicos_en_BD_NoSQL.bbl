@@ -1,0 +1,51 @@
+\begin{thebibliography}{10}
+
+\bibitem{oauth2rfc}
+Michael B.~Jones Dick~Hardt.
+\newblock The oauth 2.0 authorization framework, 2012.
+
+\bibitem{aboutGEDCOM}
+Ryan Heaton.
+\newblock About gedcom, 2014.
+
+\bibitem{graphvsrelational}
+Alekh Jindal.
+\newblock Benchmarking graph databases, 2013.
+
+\bibitem{neo4jhyperedges}
+Neo4j.
+\newblock Hyperedges.
+
+\bibitem{datafusion}
+RelcyEngineering.
+\newblock Data fusion algorithms, 2016.
+
+\bibitem{graphdbbook}
+Ian Robinson, Jim Webber, and Emil Eifrem.
+\newblock {\em Graph Databases}.
+\newblock O'Reilly Media, Inc., 2013.
+
+\bibitem{rodriguez2010graph}
+Marko~A Rodriguez and Peter Neubauer.
+\newblock The graph traversal pattern.
+\newblock {\em arXiv preprint arXiv:1004.1001}, 2010.
+
+\bibitem{javatrap}
+Richard Stallman.
+\newblock Java trap, 2004.
+
+\bibitem{neo4jvsinfogrid}
+InfoGrid Team.
+\newblock Neo4j and infogrid, 2009.
+
+\bibitem{vlissides1995design}
+John Vlissides, Richard Helm, Ralph Johnson, and Erich Gamma.
+\newblock Design patterns: Elements of reusable object-oriented software.
+\newblock {\em Reading: Addison-Wesley}, 49(120):11, 1995.
+
+\bibitem{neo4jinaction}
+Aleksa Vukotic, Nicki Watt, Tareq Abedrabbo, Dominic Fox, and Jonas Partner.
+\newblock {\em Neo4j in action}.
+\newblock Manning, 2015.
+
+\end{thebibliography}

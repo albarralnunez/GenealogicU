@@ -1,0 +1,94 @@
+\BOOKMARK [1][-]{section.1}{Resumen/Abstract}{}% 1
+\BOOKMARK [1][-]{section.2}{Introducci\363n y estado del arte}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Motivaci\363n}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Contextualizaci\363n del proyecto}{section.2}% 4
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Los \341rboles geneal\363gicos}{subsection.2.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Bases de datos orientadas a grafos \(BDOG\)}{subsection.2.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.2.3}{REST-ful \(REpresentational State Transfer\)}{subsection.2.2}% 7
+\BOOKMARK [2][-]{subsection.2.3}{Perspectiva general del software geneal\363gico actual.}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.4}{An\341lisis previo de tecnolog\355as}{section.2}% 9
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Base de datos}{subsection.2.4}% 10
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Lenguaje de programaci\363n}{subsection.2.4}% 11
+\BOOKMARK [2][-]{subsection.2.5}{Integraci\363n de leyes y regulaciones}{section.2}% 12
+\BOOKMARK [3][-]{subsubsection.2.5.1}{Derecho de informaci\363n}{subsection.2.5}% 13
+\BOOKMARK [3][-]{subsubsection.2.5.2}{Consentimiento del afectado}{subsection.2.5}% 14
+\BOOKMARK [1][-]{section.3}{Alcance}{}% 15
+\BOOKMARK [2][-]{subsection.3.1}{Objetivos}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.2}{Objetivos acad\351micos}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.3}{Metodologia y rigor}{section.3}% 18
+\BOOKMARK [3][-]{subsubsection.3.3.1}{SCRUM}{subsection.3.3}% 19
+\BOOKMARK [2][-]{subsection.3.4}{Metodo de validaci\363n}{section.3}% 20
+\BOOKMARK [2][-]{subsection.3.5}{Fases de desarrollo}{section.3}% 21
+\BOOKMARK [3][-]{subsubsection.3.5.1}{An\341lisis de requisitos y estudio previo}{subsection.3.5}% 22
+\BOOKMARK [3][-]{subsubsection.3.5.2}{Especificaci\363n}{subsection.3.5}% 23
+\BOOKMARK [3][-]{subsubsection.3.5.3}{Dise\361o}{subsection.3.5}% 24
+\BOOKMARK [3][-]{subsubsection.3.5.4}{Implementaci\363n y pruebas}{subsection.3.5}% 25
+\BOOKMARK [2][-]{subsection.3.6}{Posibles obst\341culos}{section.3}% 26
+\BOOKMARK [1][-]{section.4}{Planificaci\363n}{}% 27
+\BOOKMARK [2][-]{subsection.4.1}{Gantt}{section.4}% 28
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Tareas y Gr\341ficos gantt}{subsection.4.1}% 29
+\BOOKMARK [2][-]{subsection.4.2}{Recursos}{section.4}% 30
+\BOOKMARK [2][-]{subsection.4.3}{Alterativas y plan de acci\363n}{section.4}% 31
+\BOOKMARK [1][-]{section.5}{Presupuesto y impacto social}{}% 32
+\BOOKMARK [2][-]{subsection.5.1}{Identificaci\363n y estimaci\363n de costes}{section.5}% 33
+\BOOKMARK [3][-]{subsubsection.5.1.1}{Costes de personal}{subsection.5.1}% 34
+\BOOKMARK [3][-]{subsubsection.5.1.2}{Coste del espaci\363 de trabajo}{subsection.5.1}% 35
+\BOOKMARK [3][-]{subsubsection.5.1.3}{Coste del los servidores}{subsection.5.1}% 36
+\BOOKMARK [1][-]{section.6}{Sostenibilidad y compromiso social}{}% 37
+\BOOKMARK [2][-]{subsection.6.1}{Dimensi\363n econ\363mica - 7}{section.6}% 38
+\BOOKMARK [2][-]{subsection.6.2}{Dimensi\363n social - 9}{section.6}% 39
+\BOOKMARK [2][-]{subsection.6.3}{Dimensi\363n ambiental - 6}{section.6}% 40
+\BOOKMARK [1][-]{section.7}{An\341lisis de requisitos}{}% 41
+\BOOKMARK [2][-]{subsection.7.1}{Visi\363n global del sistema}{section.7}% 42
+\BOOKMARK [2][-]{subsection.7.2}{Actores}{section.7}% 43
+\BOOKMARK [2][-]{subsection.7.3}{Requisitos funcionales}{section.7}% 44
+\BOOKMARK [3][-]{subsubsection.7.3.1}{Usuario final}{subsection.7.3}% 45
+\BOOKMARK [3][-]{subsubsection.7.3.2}{Aplicaci\363n}{subsection.7.3}% 46
+\BOOKMARK [2][-]{subsection.7.4}{Requisitos no funcionales}{section.7}% 47
+\BOOKMARK [1][-]{section.8}{Especificaci\363n}{}% 48
+\BOOKMARK [2][-]{subsection.8.1}{Casos de uso}{section.8}% 49
+\BOOKMARK [3][-]{subsubsection.8.1.1}{Usuario final}{subsection.8.1}% 50
+\BOOKMARK [2][-]{subsection.8.2}{Modelo conceptual de datos}{section.8}% 51
+\BOOKMARK [3][-]{subsubsection.8.2.1}{Restricciones de integridad}{subsection.8.2}% 52
+\BOOKMARK [1][-]{section.9}{Dise\361o}{}% 53
+\BOOKMARK [2][-]{subsection.9.1}{Patrones de arquitect\363nicos}{section.9}% 54
+\BOOKMARK [3][-]{subsubsection.9.1.1}{Modelo vista controlador}{subsection.9.1}% 55
+\BOOKMARK [3][-]{subsubsection.9.1.2}{Message Broker}{subsection.9.1}% 56
+\BOOKMARK [3][-]{subsubsection.9.1.3}{REST}{subsection.9.1}% 57
+\BOOKMARK [2][-]{subsection.9.2}{Patrones de mensajer\355a}{section.9}% 58
+\BOOKMARK [3][-]{subsubsection.9.2.1}{Publish\205subscribe}{subsection.9.2}% 59
+\BOOKMARK [2][-]{subsection.9.3}{Patrones Estructurales}{section.9}% 60
+\BOOKMARK [3][-]{subsubsection.9.3.1}{Mixins}{subsection.9.3}% 61
+\BOOKMARK [2][-]{subsection.9.4}{Protocolos}{section.9}% 62
+\BOOKMARK [3][-]{subsubsection.9.4.1}{OAuth 2}{subsection.9.4}% 63
+\BOOKMARK [2][-]{subsection.9.5}{Dise\361o del modelo de datos}{section.9}% 64
+\BOOKMARK [3][-]{subsubsection.9.5.1}{Arboles temporales.}{subsection.9.5}% 65
+\BOOKMARK [3][-]{subsubsection.9.5.2}{Geocomponentes}{subsection.9.5}% 66
+\BOOKMARK [2][-]{subsection.9.6}{Dise\361o de la capa de dominio}{section.9}% 67
+\BOOKMARK [2][-]{subsection.9.7}{Dise\361o del modelo de comportamiento}{section.9}% 68
+\BOOKMARK [1][-]{section.10}{Implementaci\363n}{}% 69
+\BOOKMARK [2][-]{subsection.10.1}{Usuarios}{section.10}% 70
+\BOOKMARK [3][-]{subsubsection.10.1.1}{SignUp}{subsection.10.1}% 71
+\BOOKMARK [3][-]{subsubsection.10.1.2}{LogIn}{subsection.10.1}% 72
+\BOOKMARK [2][-]{subsection.10.2}{Gesti\363n de aplicaciones}{section.10}% 73
+\BOOKMARK [2][-]{subsection.10.3}{Endpoints}{section.10}% 74
+\BOOKMARK [3][-]{subsubsection.10.3.1}{CRUD}{subsection.10.3}% 75
+\BOOKMARK [3][-]{subsubsection.10.3.2}{As\355ncronos}{subsection.10.3}% 76
+\BOOKMARK [3][-]{subsubsection.10.3.3}{UploadGedcom}{subsection.10.3}% 77
+\BOOKMARK [3][-]{subsubsection.10.3.4}{Encontrar similitudes}{subsection.10.3}% 78
+\BOOKMARK [1][-]{section.11}{Pruebas}{}% 79
+\BOOKMARK [2][-]{subsection.11.1}{Django rest framework test suit}{section.11}% 80
+\BOOKMARK [2][-]{subsection.11.2}{POSTMAN}{section.11}% 81
+\BOOKMARK [1][-]{section.12}{Conclusiones}{}% 82
+\BOOKMARK [2][-]{subsection.12.1}{Cambios en la planificaci\363n}{section.12}% 83
+\BOOKMARK [2][-]{subsection.12.2}{Objetivos acad\351micos}{section.12}% 84
+\BOOKMARK [3][-]{subsubsection.12.2.1}{CES1.1}{subsection.12.2}% 85
+\BOOKMARK [3][-]{subsubsection.12.2.2}{CES1.2}{subsection.12.2}% 86
+\BOOKMARK [3][-]{subsubsection.12.2.3}{CES1.4}{subsection.12.2}% 87
+\BOOKMARK [3][-]{subsubsection.12.2.4}{CES1.5}{subsection.12.2}% 88
+\BOOKMARK [3][-]{subsubsection.12.2.5}{CES1.6}{subsection.12.2}% 89
+\BOOKMARK [3][-]{subsubsection.12.2.6}{CES1.9}{subsection.12.2}% 90
+\BOOKMARK [3][-]{subsubsection.12.2.7}{CES2.2}{subsection.12.2}% 91
+\BOOKMARK [2][-]{subsection.12.3}{Evoluciones futuras}{section.12}% 92
+\BOOKMARK [2][-]{subsection.12.4}{Valoraci\363n personal}{section.12}% 93
+\BOOKMARK [1][-]{section.13}{Referencias}{}% 94

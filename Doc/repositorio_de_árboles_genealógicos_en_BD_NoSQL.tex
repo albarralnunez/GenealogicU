@@ -1,0 +1,178 @@
+%!TeX spellcheck = es_Es	
+\documentclass[13pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{parskip}
+\usepackage{float}
+\usepackage{graphicx} % Required for including pictures
+\usepackage{hyperref}
+\usepackage{float} % Allows putting an [H] in \begin{figure} to specify the exact location of the figure
+\usepackage{fancyhdr}
+\usepackage{lscape}
+\usepackage{afterpage}
+\usepackage[spanish]{babel}
+\usepackage{import}
+\usepackage{cite}
+\usepackage{geometry} % Required to change the page size to A4
+\usepackage{booktabs}
+\usepackage{eurofont}
+\usepackage{wrapfig}
+\usepackage{booktabs,colortbl, array}
+\usepackage{pgfplotstable}
+\usepackage{siunitx}
+\usepackage{xcolor}
+
+\linespread{1.2} % Line spacing
+\geometry{a4paper} % Set the page size to be A4 as opposed to the default US Letter
+
+%\setlength{\parindent}{15pt}
+%\setlength\parindent{0pt} % Uncomment to remove all indentation from paragraphs
+
+\graphicspath{{./add/}} % Specifies the directory where pictures are stored
+
+\pagestyle{fancy}
+\lhead{Repositorio de árboles genealógicos en BD NoSQL}
+\rhead{Daniel Albarral Nuñez}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+\begin{document}
+
+\begin{titlepage}
+
+\center % Center everything on the page
+ 
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+
+\textsc{\LARGE Universidad Politécnica de Cataluña}\\[1.5cm] % Name of your university/college
+\textsc{\Large Facultad de Informática de Barcelona}\\[0.5cm] % Major heading such as course name
+\textsc{\large Ingeniería de software}\\[0.5cm] % Minor heading such as course 
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Repositorio de árboles genealógicos en BD NoSQL}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+ 
+%----------------------------------------------------------------------------------------
+%	AUTHOR SECTION
+%----------------------------------------------------------------------------------------
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Autor:}\\
+Daniel \textsc{Albarral Nuñez} % Your name
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Director:} \\
+Enric \textsc{Mayol} % Supervisor's Name
+\end{flushright}
+\end{minipage}\\[4cm]
+
+% If you don't want a supervisor, uncomment the two lines below and remove the section above
+%\Large \emph{Author:}\\
+%John \textsc{Smith}\\[3cm] % Your name  
+
+%----------------------------------------------------------------------------------------
+%	DATE SECTION
+%----------------------------------------------------------------------------------------
+
+%{\large Q1 - 2015-2016}\\[2cm] % Date, change the \today to a set date if you want to be precise
+
+%----------------------------------------------------------------------------------------
+%	LOGO SECTION
+%----------------------------------------------------------------------------------------
+
+\includegraphics[scale=0.7]{logo_upc.png}\\[1cm] % Include a department/university logo - this will require the graphicx package
+ 
+%----------------------------------------------------------------------------------------
+
+\vfill % Fill the rest of the page with whitespace
+\afterpage{\blankpage}
+
+\end{titlepage}
+
+\section{Resumen/Abstract}
+\import{sections/}{0_abstract}
+\newpage
+%----------------------------------------------------------------------------------------
+%   TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+\tableofcontents % Include a table of contents
+
+%----------------------------------------------------------------------------------------
+%   Contextualización del proyecto
+%----------------------------------------------------------------------------------------
+\newpage
+\section{Introducción y estado del arte}
+\import{sections/}{1_introduccion}
+\afterpage{\blankpage}
+
+\newpage
+\section{Alcance}
+\import{sections/}{2_alcance}
+\afterpage{\blankpage}
+
+\newpage
+\section{Planificación}
+\label{sec:planificacion}
+\import{sections/}{3_planificacion}
+\afterpage{\blankpage}
+
+\newpage
+\section{Presupuesto y impacto social}
+\import{sections/}{4_presupuesto_y_impacto_social}
+\afterpage{\blankpage}
+\newpage
+\section{Análisis de requisitos}
+\import{sections/}{5_analisis_requisitos}
+\afterpage{\blankpage}
+
+\newpage
+\section{Especificación}
+%Acabar casos de uso?
+\import{sections/}{6_especificacion}
+\afterpage{\blankpage}
+\newpage
+\section{Diseño}
+%meh se puden poner mas dig d secuencia
+\import{sections/}{7_diseno}
+\afterpage{\blankpage}
+\newpage
+\section{Implementación}
+%Añadir comentario sobre la metaprogramación
+\import{sections/}{8_implementacion}
+\afterpage{\blankpage}
+
+\newpage
+\section{Pruebas}
+\import{sections/}{9_pruebas}
+\afterpage{\blankpage}
+\newpage
+\section{Conclusiones}
+\import{sections/}{10_conclusiones}
+\afterpage{\blankpage}
+\newpage
+\section{Referencias}
+\bibliography{mybibliography}
+\nocite{*}
+\bibliographystyle{plain}
+
+\end{document}

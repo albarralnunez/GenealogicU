@@ -1,0 +1,85 @@
+\subsection{Visión global del sistema}
+Como ya se ha comentado en los capítulos anteriores, el proyecto consiste en el desarrollo de API rest-ful desde la que poder gestionar un repositorio de árboles genealógicos.
+
+Para ello el \textit{backend} implementado deberá permitir que diferentes aplicaciones se den de alta para poder acceder a los datos almacenados por los usuarios y así mismo permitir a estos usuarios 
+realizar las operaciones necesarias para gestionar sus árboles genealógicos.
+
+\subsection{Actores}
+Los actores implicados en el uso del sistema son dos:
+
+\begin{description}
+\item[Usuario final]:\newline
+Este actor sera el que se dará de alta en nuestra aplicación y ha de ser capaz de almacenar y gestionar sus árboles genealógicos.
+
+ 
+\item[Aplicación]:\newline		
+El \textit{backend} ha de permitir a diferentes aplicaciones (\textit{fontends}) darse de alta. Estas aplicaciones recibirán las credenciales necesarias para poder conseguir los permisos de acceso de nuestros usuarios finales y manipular sus árboles.
+\end{description}
+
+\subsection{Requisitos funcionales}
+Los requisitos funcionales describen todas las funcionalidades que proporcionara el \textit{backend}. A continuación se listan todos los requisitos funcionales desglosados por actor:
+
+\subsubsection{Usuario final}
+\begin{description}
+\item[Gestión de cuenta]:
+	\begin{description}
+	\item[Registro]:
+	El usuario deberá poderse registrar en el sistema introduciendo los datos necesarios.
+	\item[Modificar sus datos]:
+	El usuario deberá poder modificar sus datos.
+	\item[Login]:
+	El usuario deberá de poder acceder al una interfaz desde la que gestionar sus datos de usuario.
+	\item[Activación de cuenta]:
+	El usuario una vez registrado tendrá que poder activar la cuenta vía email.
+\end{description}
+\end{description}		
+
+
+\subsubsection{Aplicación}
+\begin{description}
+\item[Gestión de cuenta]:
+	\begin{description}
+	\item[Registro]:
+	El usuario deberá poderse registrar en la aplicación introduciendo los datos necesarios.
+	\item[Login]:
+	El usuario deberá de poder acceder al una interfaz desde la que gestionar sus datos de usuario.
+	\item[Modificar sus datos]:
+	El usuario deberá poder modificar sus datos.
+	\end{description}		
+\end{description}
+\begin{description}
+\item[Gestión de aplicaciones]:
+	\begin{description}
+	\item[Dar de alta aplicación]:
+	El usuario ha de poder dar de alta aplicaciones que posteriormente accederán al contenido del repositorio mediante la API.
+	\item[Conseguir token]:
+	Las aplicaciones una vez dadas de alta podrán pedir \textit{tokens} asignados a los usuarios finales con su nivel autorización y que permita su autentificación.
+	\end{description}
+	
+\begin{description}
+\item[Gestión de los árboles]:
+	\begin{description}
+	\item[Creación, modificación y consulta de árboles genealógicos]:
+	El usuario deberá poder crear, modificar y consultar los árboles genealógicos.
+	\item[Creación, modificación y consulta de personas]:
+	El usuario deberá de poder crear, modificar y consultar las personas almacenadas en los árboles genealógicos.
+	\item[Creación, modificación y consulta de eventos]:
+	El usuario deberá de poder crear, modificar y consultar los eventos de las personas almacenadas en los árboles genealógicos.
+	\item[Subir un archivo GEDCOM]:
+	El usuario deberá de poder cargar archivos GEDCOM en su cuenta.
+	\item[Encontrar personas similares]:
+	El usuario deberá de poder seleccionar una persona de uno de sus árboles genealógicos y buscar personas similares en otros árboles de otros usuarios.
+	\end{description}
+\end{description}
+\end{description}
+
+\subsection {Requisitos no funcionales}
+A continuación se muestra una lista de los requisitos no funcionales del sistema:
+
+\begin{enumerate}
+\item La API ha de permitir un uso completo de todas las funcionalidades independientemente de la tecnología que la use.
+\item Se ha de proporcionar una interfaz gráfica para gestionar los usuarios de la aplicación.I.
+\item El tiempo de respuesta de todos los endpoints ha de ser similar sea cuan sea la funcionalidad que implementen.
+\item La plataforma ha de constar de sistemas que aseguren la seguridad de los datos de usuario.
+\item Todos los \textit{endpoints} de la API tendrán que respetar los estandartes de una aplicación rest-ful
+\end{enumerate}

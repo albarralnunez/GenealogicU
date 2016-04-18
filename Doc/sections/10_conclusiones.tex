@@ -1,0 +1,55 @@
+Una vez concluidas todas las etapas del proyecto se expondrán las conclusiones a las que se ha llegado. Se agruparán en diferentes apartados para unificar las diferentes temáticas que se quieren abordar.
+
+\subsection{Cambios en la planificación}
+Si bien se ha podido seguir la planificación en términos generales,
+sobretodo en las primeras etapas, donde se planteaba el proyecto, llegada la fase de implementación se ha observado que muchos objetivos que se habían establecido en primera estancia, estaban lejos de poderse conseguir, ya que se había condensado mucho trabajo en los \textit{sprints}, por ello se tubo que hacer un replanteamiento y excluir el desarrollo de un \textit{front-end} a favor de trabajar más en profundidad los otros aspectos del proyecto. Dada la naturaleza ágil de la metodologia escogida y al tratarse de un proyecto donde el objetivo era el aprendizaje y establecer variaciones en los \textit{sprints} no suponía un gran impacto, se replantearon y son los que ahora salen reflejados en la planificación final \ref{sec:planificacion}, esta modificación una vez terminado el proyecto se ha valorado positivamente dado que se han podido concentrar los esfuerzos en trabajar mejor otros aspectos del proyecto. Por otro lado se había estimado menos trabajo del finalmente realizado a la memoria, lo que a conllevado llegar muy justos a la fecha de entrega, esto se atribuye a las variaciones realizadas sobre la documentación inicial y a la profunda mejora de esta.
+
+\subsection{Objetivos académicos}
+Para desglosar de manera clara como se han cumplido cada uno de los objetivos establecidos se explicara uno por uno.
+\subsubsection{CES1.1}
+\textbf{Desarrollar, mantener y evaluar sistemas y servicios software complejos o críticos.}\\
+Este objetivo se da por alcanzado, dado que una gran parte del proyecto a consistido en desarrollar toda la plataforma que daba acceso al repositorio, de forma que esta se adecuase a estándares usados en el ámbito profesional para dar servició a infraestructuras con altos requerimientos.  
+
+\subsubsection{CES1.2}
+\textbf{Dar solución a problemas de integración en función de las estrategias, de los estándares y tecnologías disponibles.}\\
+Uno de los objetivos principales del proyecto ha sido integrar tecnologías ya existentes basadas en estándares que fuesen lo más actuales posibles, ejemplo de ello es como se ha usado tecnologías como Django rest framework, RabitMQ, Celery, oAuth2 Toolkit, Neomodel, entre otras.
+
+\subsubsection{CES1.4}
+\textit{Desarrollar, mantener y evaluar servicios y aplicaciones distribuidas con soporte de red.}\\
+Si bien no se ha llegado a hacer un \textit{deployment} final del sistema en una arquitecta en red, este esta pensado para funcionar de forma distribuida. Prueba de ello es el uso del patrón \textit{message broker} \ref{sec:message_broker}, que finalmente ha sido desarrollado con éxito.
+
+\subsubsection{CES1.5}
+\textit{Especificar, diseñar y implementar bases de datos.}\\
+Una de las tareas que ha motivado este proyecto precisamente ha sido, como bien el titulo indica, crear un repositorio de arboles genealógicos en bases de datos NoSQL. Para ello se ha trabajado sobre las bases de datos orientadas a grafos, estudiando sus propiedades, que ventajas nos aporta frente a otros modelos y de que forma se tienen que diseñar para conseguir una mejor optimización teniendo en cuenta sus cualidades. Esto se puede comprobar a lo largo de la memoria:
+\begin{description}
+\item[Introdución]: Bases de datos orientadas a grafos (BDOG)\ref{sec:bdog}
+\item[Especificación]: Modelo conceptual de datos\ref{sec:smodelo_conceptual_datos}
+\item[Diseño]: Diseño del modelo de datos \ref{sec:diseno_modelo_datos}
+\item[Implementación]: \textbf{FALTA}
+\end{description}
+
+\subsubsection{CES1.6}
+\textbf{Administrar bases de datos (CIS4.3)}\\
+Consecuencia del punto anterior se ha realizado tareas de administración tanto en la base de datos orientada a grafos, como en la SQL encargada de la persistencia de usuarios.
+
+\subsubsection{CES1.9}
+\textbf{Demostrar comprensión en la gestión y gobierno de sistemas software.}\\
+
+\subsubsection{CES2.2}
+\textbf{Diseñar soluciones apropiadas en uno o más dominós de la aplicación, usando métodos de ingeniería del software que integren aspectos éticos, sociales, legales y económicos.}\\
+
+\subsection{Evoluciones futuras}
+Si bien el objetivo del desarrollo de este proyecto tenia puramente fines educativos y no se espera que se realicen dichas evoluciones, se plantearan aspectos que hubiesen estado bien poder llevar a cabo, para mejorar la calidad del sistema y profundizar más en las tecnologías y conceptos utilizados.
+\begin{description}
+	\item[Desarrollo modulos para la integración de neomodel en Django rest framework]:\\
+	Si bien en el proyecto se han integrado las dos tecnologías se ha realizado de una manera ad-hoc a las necesidades del proyecto, para mejoras futuras se propone una refactroización de los seralizadores. Creando un serializador al estilo \textit{ModelSerializer} que proporciona el framework y crea los seralizadores en base a nuestros modelos mediante el uso de metaprogramción, pero para Neomodel.
+	
+	\item[Ampliación del parser GEDCOM]:\\Actualmente las soluciones de parsers GEDCOM open source para python están muy poco maduras, se propone como mejora futura la participación en una proyecto opern source para mejorar estos parsers y incorporarlos al proyecto, con el objetivo de poder subir GEDCOM extrayendo más información.
+	
+	\item[Mejora del sistema montado con Celery y RabitMQ]:\\Si bien ahora se adecua a las necesidades y ofrece las fundacionales esperadas, se plantea para un trabajo futuro el guardar el estado de las tareas en una base de datos para que los usuarios puedan saber a través de la API si sus tareas están en cola, o ya están siendo procesadas.
+	
+	\item[Desarollo de un front-end y/o aplicación mobil]:\\Se plantea para evoluciones futuras el desarrollo de un front-end y/o aplicación móvil, que use la API.
+\end{description}
+\newpage
+\subsection{Valoración personal}
+Uno de los puntos que más me gustaría destacar del desarrollo de este proyecto es el valor que me ha portado, tanto técnica, como personalmente. Por un lado el aprendizaje de nuevas tecnologías y técnicas que han abierto un mundo para mi, como puede ser el desarrollo backend con tecnologías como Django rest framework o nuevos paradigmas con los que no había trabajado como las bases de datos orientadas a grafos, han hecho del desarrollo de este proyecto una experiencia muy gratificante. Y po otro lado el esfuerzo y reto que ha supuesto llegar al final del proyecto a nivel personal ha sido una experiencia inolvidable. 

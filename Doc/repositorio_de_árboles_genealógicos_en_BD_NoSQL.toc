@@ -1,0 +1,104 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Resumen/Abstract}{1}{section.1}
+\contentsline {section}{\numberline {2}Introducci\IeC {\'o}n y estado del arte}{5}{section.2}
+\contentsline {subsection}{\numberline {2.1}Motivaci\IeC {\'o}n}{5}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Contextualizaci\IeC {\'o}n del proyecto}{6}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Los \IeC {\'a}rboles geneal\IeC {\'o}gicos}{6}{subsubsection.2.2.1}
+\contentsline {paragraph}{GEDCOM \cite {aboutGEDCOM} (\textbf {GE}nealogical \textbf {D}ata \textbf {COM}munication)}{6}{section*.2}
+\contentsline {subsubsection}{\numberline {2.2.2}Bases de datos orientadas a grafos (BDOG)}{6}{subsubsection.2.2.2}
+\contentsline {paragraph}{Estructura}{7}{section*.3}
+\contentsline {paragraph}{Propiedades}{7}{section*.4}
+\contentsline {paragraph}{Expresividad y simplicidad}{7}{section*.5}
+\contentsline {subsubsection}{\numberline {2.2.3}REST-ful (REpresentational State Transfer)}{8}{subsubsection.2.2.3}
+\contentsline {subsection}{\numberline {2.3}Perspectiva general del software geneal\IeC {\'o}gico actual.}{8}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}An\IeC {\'a}lisis previo de tecnolog\IeC {\'\i }as}{9}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Base de datos}{9}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}Lenguaje de programaci\IeC {\'o}n}{10}{subsubsection.2.4.2}
+\contentsline {subsection}{\numberline {2.5}Integraci\IeC {\'o}n de leyes y regulaciones}{13}{subsection.2.5}
+\contentsline {subsubsection}{\numberline {2.5.1}Derecho de informaci\IeC {\'o}n}{13}{subsubsection.2.5.1}
+\contentsline {subsubsection}{\numberline {2.5.2}Consentimiento del afectado}{13}{subsubsection.2.5.2}
+\contentsline {section}{\numberline {3}Alcance}{14}{section.3}
+\contentsline {subsection}{\numberline {3.1}Objetivos}{14}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Objetivos acad\IeC {\'e}micos}{14}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Metodologia y rigor}{15}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}SCRUM}{15}{subsubsection.3.3.1}
+\contentsline {subsection}{\numberline {3.4}Metodo de validaci\IeC {\'o}n}{17}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Fases de desarrollo}{17}{subsection.3.5}
+\contentsline {subsubsection}{\numberline {3.5.1}An\IeC {\'a}lisis de requisitos y estudio previo}{17}{subsubsection.3.5.1}
+\contentsline {subsubsection}{\numberline {3.5.2}Especificaci\IeC {\'o}n}{17}{subsubsection.3.5.2}
+\contentsline {subsubsection}{\numberline {3.5.3}Dise\IeC {\~n}o}{17}{subsubsection.3.5.3}
+\contentsline {subsubsection}{\numberline {3.5.4}Implementaci\IeC {\'o}n y pruebas}{18}{subsubsection.3.5.4}
+\contentsline {subsection}{\numberline {3.6}Posibles obst\IeC {\'a}culos}{18}{subsection.3.6}
+\contentsline {paragraph}{Tiempo:}{18}{section*.6}
+\contentsline {paragraph}{Integraci\IeC {\'o}n de tecnolog\IeC {\'\i }as y desarrollo:}{18}{section*.7}
+\contentsline {section}{\numberline {4}Planificaci\IeC {\'o}n}{19}{section.4}
+\contentsline {subsection}{\numberline {4.1}Gantt}{19}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}Tareas y Gr\IeC {\'a}ficos gantt}{20}{subsubsection.4.1.1}
+\contentsline {subsection}{\numberline {4.2}Recursos}{22}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Alterativas y plan de acci\IeC {\'o}n}{22}{subsection.4.3}
+\contentsline {section}{\numberline {5}Presupuesto y impacto social}{23}{section.5}
+\contentsline {subsection}{\numberline {5.1}Identificaci\IeC {\'o}n y estimaci\IeC {\'o}n de costes}{23}{subsection.5.1}
+\contentsline {subsubsection}{\numberline {5.1.1}Costes de personal}{23}{subsubsection.5.1.1}
+\contentsline {subsubsection}{\numberline {5.1.2}Coste del espaci\IeC {\'o} de trabajo}{25}{subsubsection.5.1.2}
+\contentsline {subsubsection}{\numberline {5.1.3}Coste del los servidores}{25}{subsubsection.5.1.3}
+\contentsline {section}{\numberline {6}Sostenibilidad y compromiso social}{26}{section.6}
+\contentsline {subsection}{\numberline {6.1}Dimensi\IeC {\'o}n econ\IeC {\'o}mica - 7}{26}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Dimensi\IeC {\'o}n social - 9}{26}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}Dimensi\IeC {\'o}n ambiental - 6}{26}{subsection.6.3}
+\contentsline {section}{\numberline {7}An\IeC {\'a}lisis de requisitos}{27}{section.7}
+\contentsline {subsection}{\numberline {7.1}Visi\IeC {\'o}n global del sistema}{27}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Actores}{27}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}Requisitos funcionales}{27}{subsection.7.3}
+\contentsline {subsubsection}{\numberline {7.3.1}Usuario final}{27}{subsubsection.7.3.1}
+\contentsline {subsubsection}{\numberline {7.3.2}Aplicaci\IeC {\'o}n}{28}{subsubsection.7.3.2}
+\contentsline {subsection}{\numberline {7.4}Requisitos no funcionales}{28}{subsection.7.4}
+\contentsline {section}{\numberline {8}Especificaci\IeC {\'o}n}{30}{section.8}
+\contentsline {subsection}{\numberline {8.1}Casos de uso}{30}{subsection.8.1}
+\contentsline {subsubsection}{\numberline {8.1.1}Usuario final}{30}{subsubsection.8.1.1}
+\contentsline {subsection}{\numberline {8.2}Modelo conceptual de datos}{42}{subsection.8.2}
+\contentsline {subsubsection}{\numberline {8.2.1}Restricciones de integridad}{43}{subsubsection.8.2.1}
+\contentsline {section}{\numberline {9}Dise\IeC {\~n}o}{44}{section.9}
+\contentsline {subsection}{\numberline {9.1}Patrones de arquitect\IeC {\'o}nicos}{44}{subsection.9.1}
+\contentsline {subsubsection}{\numberline {9.1.1}Modelo vista controlador}{44}{subsubsection.9.1.1}
+\contentsline {subsubsection}{\numberline {9.1.2}Message Broker}{45}{subsubsection.9.1.2}
+\contentsline {subsubsection}{\numberline {9.1.3}REST}{47}{subsubsection.9.1.3}
+\contentsline {subsection}{\numberline {9.2}Patrones de mensajer\IeC {\'\i }a}{47}{subsection.9.2}
+\contentsline {subsubsection}{\numberline {9.2.1}\textit {Publish\IeC {\textendash }subscribe}}{47}{subsubsection.9.2.1}
+\contentsline {subsection}{\numberline {9.3}Patrones Estructurales}{48}{subsection.9.3}
+\contentsline {subsubsection}{\numberline {9.3.1}Mixins}{48}{subsubsection.9.3.1}
+\contentsline {subsection}{\numberline {9.4}Protocolos}{48}{subsection.9.4}
+\contentsline {subsubsection}{\numberline {9.4.1}OAuth 2}{48}{subsubsection.9.4.1}
+\contentsline {subsection}{\numberline {9.5}Dise\IeC {\~n}o del modelo de datos}{51}{subsection.9.5}
+\contentsline {subsubsection}{\numberline {9.5.1}Arboles temporales.}{54}{subsubsection.9.5.1}
+\contentsline {subsubsection}{\numberline {9.5.2}Geocomponentes}{55}{subsubsection.9.5.2}
+\contentsline {subsection}{\numberline {9.6}Dise\IeC {\~n}o de la capa de dominio}{56}{subsection.9.6}
+\contentsline {subsection}{\numberline {9.7}Dise\IeC {\~n}o del modelo de comportamiento}{59}{subsection.9.7}
+\contentsline {section}{\numberline {10}Implementaci\IeC {\'o}n}{60}{section.10}
+\contentsline {subsection}{\numberline {10.1}Usuarios}{60}{subsection.10.1}
+\contentsline {subsubsection}{\numberline {10.1.1}SignUp}{60}{subsubsection.10.1.1}
+\contentsline {paragraph}{Confirmaci\IeC {\'o}n}{62}{section*.8}
+\contentsline {subsubsection}{\numberline {10.1.2}LogIn}{63}{subsubsection.10.1.2}
+\contentsline {subsection}{\numberline {10.2}Gesti\IeC {\'o}n de aplicaciones}{64}{subsection.10.2}
+\contentsline {subsection}{\numberline {10.3}Endpoints}{65}{subsection.10.3}
+\contentsline {subsubsection}{\numberline {10.3.1}CRUD}{66}{subsubsection.10.3.1}
+\contentsline {subsubsection}{\numberline {10.3.2}As\IeC {\'\i }ncronos}{67}{subsubsection.10.3.2}
+\contentsline {subsubsection}{\numberline {10.3.3}UploadGedcom}{68}{subsubsection.10.3.3}
+\contentsline {subsubsection}{\numberline {10.3.4}Encontrar similitudes}{70}{subsubsection.10.3.4}
+\contentsline {paragraph}{Date node structure}{71}{section*.9}
+\contentsline {paragraph}{Geocomponent node structure}{71}{section*.10}
+\contentsline {section}{\numberline {11}Pruebas}{77}{section.11}
+\contentsline {subsection}{\numberline {11.1}Django rest framework test suit}{77}{subsection.11.1}
+\contentsline {subsection}{\numberline {11.2}POSTMAN}{79}{subsection.11.2}
+\contentsline {section}{\numberline {12}Conclusiones}{82}{section.12}
+\contentsline {subsection}{\numberline {12.1}Cambios en la planificaci\IeC {\'o}n}{82}{subsection.12.1}
+\contentsline {subsection}{\numberline {12.2}Objetivos acad\IeC {\'e}micos}{82}{subsection.12.2}
+\contentsline {subsubsection}{\numberline {12.2.1}CES1.1}{82}{subsubsection.12.2.1}
+\contentsline {subsubsection}{\numberline {12.2.2}CES1.2}{82}{subsubsection.12.2.2}
+\contentsline {subsubsection}{\numberline {12.2.3}CES1.4}{83}{subsubsection.12.2.3}
+\contentsline {subsubsection}{\numberline {12.2.4}CES1.5}{83}{subsubsection.12.2.4}
+\contentsline {subsubsection}{\numberline {12.2.5}CES1.6}{83}{subsubsection.12.2.5}
+\contentsline {subsubsection}{\numberline {12.2.6}CES1.9}{83}{subsubsection.12.2.6}
+\contentsline {subsubsection}{\numberline {12.2.7}CES2.2}{83}{subsubsection.12.2.7}
+\contentsline {subsection}{\numberline {12.3}Evoluciones futuras}{84}{subsection.12.3}
+\contentsline {subsection}{\numberline {12.4}Valoraci\IeC {\'o}n personal}{84}{subsection.12.4}
+\contentsline {section}{\numberline {13}Referencias}{85}{section.13}
