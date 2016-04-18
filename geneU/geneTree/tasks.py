@@ -39,9 +39,8 @@ def gedcom_uploader_task(fil, tree):
 
 @app.task(name='geneU.geenTree.check_coincidence')
 def check_coincidence_task(per):
-
-    f = finder()
-    f.find_persons(per)
+    f = finder(per)
+    f.find_persons()
 
     rec = ['albarralnunez@gmail.com']
     sen = 'geneU@localhost.com'

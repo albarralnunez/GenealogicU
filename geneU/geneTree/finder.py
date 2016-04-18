@@ -4,7 +4,10 @@ from geneTree.models_person import Person
 
 class finder:
 
-    def find_persons(self, per):
+    def __init__(self, per):
+        self.per = per
+
+    def find_persons(self):
 
         def __comp_peson(p1, p2):
                 if not (p2.name or p2.surname or p2.second_surname):
@@ -17,8 +20,9 @@ class finder:
                             (p1.second_surname == p2.second_surname or
                             not p1.second_surname or not p2.second_surname)))
 
-        per = Person.get(id=per)
-        print per
+        print '#####################'
+        per = Person.get(self.per)
+        print '?????????????????????'
         res = []
         death_ev_s = per.get_similar_death()
         res += death_ev_s
@@ -34,11 +38,8 @@ class finder:
         res = Counter(res)
         res = filter(lambda x: res[x] >= 3, res)
 
-        print res
-
-        res = [Person.get(id=x) for x in res]
-        print [x.name for x in res]
+        res = [Person.get(x) for x in res]
+        [x.similars.connect(per) for x in res]
 
         res = filter(lambda x: __comp_peson(per, x), res)
-        print [x.name for x in res]
         return res

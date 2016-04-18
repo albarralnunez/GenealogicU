@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import socket
+from django.test.utils import teardown_test_environment
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -65,7 +67,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'oauth2_provider.middleware.OAuth2TokenMiddleware'
@@ -135,6 +137,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
+        'core.permissions.IsActive',
     )
 }
 
@@ -172,6 +175,41 @@ CELERY_CONFIG_MODULE = "celeryconfig"
 CELERYD_USER = "celery"
 CELERYD_GROUP = "celery"
 """
+SWAGGER_SETTINGS = {
+    'exclude_namespaces': [],
+    'api_version': '0.1',
+    'api_path': '/',
+    'enabled_methods': [
+        'get',
+        'post',
+        'put',
+        'patch',
+        'delete'
+    ],
+    'api_key': '',
+    'is_authenticated': False,
+    'is_superuser': False,
+    'unauthenticated_user': 'django.contrib.auth.models.AnonymousUser',
+    'permission_denied_handler': None,
+    'resource_access_handler': None,
+    'base_path':'helloreverb.com/docs',
+    'info': {
+        'contact': 'apiteam@wordnik.com',
+        'description': 'This is a sample server Petstore server. '
+                       'You can find out more about Swagger at '
+                       '<a href="http://swagger.wordnik.com">'
+                       'http://swagger.wordnik.com</a> '
+                       'or on irc.freenode.net, #swagger. '
+                       'For this sample, you can use the api key '
+                       '"special-key" to test '
+                       'the authorization filters',
+        'license': 'Apache 2.0',
+        'licenseUrl': 'http://www.apache.org/licenses/LICENSE-2.0.html',
+        'termsOfServiceUrl': 'http://helloreverb.com/terms/',
+        'title': 'Swagger Sample App',
+    },
+    'doc_expansion': 'none',
+}
 
 CORS_ORIGIN_ALLOW_ALL = False
 
@@ -184,6 +222,9 @@ EMAIL_PORT = '25'
 # EMAIL_HOST_PASSWORD = os.environ['GMAIL_PSW']
 # DEFAULT_FROM_EMAIL = os.environ['GMAIL']
 # DEFAULT_TO_EMAIL = os.environ['GMAIL']
+
+
+ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
 
 try:
     HOSTNAME = socket.gethostname()

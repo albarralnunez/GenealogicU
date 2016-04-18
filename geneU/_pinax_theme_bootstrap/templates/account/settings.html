@@ -1,0 +1,25 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load bootstrap %}
+
+{% block body_class %}account account-settings{% endblock %}
+
+{% block head_title %}{% trans "Account" %}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-5">
+            <form method="POST" action="{% url "account_settings" %}">
+                <legend>{% trans "Account" %}</legend>
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                <button class="btn btn-primary" type="submit">{% trans "Save" %}</button>
+            </form>
+            </br>
+            <a href="/accounts/password/" class="btn btn-primary" role="button">Change password</a>
+            </br></br>
+            <a href="/accounts/delete/" class="btn btn-danger" role="button">DELETE ACCOUNT</a>
+        </div>
+    </div>
+{% endblock %}

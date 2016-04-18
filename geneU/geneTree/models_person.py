@@ -7,6 +7,7 @@ from geoencoding_node_structure.core import AddressComponent, Location
 from date_node_structure.core import Day, NodeDate
 # import geneTree.models_person as'
 from string import Template
+import restrictions
 
 
 class ClassProperty(property):
@@ -40,6 +41,7 @@ class Event(StructuredNode):
     def set_event(
             self, loc=None, location_prop=None, description=None,
             date_begin=None, date_end=None):
+        restrictions.check_begin_end(date_begin, date_end)
         if loc:
             locat = Location(**loc).save()
             self.location.connect(locat)
@@ -59,6 +61,8 @@ class Marriage(Event):
     married = Relationship('Person', 'SPOUSE')
 
     def add_spouse(self, married):
+        restrictions.check_date_after_birth(self, married)
+        restrictions.check_date_befor_death(self, married)
         self.married.connect(married)
 
     def get_spouses(self):
@@ -77,6 +81,8 @@ class Divorce(Event):
     divorced = Relationship('Person', 'SPOUSE')
 
     def add_spouse(self, married):
+        restrictions.check_date_after_birth(self, married)
+        restrictions.check_date_befor_death(self, married)
         self.divorced.connect(married)
 
     def get_spouses(self):
@@ -96,9 +102,12 @@ class Birth(Event):
     son = Relationship('Person', 'SON')
 
     def add_father(self, father):
+        restrictions.check_date_after_birth(self, father)
+        restrictions.check_date_befor_death(self, father)
         self.father.connect(father)
 
     def set_son(self, son):
+        restrictions.check_date_befor_death(self, son)
         self.son.connect(son)
 
     def get_fathers(self):
@@ -116,8 +125,8 @@ class Birth(Event):
             self, son, loc=None, location_prop=None,
             description=None, date_begin=None, date_end=None):
         a = self().save()
-        a.son.connect(son)
         a.set_event(loc, location_prop, description, date_begin, date_end)
+        a.set_son(son)
         return a
 
 
@@ -125,6 +134,7 @@ class Death(Event):
     person = Relationship('Person', 'DEATH')
 
     def set_death(self, death):
+        restrictions.check_date_after_birth(self, death)
         self.person.connect(death)
 
     def get_person(self):
@@ -139,8 +149,8 @@ class Death(Event):
             self, person, loc=None, location_prop=None,
             description=None, date_begin=None, date_end=None):
         a = self().save()
-        a.person.connect(person)
         a.set_event(loc, location_prop, description, date_begin, date_end)
+        a.set_death(person)
         return a
 
 
@@ -149,9 +159,13 @@ class Adoption(Event):
     son_adpt = Relationship('Person', 'SON')
 
     def add_father(self, father):
+        restrictions.check_date_befor_death(self, father)
+        restrictions.check_date_after_birth(self, father)
         self.father_adpt.connect(father)
 
     def set_son(self, son):
+        restrictions.check_date_befor_death(self, son)
+        restrictions.check_date_after_birth(self, son)
         self.son_adpt.connect(son)
 
     def get_son(self):
@@ -169,8 +183,8 @@ class Adoption(Event):
             self, son, loc=None, location_prop=None,
             description=None, date_begin=None, date_end=None):
         a = self().save()
-        a.son_adpt.connect(son)
         a.set_event(loc, location_prop, description, date_begin, date_end)
+        a.set_son(son)
         return a
 
 
@@ -178,6 +192,8 @@ class Lived(Event):
     lived_in = Relationship('Person', 'LIVED_IN')
 
     def set_person(self, person):
+        restrictions.check_date_befor_death(self, person)
+        restrictions.check_date_after_birth(self, person)
         self.lived_in.connect(person)
 
     def get_person(self):
@@ -192,8 +208,8 @@ class Lived(Event):
             self, person, loc=None, location_prop=None,
             description=None, date_begin=None, date_end=None):
         a = self().save()
-        a.lived_in.connect(person)
         a.set_event(loc, location_prop, description, date_begin, date_end)
+        a.set_person(person)
         return a
 
 
@@ -214,6 +230,7 @@ class Person(StructuredNode):
     son = Relationship('Birth', 'SON')
     son_adpt = Relationship('Adoption', 'SON')
     lived_in = Relationship('Lived', 'LIVED_IN')
+    similars = Relationship('Person', 'SIMILAR')
 
     tree = Relationship(Tree, 'MEMBER', cardinality=OneOrMore)
 
@@ -232,8 +249,9 @@ class Person(StructuredNode):
         return b
 
     @classmethod
-    def get(cls, id):
-        return cls.nodes.get(id=id)
+    def get(cls, idd):
+        print idd
+        return cls.nodes.get(id=idd)
 
     def set_marriage(
             self, spouse, date_begin=None,
@@ -262,8 +280,6 @@ class Person(StructuredNode):
     def set_birth(
             self, date_begin=None, date_end=None,
             loc=None, loc_p=None, father1=None, father2=None):
-        if self.son.all():
-            raise AttributeError('...')
         b = Birth().save()
         b.set_event(
             loc=loc, location_prop=loc_p,
