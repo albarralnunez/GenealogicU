@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.3.26)  18 APR 2016 06:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.3.26)  18 APR 2016 15:10
 entering extended mode
 **./repositorio_de_árboles_genealógicos_en_BD_NoSQL.tex
 (repositorio_de_árboles_genealógicos_en_BD_NoSQL.tex
@@ -1579,7 +1579,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 48.
 \c__siunitx_mathtt_int=\count198
- <./add/logo_upc.png, id=378, 455.301pt x 136.51pt>
+ <./add/logo_upc.png, id=386, 455.301pt x 136.51pt>
 File: ./add/logo_upc.png Graphic file (type png)
  <use ./add/logo_upc.png>
 Package pdftex.def Info: ./add/logo_upc.png used on input line 102.
@@ -1607,31 +1607,44 @@ LaTeX Info: Redefining \% on input line 1.
 \tf@toc=\write5
 \openout5 = `repositorio_de_árboles_genealógicos_en_BD_NoSQL.toc'.
 
- [4] (sections/1_introduccion.tex [5] [6]
+ [4] (repositorio_de_árboles_genealógicos_en_BD_NoSQL.lof
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
+\tf@lof=\write6
+\openout6 = `repositorio_de_árboles_genealógicos_en_BD_NoSQL.lof'.
+
+ [5]
+(sections/1_introduccion.tex
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+
+ []
+
+[6] [7]
 Underfull \hbox (badness 10000) in paragraph at lines 37--39
 
  []
 
-<./add/grdb.png, id=520, 321.3606pt x 234.6366pt>
+<./add/grdb.png, id=593, 321.3606pt x 234.6366pt>
 File: ./add/grdb.png Graphic file (type png)
  <use ./add/grdb.png>
 Package pdftex.def Info: ./add/grdb.png used on input line 44.
 (pdftex.def)             Requested size: 321.3598pt x 234.63602pt.
- [7]
-[8 <./add/grdb.png>]
+ [8]
+[9 <./add/grdb.png>]
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 70.
- [9] [10] [11]
+ [10] [11] [12]
 Overfull \hbox (4.11917pt too wide) in paragraph at lines 150--151
 []\OT1/cmr/m/n/10 : Pyt-hon es co-no-ci-do por
  []
 
-[12]) [13]pdfTeX warning (ext4): destination with the same identifier (name{pag
-e.13}) has been already used, duplicate ignored
+[13]) [14]pdfTeX warning (ext4): destination with the same identifier (name{pag
+e.14}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.128 \newpage
-               [13] (sections/2_alcance.tex [14]
+l.130 \newpage
+               [14] (sections/2_alcance.tex [15]
 Underfull \hbox (badness 10000) in paragraph at lines 29--31
 []\OT1/cmr/m/n/10 :
  []
@@ -1661,73 +1674,62 @@ Underfull \hbox (badness 10000) in paragraph at lines 39--41
 []\OT1/cmr/m/n/10 :
  []
 
-[15] <./add/Scrum_process.png, id=579, 2007.5pt x 1003.75pt>
+[16] <./add/Scrum_process.png, id=652, 2007.5pt x 1003.75pt>
 File: ./add/Scrum_process.png Graphic file (type png)
 
 <use ./add/Scrum_process.png>
 Package pdftex.def Info: ./add/Scrum_process.png used on input line 45.
 (pdftex.def)             Requested size: 401.49289pt x 200.74644pt.
- [16 <./add/Scrum_process.png>] [17]) [18]pdfTeX warning (ext4): destination wi
-th the same identifier (name{page.18}) has been already used, duplicate ignored
+ [17 <./add/Scrum_process.png>] [18]) [19]pdfTeX warning (ext4): destination wi
+th the same identifier (name{page.19}) has been already used, duplicate ignored
 
 <to be read again> 
                    \relax 
-l.133 \newpage
-               [18] (sections/3_planificacion.tex [19]
-<./add/Task.png, id=604, 447.6725pt x 479.7925pt>
+l.135 \newpage
+               [19] (sections/3_planificacion.tex [20]
+<./add/Task.png, id=675, 384.2355pt x 331.2375pt>
 File: ./add/Task.png Graphic file (type png)
  <use ./add/Task.png>
-Package pdftex.def Info: ./add/Task.png used on input line 17.
-(pdftex.def)             Requested size: 313.3686pt x 335.85245pt.
- [20
-
- <./add/Task.png>] <./add/Gantt_1.PNG, id=610, 1884.03876pt x 515.9275pt>
+Package pdftex.def Info: ./add/Task.png used on input line 16.
+(pdftex.def)             Requested size: 268.96301pt x 231.86465pt.
+ [21 <./add/Task.png>] <./add/Gantt_1.PNG, id=682, 1884.03876pt x 515.9275pt>
 File: ./add/Gantt_1.PNG Graphic file (type png)
 
 <use ./add/Gantt_1.PNG>
-Package pdftex.def Info: ./add/Gantt_1.PNG used on input line 25.
+Package pdftex.def Info: ./add/Gantt_1.PNG used on input line 24.
 (pdftex.def)             Requested size: 418.22707pt x 114.5278pt.
- <./add/Gantt_2.PNG, id=611, 1918.16624pt x 511.9125pt>
+ <./add/Gantt_2.PNG, id=683, 1918.16624pt x 511.9125pt>
 File: ./add/Gantt_2.PNG Graphic file (type png)
 
 <use ./add/Gantt_2.PNG>
-Package pdftex.def Info: ./add/Gantt_2.PNG used on input line 32.
+Package pdftex.def Info: ./add/Gantt_2.PNG used on input line 31.
 (pdftex.def)             Requested size: 418.25148pt x 111.62126pt.
- [21 <./add/Gantt_1.PNG> <./add/Gantt_2.PNG>] [22
+ [22
+
+ <./add/Gantt_1.PNG> <./add/Gantt_2.PNG>] [23
 
 ])
-(sections/4_presupuesto_y_impacto_social.tex [23]pdfTeX warning (ext4): destina
-tion with the same identifier (name{page.23}) has been already used, duplicate 
-ignored
-<to be read again> 
-                   \relax 
-l.16 \newpage
-              [23]
-Overfull \hbox (0.5391pt too wide) in paragraph at lines 40--40
+(sections/4_presupuesto_y_impacto_social.tex
+Overfull \hbox (0.5391pt too wide) in paragraph at lines 38--38
 []|\OT1/cmr/m/n/10 Programador| 
  []
 
-[24] <add/do_server.PNG, id=635, 96.36pt x 121.6545pt>
-File: add/do_server.PNG Graphic file (type png)
- <use add/do_server.PNG>
-Package pdftex.def Info: add/do_server.PNG used on input line 55.
-(pdftex.def)             Requested size: 96.35974pt x 121.65419pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 59--60
-\OT1/cmr/m/n/10 que la fa-se de de-ploy du-ra un mes el cos-te se-ra de 10\TS1/
-cmr/m/n/10 �\OT1/cmr/m/n/10 .
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 59--60
-
- []
-
-[25 <./add/do_server.PNG>]) [26]pdfTeX warning (ext4): destination with the sam
-e identifier (name{page.26}) has been already used, duplicate ignored
+[24]pdfTeX warning (ext4): destination with the same identifier (name{page.24})
+ has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.143 \newpage
+l.47 \newpage
+              [24] <add/do_server.PNG, id=704, 96.36pt x 121.6545pt>
+File: add/do_server.PNG Graphic file (type png)
+
+<use add/do_server.PNG>
+Package pdftex.def Info: add/do_server.PNG used on input line 56.
+(pdftex.def)             Requested size: 96.35974pt x 121.65419pt.
+ [25 <./add/do_server.PNG>]) [26]pdfTeX warning (ext4): destination with the sa
+me identifier (name{page.26}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.145 \newpage
                [26] (sections/5_analisis_requisitos.tex [27]
 Overfull \hbox (3.53708pt too wide) in paragraph at lines 62--64
 []\OT1/cmr/m/n/10 : El usua-rio de-bera
@@ -1742,9 +1744,9 @@ Overfull \hbox (5.67505pt too wide) in paragraph at lines 66--68
 e.29}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.148 \newpage
+l.150 \newpage
                [29] (sections/6_especificacion.tex
-<./add/diagramas/usecase_user1.png, id=669, 176.45924pt x 151.16475pt>
+<./add/diagramas/usecase_user1.png, id=738, 176.45924pt x 151.16475pt>
 File: ./add/diagramas/usecase_user1.png Graphic file (type png)
 
 <use ./add/diagramas/usecase_user1.png>
@@ -1772,31 +1774,17 @@ Underfull \hbox (badness 2343) in paragraph at lines 90--90
  []
 
 
-Overfull \hbox (13.8585pt too wide) in paragraph at lines 39--97
-[][] 
- []
-
-
-Overfull \hbox (31.54555pt too wide) in paragraph at lines 39--97
+Overfull \hbox (7.54555pt too wide) in paragraph at lines 39--97
 [] 
  []
 
 
-Overfull \hbox (22.89978pt too wide) in paragraph at lines 39--97
+Overfull \hbox (29.39261pt too wide) in paragraph at lines 39--97
 [] 
  []
 
-
-Overfull \hbox (53.39261pt too wide) in paragraph at lines 39--97
-[] 
- []
-
-[30 <./add/diagramas/usecase_user1.png>]
-Overfull \vbox (14.80574pt too high) has occurred while \output is active []
-
-
-[31] [32]
-<./add/diagramas/usecase_aplication.png, id=700, 237.2865pt x 278.84175pt>
+[30 <./add/diagramas/usecase_user1.png>] [31] [32]
+<./add/diagramas/usecase_aplication.png, id=769, 237.2865pt x 278.84175pt>
 File: ./add/diagramas/usecase_aplication.png Graphic file (type png)
 
 <use ./add/diagramas/usecase_aplication.png>
@@ -1804,7 +1792,7 @@ Package pdftex.def Info: ./add/diagramas/usecase_aplication.png used on input l
 ine 101.
 (pdftex.def)             Requested size: 237.2859pt x 278.84105pt.
 
-<./add/diagramas/usecase_aplication2.png, id=701, 169.23225pt x 143.3355pt>
+<./add/diagramas/usecase_aplication2.png, id=770, 169.23225pt x 143.3355pt>
 File: ./add/diagramas/usecase_aplication2.png Graphic file (type png)
 
 <use ./add/diagramas/usecase_aplication2.png>
@@ -1817,7 +1805,7 @@ Underfull \hbox (badness 2343) in paragraph at lines 116--116
  []
 
 
-Overfull \hbox (24.51231pt too wide) in paragraph at lines 108--123
+Overfull \hbox (0.51231pt too wide) in paragraph at lines 108--123
 [][] 
  []
 
@@ -1827,19 +1815,9 @@ Underfull \hbox (badness 2343) in paragraph at lines 132--132
 []\OT1/cmr/m/n/10 Escenario prin-
  []
 
-
-Overfull \hbox (15.66374pt too wide) in paragraph at lines 124--139
-[][] 
- []
-
 [35]
 Underfull \hbox (badness 2343) in paragraph at lines 148--148
 []\OT1/cmr/m/n/10 Escenario prin-
- []
-
-
-Overfull \hbox (13.8585pt too wide) in paragraph at lines 140--164
-[][] 
  []
 
 [36]
@@ -1847,19 +1825,9 @@ Underfull \hbox (badness 2343) in paragraph at lines 173--173
 []\OT1/cmr/m/n/10 Escenario prin-
  []
 
-
-Overfull \hbox (13.8585pt too wide) in paragraph at lines 165--193
-[][] 
- []
-
 [37]
 Underfull \hbox (badness 2343) in paragraph at lines 202--202
 []\OT1/cmr/m/n/10 Escenario prin-
- []
-
-
-Overfull \hbox (15.97621pt too wide) in paragraph at lines 194--214
-[][] 
  []
 
 [38]
@@ -1867,19 +1835,9 @@ Underfull \hbox (badness 2343) in paragraph at lines 223--223
 []\OT1/cmr/m/n/10 Escenario prin-
  []
 
-
-Overfull \hbox (21.90117pt too wide) in paragraph at lines 215--235
-[][] 
- []
-
 [39]
 Underfull \hbox (badness 2343) in paragraph at lines 245--245
 []\OT1/cmr/m/n/10 Escenario prin-
- []
-
-
-Overfull \hbox (13.8585pt too wide) in paragraph at lines 236--261
-[][] 
  []
 
 [40]
@@ -1888,11 +1846,11 @@ Underfull \hbox (badness 2343) in paragraph at lines 272--272
  []
 
 
-Overfull \hbox (72.28835pt too wide) in paragraph at lines 262--288
+Overfull \hbox (48.28835pt too wide) in paragraph at lines 262--288
 [][] 
  []
 
-[41] <./add/diagramas/datamodel.png, id=811, 1073.00874pt x 679.53876pt>
+[41] <./add/diagramas/datamodel.png, id=880, 1073.00874pt x 679.53876pt>
 File: ./add/diagramas/datamodel.png Graphic file (type png)
 
 <use ./add/diagramas/datamodel.png>
@@ -1903,13 +1861,13 @@ Package pdftex.def Info: ./add/diagramas/datamodel.png used on input line 299.
  has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.153 \newpage
+l.155 \newpage
                [43] (sections/7_diseno.tex
 
 LaTeX Warning: Reference `sec:modelo_conceptual_datos' on page 44 undefined on 
 input line 2.
 
-<./add/diagramas/django_architecture.png, id=827, 440.847pt x 285.4665pt>
+<./add/diagramas/django_architecture.png, id=895, 440.847pt x 285.4665pt>
 File: ./add/diagramas/django_architecture.png Graphic file (type png)
 
 <use ./add/diagramas/django_architecture.png>
@@ -1917,14 +1875,14 @@ Package pdftex.def Info: ./add/diagramas/django_architecture.png used on input
 line 13.
 (pdftex.def)             Requested size: 264.51024pt x 171.2812pt.
 
-<./add/diagramas/rest_fram_architect_adap.png, id=828, 463.13025pt x 301.125pt>
+<./add/diagramas/rest_fram_architect_adap.png, id=896, 463.13025pt x 301.125pt>
 File: ./add/diagramas/rest_fram_architect_adap.png Graphic file (type png)
 <use ./add/diagramas/rest_fram_architect_adap.png>
 Package pdftex.def Info: ./add/diagramas/rest_fram_architect_adap.png used on i
 nput line 23.
 (pdftex.def)             Requested size: 324.18896pt x 210.78606pt.
  [44 <./add/diagramas/django_architecture.png>]
-<./add/django_celery_architecture.png, id=837, 421.575pt x 284.262pt>
+<./add/django_celery_architecture.png, id=904, 421.575pt x 284.262pt>
 File: ./add/django_celery_architecture.png Graphic file (type png)
 
 <use ./add/django_celery_architecture.png>
@@ -1933,7 +1891,7 @@ e 41.
 (pdftex.def)             Requested size: 210.78697pt x 142.13065pt.
  [45 <./add/diagramas/rest_fram_architect_adap.png>] [46 <./add/django_celery_a
 rchitecture.png>] [47]
-<./add/diagramas/oatuh.png, id=857, 913.4125pt x 586.19pt>
+<./add/diagramas/oatuh.png, id=922, 913.4125pt x 586.19pt>
 File: ./add/diagramas/oatuh.png Graphic file (type png)
 
 <use ./add/diagramas/oatuh.png>
@@ -1944,7 +1902,7 @@ Overfull \hbox (84.12476pt too wide) in paragraph at lines 97--98
  [] 
  []
 
-<./add/diagramas/renovation_token.png, id=858, 913.4125pt x 470.75874pt>
+<./add/diagramas/renovation_token.png, id=923, 913.4125pt x 470.75874pt>
 File: ./add/diagramas/renovation_token.png Graphic file (type png)
 
 <use ./add/diagramas/renovation_token.png>
@@ -1957,7 +1915,7 @@ Overfull \hbox (84.12476pt too wide) in paragraph at lines 105--106
  []
 
 [48] [49 <./add/diagramas/oatuh.png>] [50 <./add/diagramas/renovation_token.png
->] <./add/diagramas/sqldiagram.png, id=881, 1071.00125pt x 763.85374pt>
+>] <./add/diagramas/sqldiagram.png, id=944, 1071.00125pt x 763.85374pt>
 File: ./add/diagramas/sqldiagram.png Graphic file (type png)
 
 <use ./add/diagramas/sqldiagram.png>
@@ -1970,7 +1928,7 @@ Overfull \hbox (63.69243pt too wide) in paragraph at lines 125--126
  []
 
 [51 <./add/diagramas/sqldiagram.png>] [52]
-<./add/diagramas/graphdiagram.png, id=896, 1085.05376pt x 851.18pt>
+<./add/diagramas/graphdiagram.png, id=958, 1085.05376pt x 851.18pt>
 File: ./add/diagramas/graphdiagram.png Graphic file (type png)
 
 <use ./add/diagramas/graphdiagram.png>
@@ -1983,35 +1941,35 @@ Overfull \hbox (70.016pt too wide) in paragraph at lines 148--149
  []
 
 [53 <./add/diagramas/graphdiagram.png>]
-<./add/timeline_tree.PNG, id=908, 292.09125pt x 294.50024pt>
+<./add/timeline_tree.PNG, id=969, 292.09125pt x 294.50024pt>
 File: ./add/timeline_tree.PNG Graphic file (type png)
 
 <use ./add/timeline_tree.PNG>
 Package pdftex.def Info: ./add/timeline_tree.PNG used on input line 163.
 (pdftex.def)             Requested size: 204.46246pt x 206.14876pt.
  [54 <./add/timeline_tree.PNG>]
-<./add/geocomponent_tree.PNG, id=918, 292.09125pt x 294.50024pt>
+<./add/geocomponent_tree.PNG, id=978, 292.09125pt x 294.50024pt>
 File: ./add/geocomponent_tree.PNG Graphic file (type png)
 
 <use ./add/geocomponent_tree.PNG>
 Package pdftex.def Info: ./add/geocomponent_tree.PNG used on input line 177.
 (pdftex.def)             Requested size: 204.46246pt x 206.14876pt.
  [55 <./add/geocomponent_tree.PNG>] [56]
-<./add/diagramas/dominio2.png, id=936, 885.3075pt x 962.59625pt>
+<./add/diagramas/dominio2.png, id=994, 885.3075pt x 962.59625pt>
 File: ./add/diagramas/dominio2.png Graphic file (type png)
 
 <use ./add/diagramas/dominio2.png>
 Package pdftex.def Info: ./add/diagramas/dominio2.png used on input line 211.
 (pdftex.def)             Requested size: 354.11671pt x 385.03168pt.
  [57 <./add/diagramas/dominio2.png>]
-<./add/diagramas/dominio3.png, id=943, 697.60625pt x 250.9375pt>
+<./add/diagramas/dominio3.png, id=1001, 697.60625pt x 250.9375pt>
 File: ./add/diagramas/dominio3.png Graphic file (type png)
 
 <use ./add/diagramas/dominio3.png>
 Package pdftex.def Info: ./add/diagramas/dominio3.png used on input line 221.
 (pdftex.def)             Requested size: 279.03755pt x 100.37321pt.
  [58 <./add/diagramas/dominio3.png>]
-<./add/diagramas/getPerson.png, id=950, 1252.68pt x 851.18pt>
+<./add/diagramas/getPerson.png, id=1007, 1252.68pt x 851.18pt>
 File: ./add/diagramas/getPerson.png Graphic file (type png)
 
 <use ./add/diagramas/getPerson.png>
@@ -2022,7 +1980,7 @@ Overfull \hbox (82.80945pt too wide) in paragraph at lines 235--236
  [] 
  []
 
-<./add/diagramas/upload_gedcom.png, id=951, 1357.07pt x 778.91pt>
+<./add/diagramas/upload_gedcom.png, id=1008, 1357.07pt x 778.91pt>
 File: ./add/diagramas/upload_gedcom.png Graphic file (type png)
 
 <use ./add/diagramas/upload_gedcom.png>
@@ -2033,10 +1991,10 @@ Package pdftex.def Info: ./add/diagramas/upload_gedcom.png used on input line 2
 he same identifier (name{page.59}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.158 \newpage
+l.160 \newpage
                [59 <./add/diagramas/upload_gedcom.png>]
 (sections/8_implementacion.tex
-<./add/screenshots/sign_up_test.PNG, id=965, 231.264pt x 240.29774pt>
+<./add/screenshots/sign_up_test.PNG, id=1020, 231.264pt x 240.29774pt>
 File: ./add/screenshots/sign_up_test.PNG Graphic file (type png)
 
 <use ./add/screenshots/sign_up_test.PNG>
@@ -2044,7 +2002,7 @@ Package pdftex.def Info: ./add/screenshots/sign_up_test.PNG used on input line
 12.
 (pdftex.def)             Requested size: 161.88368pt x 168.20726pt.
 
-<./add/screenshots/sign_up_error.PNG, id=967, 229.45724pt x 302.3295pt>
+<./add/screenshots/sign_up_error.PNG, id=1022, 229.45724pt x 302.3295pt>
 File: ./add/screenshots/sign_up_error.PNG Graphic file (type png)
 
 <use ./add/screenshots/sign_up_error.PNG>
@@ -2081,7 +2039,7 @@ Overfull \hbox (13.75072pt too wide) in paragraph at lines 29--30
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 ) [62]
-<./add/screenshots/confirm_email.PNG, id=1034, 174.6525pt x 76.48575pt>
+<./add/screenshots/confirm_email.PNG, id=1087, 174.6525pt x 76.48575pt>
 File: ./add/screenshots/confirm_email.PNG Graphic file (type png)
 
 <use ./add/screenshots/confirm_email.PNG>
@@ -2089,14 +2047,14 @@ Package pdftex.def Info: ./add/screenshots/confirm_email.PNG used on input line
  96.
 (pdftex.def)             Requested size: 174.65207pt x 76.48553pt.
 
-<./add/screenshots/login.PNG, id=1037, 240.29774pt x 196.3335pt>
+<./add/screenshots/login.PNG, id=1090, 240.29774pt x 196.3335pt>
 File: ./add/screenshots/login.PNG Graphic file (type png)
 
 <use ./add/screenshots/login.PNG>
 Package pdftex.def Info: ./add/screenshots/login.PNG used on input line 107.
 (pdftex.def)             Requested size: 240.29715pt x 196.33301pt.
  [63 <./add/screenshots/confirm_email.PNG> <./add/screenshots/login.PNG>]
-<./add/screenshots/create_aplication.PNG, id=1047, 343.2825pt x 93.34875pt>
+<./add/screenshots/create_aplication.PNG, id=1098, 343.2825pt x 93.34875pt>
 File: ./add/screenshots/create_aplication.PNG Graphic file (type png)
 
 <use ./add/screenshots/create_aplication.PNG>
@@ -2104,7 +2062,7 @@ Package pdftex.def Info: ./add/screenshots/create_aplication.PNG used on input
 line 127.
 (pdftex.def)             Requested size: 343.28165pt x 93.34851pt.
 
-<./add/screenshots/create_aplication2.PNG, id=1049, 348.70274pt x 407.72325pt>
+<./add/screenshots/create_aplication2.PNG, id=1100, 348.70274pt x 407.72325pt>
 File: ./add/screenshots/create_aplication2.PNG Graphic file (type png)
 
 <use ./add/screenshots/create_aplication2.PNG>
@@ -2161,16 +2119,16 @@ Overfull \hbox (19.75078pt too wide) in paragraph at lines 387--388
 e{page.76}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.164 \newpage
+l.166 \newpage
                [76] (sections/9_pruebas.tex [77]
-<./add/screenshots/test.PNG, id=1330, 242.1045pt x 52.39575pt>
+<./add/screenshots/test.PNG, id=1379, 242.1045pt x 52.39575pt>
 File: ./add/screenshots/test.PNG Graphic file (type png)
 
 <use ./add/screenshots/test.PNG>
 Package pdftex.def Info: ./add/screenshots/test.PNG used on input line 43.
 (pdftex.def)             Requested size: 314.73582pt x 68.11446pt.
  [78 <./add/screenshots/test.PNG>]
-<./add/screenshots/postman_collections.PNG, id=1348, 181.27725pt x 316.7835pt>
+<./add/screenshots/postman_collections.PNG, id=1396, 181.27725pt x 316.7835pt>
 File: ./add/screenshots/postman_collections.PNG Graphic file (type png)
 
 <use ./add/screenshots/postman_collections.PNG>
@@ -2178,7 +2136,7 @@ Package pdftex.def Info: ./add/screenshots/postman_collections.PNG used on inpu
 t line 53.
 (pdftex.def)             Requested size: 126.8932pt x 221.74693pt.
  [79 <./add/screenshots/postman_collections.PNG>]
-<./add/screenshots/postman_test.PNG, id=1356, 966.009pt x 304.7385pt>
+<./add/screenshots/postman_test.PNG, id=1403, 966.009pt x 304.7385pt>
 File: ./add/screenshots/postman_test.PNG Graphic file (type png)
 
 <use ./add/screenshots/postman_test.PNG>
@@ -2205,7 +2163,7 @@ on with the same identifier (name{page.81}) has been already used, duplicate ig
 nored
 <to be read again> 
                    \relax 
-l.168 \newpage
+l.170 \newpage
                [81] (sections/10_conclusiones.tex [82]
 Underfull \hbox (badness 10000) in paragraph at lines 36--37
 
@@ -2222,42 +2180,35 @@ Underfull \hbox (badness 10000) in paragraph at lines 39--40
 
  []
 
-[83]) [84]pdfTeX warning (ext4): destination with the same identifier (name{pag
-e.84}) has been already used, duplicate ignored
+[83] [84]) [85]pdfTeX warning (ext4): destination with the same identifier (nam
+e{page.85}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.172 \newpage
-               [84] (repositorio_de_árboles_genealógicos_en_BD_NoSQL.bbl)
-[85]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 178.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 178.
+l.174 \newpage
+               [85] (repositorio_de_árboles_genealógicos_en_BD_NoSQL.bbl)
+[86]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 180.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 180.
  (repositorio_de_árboles_genealógicos_en_BD_NoSQL.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 178.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 178.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 180.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 180.
+Package rerunfilecheck Info: File `repositorio_de_árboles_genealógicos_en_BD_
+NoSQL.out' has not changed.
+(rerunfilecheck)             Checksum: 5989E9FFE6A7B2800A702430342A7B13;6984.
 
-
-Package rerunfilecheck Warning: File `repositorio_de_árboles_genealógicos_en_
-BD_NoSQL.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `repositorio_de_árboles_genealógic
-os_en_BD_NoSQL.out':
-(rerunfilecheck)             Before: 26BE97F0A7496036C9ABE9E0B4DE7AEE;6838
-(rerunfilecheck)             After:  769CC020562D71745C45D649A04BB728;6913.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 178.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 180.
  ) 
 Here is how much of TeX's memory you used:
- 39721 strings out of 493634
- 908055 string characters out of 3141290
- 1037007 words of memory out of 3000000
- 41891 multiletter control sequences out of 15000+200000
+ 39733 strings out of 493634
+ 908284 string characters out of 3141290
+ 1037061 words of memory out of 3000000
+ 41895 multiletter control sequences out of 15000+200000
  9764 words of font info for 35 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  69i,13n,79p,10421b,2232s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -2273,10 +2224,10 @@ cmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
 .pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.p
 fb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb
 ><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on repositorio_de_árboles_genealógicos_en_BD_NoSQL.pdf (97 pag
-es, 1554087 bytes).
+Output written on repositorio_de_árboles_genealógicos_en_BD_NoSQL.pdf (98 pag
+es, 1571436 bytes).
 PDF statistics:
- 1595 PDF objects out of 1728 (max. 8388607)
- 603 named destinations out of 1000 (max. 500000)
- 922 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1645 PDF objects out of 1728 (max. 8388607)
+ 608 named destinations out of 1000 (max. 500000)
+ 938 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,46 +1,47 @@
 \select@language {spanish}
 \contentsline {section}{\numberline {1}Resumen/Abstract}{1}{section.1}
-\contentsline {section}{\numberline {2}Introducci\IeC {\'o}n y estado del arte}{5}{section.2}
-\contentsline {subsection}{\numberline {2.1}Motivaci\IeC {\'o}n}{5}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Contextualizaci\IeC {\'o}n del proyecto}{6}{subsection.2.2}
-\contentsline {subsubsection}{\numberline {2.2.1}Los \IeC {\'a}rboles geneal\IeC {\'o}gicos}{6}{subsubsection.2.2.1}
-\contentsline {paragraph}{GEDCOM \cite {aboutGEDCOM} (\textbf {GE}nealogical \textbf {D}ata \textbf {COM}munication)}{6}{section*.2}
-\contentsline {subsubsection}{\numberline {2.2.2}Bases de datos orientadas a grafos (BDOG)}{6}{subsubsection.2.2.2}
-\contentsline {paragraph}{Estructura}{7}{section*.3}
-\contentsline {paragraph}{Propiedades}{7}{section*.4}
-\contentsline {paragraph}{Expresividad y simplicidad}{7}{section*.5}
-\contentsline {subsubsection}{\numberline {2.2.3}REST-ful (REpresentational State Transfer)}{8}{subsubsection.2.2.3}
-\contentsline {subsection}{\numberline {2.3}Perspectiva general del software geneal\IeC {\'o}gico actual.}{8}{subsection.2.3}
-\contentsline {subsection}{\numberline {2.4}An\IeC {\'a}lisis previo de tecnolog\IeC {\'\i }as}{9}{subsection.2.4}
-\contentsline {subsubsection}{\numberline {2.4.1}Base de datos}{9}{subsubsection.2.4.1}
-\contentsline {subsubsection}{\numberline {2.4.2}Lenguaje de programaci\IeC {\'o}n}{10}{subsubsection.2.4.2}
-\contentsline {subsection}{\numberline {2.5}Integraci\IeC {\'o}n de leyes y regulaciones}{13}{subsection.2.5}
-\contentsline {subsubsection}{\numberline {2.5.1}Derecho de informaci\IeC {\'o}n}{13}{subsubsection.2.5.1}
-\contentsline {subsubsection}{\numberline {2.5.2}Consentimiento del afectado}{13}{subsubsection.2.5.2}
-\contentsline {section}{\numberline {3}Alcance}{14}{section.3}
-\contentsline {subsection}{\numberline {3.1}Objetivos}{14}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Objetivos acad\IeC {\'e}micos}{14}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Metodologia y rigor}{15}{subsection.3.3}
-\contentsline {subsubsection}{\numberline {3.3.1}SCRUM}{15}{subsubsection.3.3.1}
-\contentsline {subsection}{\numberline {3.4}Metodo de validaci\IeC {\'o}n}{17}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Fases de desarrollo}{17}{subsection.3.5}
-\contentsline {subsubsection}{\numberline {3.5.1}An\IeC {\'a}lisis de requisitos y estudio previo}{17}{subsubsection.3.5.1}
-\contentsline {subsubsection}{\numberline {3.5.2}Especificaci\IeC {\'o}n}{17}{subsubsection.3.5.2}
-\contentsline {subsubsection}{\numberline {3.5.3}Dise\IeC {\~n}o}{17}{subsubsection.3.5.3}
-\contentsline {subsubsection}{\numberline {3.5.4}Implementaci\IeC {\'o}n y pruebas}{18}{subsubsection.3.5.4}
-\contentsline {subsection}{\numberline {3.6}Posibles obst\IeC {\'a}culos}{18}{subsection.3.6}
-\contentsline {paragraph}{Tiempo:}{18}{section*.6}
-\contentsline {paragraph}{Integraci\IeC {\'o}n de tecnolog\IeC {\'\i }as y desarrollo:}{18}{section*.7}
-\contentsline {section}{\numberline {4}Planificaci\IeC {\'o}n}{19}{section.4}
-\contentsline {subsection}{\numberline {4.1}Gantt}{19}{subsection.4.1}
-\contentsline {subsubsection}{\numberline {4.1.1}Tareas y Gr\IeC {\'a}ficos gantt}{20}{subsubsection.4.1.1}
-\contentsline {subsection}{\numberline {4.2}Recursos}{22}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Alterativas y plan de acci\IeC {\'o}n}{22}{subsection.4.3}
-\contentsline {section}{\numberline {5}Presupuesto y impacto social}{23}{section.5}
-\contentsline {subsection}{\numberline {5.1}Identificaci\IeC {\'o}n y estimaci\IeC {\'o}n de costes}{23}{subsection.5.1}
-\contentsline {subsubsection}{\numberline {5.1.1}Costes de personal}{23}{subsubsection.5.1.1}
-\contentsline {subsubsection}{\numberline {5.1.2}Coste del espaci\IeC {\'o} de trabajo}{25}{subsubsection.5.1.2}
+\contentsline {section}{\numberline {2}Introducci\IeC {\'o}n y estado del arte}{6}{section.2}
+\contentsline {subsection}{\numberline {2.1}Motivaci\IeC {\'o}n}{6}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Contextualizaci\IeC {\'o}n del proyecto}{7}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Los \IeC {\'a}rboles geneal\IeC {\'o}gicos}{7}{subsubsection.2.2.1}
+\contentsline {paragraph}{GEDCOM \cite {aboutGEDCOM} (\textbf {GE}nealogical \textbf {D}ata \textbf {COM}munication)}{7}{section*.3}
+\contentsline {subsubsection}{\numberline {2.2.2}Bases de datos orientadas a grafos (BDOG)}{7}{subsubsection.2.2.2}
+\contentsline {paragraph}{Estructura}{8}{section*.4}
+\contentsline {paragraph}{Propiedades}{8}{section*.5}
+\contentsline {paragraph}{Expresividad y simplicidad}{8}{section*.6}
+\contentsline {subsubsection}{\numberline {2.2.3}REST-ful (REpresentational State Transfer)}{9}{subsubsection.2.2.3}
+\contentsline {subsection}{\numberline {2.3}Perspectiva general del software geneal\IeC {\'o}gico actual.}{9}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}An\IeC {\'a}lisis previo de tecnolog\IeC {\'\i }as}{10}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Base de datos}{10}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}Lenguaje de programaci\IeC {\'o}n}{11}{subsubsection.2.4.2}
+\contentsline {subsection}{\numberline {2.5}Integraci\IeC {\'o}n de leyes y regulaciones}{14}{subsection.2.5}
+\contentsline {subsubsection}{\numberline {2.5.1}Derecho de informaci\IeC {\'o}n}{14}{subsubsection.2.5.1}
+\contentsline {subsubsection}{\numberline {2.5.2}Consentimiento del afectado}{14}{subsubsection.2.5.2}
+\contentsline {section}{\numberline {3}Alcance}{15}{section.3}
+\contentsline {subsection}{\numberline {3.1}Objetivos}{15}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Objetivos acad\IeC {\'e}micos}{15}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Metodologia y rigor}{16}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}SCRUM}{16}{subsubsection.3.3.1}
+\contentsline {subsection}{\numberline {3.4}Metodo de validaci\IeC {\'o}n}{18}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Fases de desarrollo}{18}{subsection.3.5}
+\contentsline {subsubsection}{\numberline {3.5.1}An\IeC {\'a}lisis de requisitos y estudio previo}{18}{subsubsection.3.5.1}
+\contentsline {subsubsection}{\numberline {3.5.2}Especificaci\IeC {\'o}n}{18}{subsubsection.3.5.2}
+\contentsline {subsubsection}{\numberline {3.5.3}Dise\IeC {\~n}o}{18}{subsubsection.3.5.3}
+\contentsline {subsubsection}{\numberline {3.5.4}Implementaci\IeC {\'o}n y pruebas}{19}{subsubsection.3.5.4}
+\contentsline {subsection}{\numberline {3.6}Posibles obst\IeC {\'a}culos}{19}{subsection.3.6}
+\contentsline {paragraph}{Tiempo:}{19}{section*.7}
+\contentsline {paragraph}{Integraci\IeC {\'o}n de tecnolog\IeC {\'\i }as y desarrollo:}{19}{section*.8}
+\contentsline {section}{\numberline {4}Planificaci\IeC {\'o}n}{20}{section.4}
+\contentsline {subsection}{\numberline {4.1}Gantt}{21}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}Tareas y Gr\IeC {\'a}ficos gantt}{21}{subsubsection.4.1.1}
+\contentsline {subsection}{\numberline {4.2}Recursos}{23}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Alterativas y plan de acci\IeC {\'o}n}{23}{subsection.4.3}
+\contentsline {section}{\numberline {5}Presupuesto y impacto social}{24}{section.5}
+\contentsline {subsection}{\numberline {5.1}Identificaci\IeC {\'o}n y estimaci\IeC {\'o}n de costes}{24}{subsection.5.1}
+\contentsline {subsubsection}{\numberline {5.1.1}Costes de personal}{24}{subsubsection.5.1.1}
+\contentsline {subsubsection}{\numberline {5.1.2}Coste del espacio de trabajo}{25}{subsubsection.5.1.2}
 \contentsline {subsubsection}{\numberline {5.1.3}Coste del los servidores}{25}{subsubsection.5.1.3}
+\contentsline {subsubsection}{\numberline {5.1.4}Valoraci\IeC {\'o}n}{26}{subsubsection.5.1.4}
 \contentsline {section}{\numberline {6}Sostenibilidad y compromiso social}{26}{section.6}
 \contentsline {subsection}{\numberline {6.1}Dimensi\IeC {\'o}n econ\IeC {\'o}mica - 7}{26}{subsection.6.1}
 \contentsline {subsection}{\numberline {6.2}Dimensi\IeC {\'o}n social - 9}{26}{subsection.6.2}
@@ -76,7 +77,7 @@
 \contentsline {section}{\numberline {10}Implementaci\IeC {\'o}n}{60}{section.10}
 \contentsline {subsection}{\numberline {10.1}Usuarios}{60}{subsection.10.1}
 \contentsline {subsubsection}{\numberline {10.1.1}SignUp}{60}{subsubsection.10.1.1}
-\contentsline {paragraph}{Confirmaci\IeC {\'o}n}{62}{section*.8}
+\contentsline {paragraph}{Confirmaci\IeC {\'o}n}{62}{section*.9}
 \contentsline {subsubsection}{\numberline {10.1.2}LogIn}{63}{subsubsection.10.1.2}
 \contentsline {subsection}{\numberline {10.2}Gesti\IeC {\'o}n de aplicaciones}{64}{subsection.10.2}
 \contentsline {subsection}{\numberline {10.3}Endpoints}{65}{subsection.10.3}
@@ -84,8 +85,8 @@
 \contentsline {subsubsection}{\numberline {10.3.2}As\IeC {\'\i }ncronos}{67}{subsubsection.10.3.2}
 \contentsline {subsubsection}{\numberline {10.3.3}UploadGedcom}{68}{subsubsection.10.3.3}
 \contentsline {subsubsection}{\numberline {10.3.4}Encontrar similitudes}{70}{subsubsection.10.3.4}
-\contentsline {paragraph}{Date node structure}{71}{section*.9}
-\contentsline {paragraph}{Geocomponent node structure}{71}{section*.10}
+\contentsline {paragraph}{Date node structure}{71}{section*.10}
+\contentsline {paragraph}{Geocomponent node structure}{71}{section*.11}
 \contentsline {section}{\numberline {11}Pruebas}{77}{section.11}
 \contentsline {subsection}{\numberline {11.1}Django rest framework test suit}{77}{subsection.11.1}
 \contentsline {subsection}{\numberline {11.2}POSTMAN}{79}{subsection.11.2}
@@ -100,5 +101,5 @@
 \contentsline {subsubsection}{\numberline {12.2.6}CES1.9}{83}{subsubsection.12.2.6}
 \contentsline {subsubsection}{\numberline {12.2.7}CES2.2}{83}{subsubsection.12.2.7}
 \contentsline {subsection}{\numberline {12.3}Evoluciones futuras}{84}{subsection.12.3}
-\contentsline {subsection}{\numberline {12.4}Valoraci\IeC {\'o}n personal}{84}{subsection.12.4}
-\contentsline {section}{\numberline {13}Referencias}{85}{section.13}
+\contentsline {subsection}{\numberline {12.4}Valoraci\IeC {\'o}n personal}{85}{subsection.12.4}
+\contentsline {section}{\numberline {13}Referencias}{86}{section.13}

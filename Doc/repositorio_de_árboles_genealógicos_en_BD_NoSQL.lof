@@ -1,0 +1,30 @@
+\select@language {spanish}
+\contentsline {figure}{\numberline {1}{\ignorespaces Visi\IeC {\'o}n del conjunto de tecnolog\IeC {\'\i }as}}{9}{figure.1}
+\contentsline {figure}{\numberline {2}{\ignorespaces Metodolog\IeC {\'\i }a SCRUM}}{17}{figure.2}
+\contentsline {figure}{\numberline {3}{\ignorespaces Tareas del diagrama de gantt.}}{21}{figure.3}
+\contentsline {figure}{\numberline {4}{\ignorespaces Diagrama de gantt.}}{22}{figure.4}
+\contentsline {figure}{\numberline {5}{\ignorespaces Diagrama de gantt.}}{22}{figure.5}
+\contentsline {figure}{\numberline {6}{\ignorespaces Coste del alquiler de un servidor en DigitalOcean}}{25}{figure.6}
+\contentsline {figure}{\numberline {7}{\ignorespaces Diagrama del modelo conceptual de datos}}{42}{figure.7}
+\contentsline {figure}{\numberline {8}{\ignorespaces Arquitectura propuesta por el framework Django}}{44}{figure.8}
+\contentsline {figure}{\numberline {9}{\ignorespaces Arquitectura propuesta por Django Rest Framework}}{45}{figure.9}
+\contentsline {figure}{\numberline {10}{\ignorespaces Arquitectura para usar message broker}}{46}{figure.10}
+\contentsline {figure}{\numberline {11}{\ignorespaces Diagrama para de autenticaci\IeC {\'o}n con OAuth, password based}}{49}{figure.11}
+\contentsline {figure}{\numberline {12}{\ignorespaces Diagrama para renovar acces token con oAuth}}{50}{figure.12}
+\contentsline {figure}{\numberline {13}{\ignorespaces Diagrama modelo de datos relacional}}{51}{figure.13}
+\contentsline {figure}{\numberline {14}{\ignorespaces Diagrama modelo de datos orientado a grafos}}{53}{figure.14}
+\contentsline {figure}{\numberline {15}{\ignorespaces Ejemplo de un \textit {timeline} tree}}{54}{figure.15}
+\contentsline {figure}{\numberline {16}{\ignorespaces Ejemplo de un \IeC {\'a}rbol de geocomponentes}}{55}{figure.16}
+\contentsline {figure}{\numberline {17}{\ignorespaces Diagrama de la capa de domino}}{57}{figure.17}
+\contentsline {figure}{\numberline {18}{\ignorespaces Diagrama de la capa de domino}}{58}{figure.18}
+\contentsline {figure}{\numberline {19}{\ignorespaces Diagrama de secuencia para obtener una persona}}{59}{figure.19}
+\contentsline {figure}{\numberline {20}{\ignorespaces Diagrama de secuencia para subir un archivo GEDCOM}}{59}{figure.20}
+\contentsline {figure}{\numberline {21}{\ignorespaces Registro de un usuario}}{60}{figure.21}
+\contentsline {figure}{\numberline {22}{\ignorespaces Mensajes de error en el registro}}{61}{figure.22}
+\contentsline {figure}{\numberline {23}{\ignorespaces Pantalla de confirmaci\IeC {\'o}n del correo electr\IeC {\'o}nico}}{63}{figure.23}
+\contentsline {figure}{\numberline {24}{\ignorespaces Interface para entrar}}{63}{figure.24}
+\contentsline {figure}{\numberline {25}{\ignorespaces Interfaces para ver las aplicaciones}}{64}{figure.25}
+\contentsline {figure}{\numberline {26}{\ignorespaces Formulario para la creaci\IeC {\'o}n de aplicaciones}}{65}{figure.26}
+\contentsline {figure}{\numberline {27}{\ignorespaces Test realizados con la django}}{78}{figure.27}
+\contentsline {figure}{\numberline {28}{\ignorespaces Vista de las colecciones en la interfaz de POSTMAN}}{79}{figure.28}
+\contentsline {figure}{\numberline {29}{\ignorespaces Vista de un test en la interfaz de POSTMAN}}{80}{figure.29}

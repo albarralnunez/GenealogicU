@@ -9,23 +9,21 @@ La siguiente planificación económica tiene en cuenta los siguientes puntos:
 \subsubsection{Costes de personal}
 A pesar que el proyecto solo sera desarrollado por una única persona, durante el transcurso del proyecto asumirá diferente roles. Los costes de personal se estimaran calculando la carga de trabajo que tendrá que asumir cada rol, se establecerá el coste por hora a cada rol.
 
-Ateniéndonos a la planificación temporal:
+Basándonos a la planificación temporal:
 \begin{itemize}
 \item La parte que corresponde a planificación, que va del día 09/14/2015 al 11/14/15, sera asignada al jefe del proyecto.
-\item La primera fase de desarrollo, donde se configura el entorno de trabajo, que se comprende del 11/15/15 al 12/12/15, se asignara al de técnico de sistemas.
-\newpage
-\item Durante las siguientes fases del desarrollo, del 12/12/15 al 08/14/16, la carga de trabajo se distribuirá entre todos los roles. Estas fases se comprenden entre el 12/12/15 y el 05/14/16.
+\item Durante los \textit{sprints}, del 11/15/15 al 04/09/16, la carga de trabajo se distribuirá entre todos los roles, de la siguiente manera:
 \begin{description}
-\item[Jefe del proyecto] 5\%
+\item[Jefe del proyecto o Scrum master] 15\%
 \item[Programador] 70\%
-\item[Sistemas] 10\%
 \item[Tester] 15\%
 \end{description}
-\item La ultima fase donde se preparara la presentación del proyecto estará asignada al jefe del proyecto, del 05/15/16 al 06/14/16.
+\item La ultima fase donde se preparara la presentación del proyecto estará asignada al jefe del proyecto, del 04/10/16 al 04/20/16.
 \end{itemize}
-Contando una dedicación media de tres horas al día:
 
+La carga de trabajo de las fases esta especificada en la planificación \ref{sec:planificacion}. A continuación en la tabla \ref{tab:cost_tab} se muestra la estimación de costes de personal. Para hacer el calculo de las horas de trabajo se ha tenido en cuenta la estimación temporal de la planificación y la distribución del trabajo realizada previamente.
 
+\begin{table}
 \setlength{\arrayrulewidth}{1mm}
 \setlength{\tabcolsep}{12pt}
 \renewcommand{\arraystretch}{2.5}
@@ -36,29 +34,33 @@ Contando una dedicación media de tres horas al día:
 \hline
 ROL &Horas & \euro /hora &Coste total \\
 \hline
-Jefe del proyecto &274.8 &40 & 10992\\
-Programador &431.2 &30 & 12936\\
-Tester &92.4 &25 & 2310\\
-Sistemas &169.6 &25 &4240\\
-&&& 30478\\
+Jefe del proyecto &212.6 &40 & 8504\\
+Programador &163.8 &30 & 4914\\
+Sistemas &33.6 &25 &840\\
+&&& 14258\\
 \hline
 \end{tabular}
 }
+\caption{Tabla de costes de personal}
+\label{tab:cost_tab}
+\end{table}
 \newpage
+\subsubsection{Coste del espacio de trabajo}
 
-\subsubsection{Coste del espació de trabajo}
+Bajo el supuesto que se desarrollase el proyecto en un área de \textit{coworking}, concretamente en MG CoWorking (BRUC), situado en la calle del Bruc, el coste seria de 100\euros al mes, dado que el proyecto dura aproximadamente 7 meses, tal como podemos ver en la planificación temporal\ref{sec:planificacion}, implicaría un coste de 700\euros.
 
-Bajo el supuesto que se desarrollase el proyecto en un área de \textit{coworking}, concretamente coworking fontanella, el coste seria de 180\euros al mes, dado que el proyecto dura aproximadamente 9 mes, tal como podemos ver en la planificación temporal, implicaría un coste de 1620\euros.
-
-\begin{figure}[ht!]
-\center
-\includegraphics[scale=1.0]{add/do_server.PNG}
-\label{fig:Precio y especificaciones del servidor}
-\end{figure}
 \subsubsection{Coste del los servidores}
-Durante la fase de \textit{deploy} se alquilaran servidores de digital ocean, el precio es de 10\euros al mes, dado que la fase de deploy dura un mes el coste sera de 10\euros .\linebreak
-
+Suponiendo que durante la fase de \textit{deploy} se alquilaran servidores de Digital Ocean, el precio es de 10\euros al mes, dado que la fase de deploy dura un mes el coste sera de 10\euros .\\
+\begin{figure}[ht!]
+	\center
+	\includegraphics[scale=1.0]{add/do_server.PNG}
+	\label{fig:Precio y especificaciones del servidor}
+	\caption{Coste del alquiler de un servidor en DigitalOcean}
+\end{figure}
 \newpage
+
+\subsubsection{Valoración}
+Dado que es un proyecto de carácter académico sin pretensiones comerciales y que se ha decidido por cuestiones tanto técnicas como éticas usar open source para su desarrollo, este apartado puede quedar levemente desdibujado, dadas estas circunstancias. Si bien es cierto que uno de los grandes potenciales de las TIC es el poder crear un valor añadido muy alto partiendo de unos costes de producción muy bajos.
 
 \section{Sostenibilidad y compromiso social}
 Cada una de las tres secciones siguientes están evaluadas sobre 10.

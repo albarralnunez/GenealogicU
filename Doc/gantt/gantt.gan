@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2015-09-01" view-index="0" gantt-divider-location="408" resource-divider-location="300" version="2.7.2" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2016-03-27" view-index="0" gantt-divider-location="408" resource-divider-location="300" version="2.7.2" locale="en_US">
     <description/>
-    <view zooming-state="default:8" id="gantt-chart">
+    <view zooming-state="default:4" id="gantt-chart">
         <field id="tpd3" name="Name" width="55" order="0"/>
         <field id="tpd4" name="Begin date" width="16" order="1"/>
         <field id="tpd5" name="End date" width="27" order="2"/>
@@ -47,7 +47,7 @@
             <task id="21" name="Especificación de la arquitectura" meeting="false" start="2015-10-29" duration="11" complete="0" expand="true"/>
             <task id="25" name="Analisis de la seleccion de tecnologias" color="#8cb6ce" meeting="false" start="2015-11-09" duration="6" complete="0" expand="true"/>
         </task>
-        <task id="26" name="Implementación" color="#000000" meeting="false" start="2015-11-15" duration="154" complete="0" expand="true">
+        <task id="26" name="Implementación" color="#000000" meeting="false" start="2015-11-15" duration="147" complete="0" expand="true">
             <depend id="72" type="2" difference="0" hardness="Strong"/>
             <task id="28" name="Sprint 1 (Configuración del entorno de pre y pro)" meeting="false" start="2015-11-15" duration="14" complete="0" expand="true">
                 <depend id="32" type="2" difference="0" hardness="Strong"/>
@@ -79,9 +79,9 @@
             <task id="61" name="Sprint 10 (API - Similitudes)" color="#8cb6ce" meeting="false" start="2016-03-20" duration="14" complete="0" expand="true">
                 <depend id="57" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="57" name="Sprint 11 (Revisión)" color="#8cb6ce" meeting="false" start="2016-04-03" duration="14" complete="0" expand="true"/>
+            <task id="57" name="Sprint 11 (Revisión)" color="#8cb6ce" meeting="false" start="2016-04-03" duration="7" complete="0" expand="true"/>
         </task>
-        <task id="72" name="Revisón documentación" color="#8cb6ce" meeting="false" start="2016-04-17" duration="75" complete="0" expand="true"/>
+        <task id="72" name="Revisón documentación" color="#8cb6ce" meeting="false" start="2016-04-10" duration="11" complete="0" expand="true"/>
     </tasks>
     <resources/>
     <allocations/>
